@@ -2,627 +2,187 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    >
+    <title>Empresa Diario | Aprende pensamiento empresarial</title>
 
     <meta
         name="description"
-        content="ZENTROXEC Business — aprende conceptos empresariales mediante comprensión, razonamiento, práctica y repaso."
+        content="Aprende vocabulario y conceptos empresariales mediante práctica diaria, contexto y razonamiento."
     >
 
-    <meta name="theme-color" content="#0b0b0d">
-
-    <title>ZENTROXEC Business</title>
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- =========================================================
-         APP
-    ========================================================== -->
+<header class="topbar">
+    <a href="index.html" class="logo">
+        EMPRESA<span>DIARIO</span>
+    </a>
 
-    <div id="app">
+    <nav>
+        <a href="index.html" class="active">Inicio</a>
+        <a href="aprender.html">Aprender</a>
+        <a href="repaso.html">Repaso</a>
+        <a href="progreso.html">Progreso</a>
+    </nav>
+</header>
 
-        <!-- =====================================================
-             HEADER
-        ====================================================== -->
 
-        <header class="app-header">
+<main>
 
-            <div class="brand">
+    <section class="hero">
 
-                <div class="brand-symbol">
-                    Z
-                </div>
+        <div class="hero-content">
 
-                <div class="brand-text">
-                    <strong>ZENTROXEC</strong>
-                    <span>BUSINESS</span>
-                </div>
+            <span class="badge">APRENDIZAJE EMPRESARIAL DIARIO</span>
+
+            <h1>
+                No memorices negocios.
+                <strong>Aprende a pensar como un empresario.</strong>
+            </h1>
+
+            <p>
+                Aprende un concepto empresarial cada día, entiéndelo
+                en contexto, responde preguntas y aprende a aplicarlo
+                a situaciones reales.
+            </p>
+
+            <a href="aprender.html" class="btn btn-primary">
+                Comenzar
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-header">
+            <span class="small-label">METODOLOGÍA</span>
+
+            <h2>
+                Cada palabra debe convertirse en conocimiento.
+            </h2>
+
+            <p>
+                El objetivo no es que recuerdes una definición durante
+                cinco minutos. Queremos que entiendas qué significa,
+                cómo funciona y cuándo utilizarla.
+            </p>
+        </div>
+
+
+        <div class="method-grid">
+
+            <article class="method-card">
+                <div class="method-number">01</div>
+
+                <h3>Comprende</h3>
+
+                <p>
+                    Conoce el significado del concepto con palabras
+                    sencillas.
+                </p>
+            </article>
+
+
+            <article class="method-card">
+                <div class="method-number">02</div>
+
+                <h3>Contextualiza</h3>
+
+                <p>
+                    Observa cómo aparece el concepto dentro de una
+                    empresa o negocio.
+                </p>
+            </article>
+
+
+            <article class="method-card">
+                <div class="method-number">03</div>
+
+                <h3>Razona</h3>
+
+                <p>
+                    Responde una pregunta que te obliga a pensar,
+                    no solamente recordar.
+                </p>
+            </article>
+
+
+            <article class="method-card">
+                <div class="method-number">04</div>
+
+                <h3>Aplica</h3>
+
+                <p>
+                    Relaciona el concepto con una decisión o situación
+                    empresarial.
+                </p>
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section class="section dark-section">
+
+        <div class="daily-preview">
+
+            <span class="small-label">EJEMPLO</span>
+
+            <h2>Palabra del día</h2>
+
+            <div class="example-word">
+                Activo
+            </div>
+
+            <p>
+                Algo que tiene valor económico para una empresa y que
+                puede utilizarse para generar beneficios o realizar
+                sus operaciones.
+            </p>
+
+            <div class="example-box">
+
+                <strong>Ejemplo empresarial</strong>
+
+                <p>
+                    “El inventario es un activo de la empresa.”
+                </p>
 
             </div>
 
-            <button
-                class="icon-button"
-                id="settingsButton"
-                aria-label="Configuración"
-            >
-                ⚙
-            </button>
+            <a href="aprender.html" class="btn btn-light">
+                Ver aprendizaje de hoy
+            </a>
 
-        </header>
+        </div>
 
+    </section>
 
-        <!-- =====================================================
-             CONTENIDO PRINCIPAL
-        ====================================================== -->
+</main>
 
-        <main id="mainContent">
 
+<footer class="footer">
 
-            <!-- =================================================
-                 PANTALLA: INICIO
-            ================================================== -->
+    <p>
+        EMPRESA DIARIO
+    </p>
 
-            <section
-                id="homeScreen"
-                class="screen active"
-            >
+    <p>
+        Aprende. Razona. Aplica.
+    </p>
 
-                <div class="welcome">
+</footer>
 
-                    <p class="eyebrow">
-                        APRENDIZAJE EMPRESARIAL
-                    </p>
 
-                    <h1>
-                        Aprende a entender<br>
-                        los negocios.
-                    </h1>
-
-                    <p class="welcome-description">
-                        Un concepto a la vez. Compréndelo,
-                        cuestiónalo, aplícalo y recuerda lo aprendido.
-                    </p>
-
-                </div>
-
-
-                <!-- Racha -->
-
-                <div class="streak-card">
-
-                    <div class="streak-icon">
-                        🔥
-                    </div>
-
-                    <div class="streak-info">
-
-                        <span>
-                            Racha actual
-                        </span>
-
-                        <strong id="homeStreak">
-                            0 días
-                        </strong>
-
-                    </div>
-
-                    <div class="streak-message">
-                        Sigue aprendiendo
-                    </div>
-
-                </div>
-
-
-                <!-- Concepto del día -->
-
-                <div class="daily-card">
-
-                    <div class="daily-top">
-
-                        <span class="daily-label">
-                            CONCEPTO DEL DÍA
-                        </span>
-
-                        <span
-                            class="category-badge"
-                            id="homeCategory"
-                        >
-                            Fundamentos
-                        </span>
-
-                    </div>
-
-                    <h2 id="homeConcept">
-                        Activo
-                    </h2>
-
-                    <p id="homeShortDescription">
-                        Algo que tiene valor económico
-                        para una empresa.
-                    </p>
-
-                    <div class="daily-footer">
-
-                        <span id="homeLevel">
-                            Nivel básico
-                        </span>
-
-                        <span>
-                            ~5 min
-                        </span>
-
-                    </div>
-
-                    <button
-                        class="primary-button"
-                        id="startLearningButton"
-                    >
-                        COMENZAR
-                        <span>→</span>
-                    </button>
-
-                </div>
-
-
-                <!-- Progreso -->
-
-                <div class="progress-section">
-
-                    <div class="section-heading">
-
-                        <div>
-                            <span class="eyebrow">
-                                TU PROGRESO
-                            </span>
-
-                            <h3>
-                                Construye tu conocimiento
-                            </h3>
-                        </div>
-
-                        <strong id="homeProgressPercent">
-                            0%
-                        </strong>
-
-                    </div>
-
-                    <div class="progress-bar">
-
-                        <div
-                            id="homeProgressBar"
-                            class="progress-fill"
-                        ></div>
-
-                    </div>
-
-                    <div class="progress-stats">
-
-                        <span>
-                            <strong id="homeLearned">
-                                0
-                            </strong>
-                            conceptos aprendidos
-                        </span>
-
-                        <span>
-                            <strong id="homeXP">
-                                0
-                            </strong>
-                            XP
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 PANTALLA: LECCIÓN
-            ================================================== -->
-
-            <section
-                id="lessonScreen"
-                class="screen"
-            >
-
-                <div class="lesson-header">
-
-                    <button
-                        class="back-button"
-                        id="lessonBackButton"
-                    >
-                        ←
-                    </button>
-
-                    <div class="lesson-progress-info">
-
-                        <span id="lessonStepText">
-                            Paso 1 de 10
-                        </span>
-
-                        <div class="lesson-progress-bar">
-
-                            <div
-                                id="lessonProgressFill"
-                            ></div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div id="lessonContent">
-
-                    <!-- El contenido se genera mediante JavaScript -->
-
-                </div>
-
-
-                <div class="lesson-navigation">
-
-                    <button
-                        id="lessonNextButton"
-                        class="primary-button"
-                    >
-                        CONTINUAR
-                        <span>→</span>
-                    </button>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 PANTALLA: BIBLIOTECA
-            ================================================== -->
-
-            <section
-                id="libraryScreen"
-                class="screen"
-            >
-
-                <div class="page-heading">
-
-                    <p class="eyebrow">
-                        BIBLIOTECA
-                    </p>
-
-                    <h1>
-                        Mis conceptos
-                    </h1>
-
-                    <p>
-                        Revisa lo que has aprendido
-                        y continúa practicando.
-                    </p>
-
-                </div>
-
-
-                <div
-                    id="libraryList"
-                    class="concept-list"
-                >
-
-                    <!-- Generado por JavaScript -->
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 PANTALLA: PROGRESO
-            ================================================== -->
-
-            <section
-                id="progressScreen"
-                class="screen"
-            >
-
-                <div class="page-heading">
-
-                    <p class="eyebrow">
-                        TU PROGRESO
-                    </p>
-
-                    <h1>
-                        Tu evolución
-                    </h1>
-
-                    <p>
-                        Aprende poco a poco y construye
-                        una base empresarial sólida.
-                    </p>
-
-                </div>
-
-
-                <div class="stats-grid">
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            🧠
-                        </span>
-
-                        <strong id="statsLearned">
-                            0
-                        </strong>
-
-                        <span>
-                            Aprendidos
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            ✅
-                        </span>
-
-                        <strong id="statsMastered">
-                            0
-                        </strong>
-
-                        <span>
-                            Dominados
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            ⭐
-                        </span>
-
-                        <strong id="statsXP">
-                            0
-                        </strong>
-
-                        <span>
-                            XP
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <span class="stat-icon">
-                            🔥
-                        </span>
-
-                        <strong id="statsStreak">
-                            0
-                        </strong>
-
-                        <span>
-                            Días
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="progress-card">
-
-                    <div class="section-heading">
-
-                        <div>
-
-                            <span class="eyebrow">
-                                PROGRESO GENERAL
-                            </span>
-
-                            <h3>
-                                Conceptos
-                            </h3>
-
-                        </div>
-
-                        <strong id="statsPercent">
-                            0%
-                        </strong>
-
-                    </div>
-
-                    <div class="progress-bar">
-
-                        <div
-                            id="statsProgressBar"
-                            class="progress-fill"
-                        ></div>
-
-                    </div>
-
-                    <p id="statsProgressText">
-                        0 de 30 conceptos aprendidos.
-                    </p>
-
-                </div>
-
-
-                <div class="category-progress-card">
-
-                    <span class="eyebrow">
-                        POR CATEGORÍA
-                    </span>
-
-                    <div id="categoryProgressList">
-
-                        <!-- Generado por JS -->
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 PANTALLA: CONFIGURACIÓN
-            ================================================== -->
-
-            <section
-                id="settingsScreen"
-                class="screen"
-            >
-
-                <div class="page-heading">
-
-                    <p class="eyebrow">
-                        CONFIGURACIÓN
-                    </p>
-
-                    <h1>
-                        Ajustes
-                    </h1>
-
-                    <p>
-                        Configuración de tu experiencia
-                        de aprendizaje.
-                    </p>
-
-                </div>
-
-
-                <div class="settings-card">
-
-                    <div class="setting-row">
-
-                        <div>
-
-                            <strong>
-                                Información
-                            </strong>
-
-                            <p>
-                                ZENTROXEC Business V1
-                            </p>
-
-                        </div>
-
-                        <span>
-                            V1
-                        </span>
-
-                    </div>
-
-
-                    <div class="setting-row">
-
-                        <div>
-
-                            <strong>
-                                Datos
-                            </strong>
-
-                            <p>
-                                Tu progreso se guarda
-                                localmente en este dispositivo.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        id="resetProgressButton"
-                        class="danger-button"
-                    >
-                        REINICIAR PROGRESO
-                    </button>
-
-                </div>
-
-            </section>
-
-        </main>
-
-
-        <!-- =====================================================
-             NAVEGACIÓN INFERIOR
-        ====================================================== -->
-
-        <nav class="bottom-navigation">
-
-            <button
-                class="nav-item active"
-                data-screen="homeScreen"
-            >
-
-                <span class="nav-icon">
-                    🏠
-                </span>
-
-                <span>
-                    Inicio
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-screen="libraryScreen"
-            >
-
-                <span class="nav-icon">
-                    📚
-                </span>
-
-                <span>
-                    Conceptos
-                </span>
-
-            </button>
-
-
-            <button
-                class="nav-item"
-                data-screen="progressScreen"
-            >
-
-                <span class="nav-icon">
-                    📊
-                </span>
-
-                <span>
-                    Progreso
-                </span>
-
-            </button>
-
-        </nav>
-
-    </div>
-
-
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
-
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+<script src="js/palabras.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
