@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
@@ -9,123 +11,208 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Progreso | Empresa Diario</title>
+    <meta
+        name="description"
+        content="Consulta tu progreso de aprendizaje empresarial en ZENTROX."
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Progreso | ZENTROX</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     ENCABEZADO
+====================================================== -->
+
 <header class="topbar">
 
-    <a href="index.html" class="logo">
-        EMPRESA<span>DIARIO</span>
+    <a
+        href="index.html"
+        class="logo"
+    >
+        ZENTROX
     </a>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="aprender.html">Aprender</a>
-        <a href="repaso.html">Repaso</a>
-        <a href="progreso.html" class="active">Progreso</a>
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="aprender.html">
+            Aprender
+        </a>
+
+        <a href="repaso.html">
+            Repaso
+        </a>
+
+        <a
+            href="progreso.html"
+            class="active"
+        >
+            Progreso
+        </a>
+
     </nav>
 
 </header>
 
 
-<main class="page-container">
 
-    <section class="section-header">
+<!-- =====================================================
+     CONTENIDO
+====================================================== -->
+
+<main class="progress-page">
+
+
+    <section class="page-heading">
 
         <span class="small-label">
             TU PROGRESO
         </span>
 
+
         <h1>
-            Construye conocimiento poco a poco.
+            Construye conocimiento
+            un día a la vez.
         </h1>
 
+
         <p>
-            Tu objetivo no es terminar rápido. Es construir una base
-            de conocimiento que puedas utilizar para comprender mejor
-            los negocios.
+            Aquí puedes ver cuánto has avanzado
+            y qué conceptos ya has estudiado.
         </p>
 
     </section>
 
 
+
+    <!-- =================================================
+         ESTADÍSTICAS
+    ================================================== -->
+
     <section class="stats-grid">
+
 
         <article class="stat-card">
 
-            <span>
-                Conceptos aprendidos
+            <span class="stat-label">
+                CONCEPTOS APRENDIDOS
             </span>
+
 
             <strong id="completed-count">
                 0
             </strong>
 
+
+            <p>
+                conceptos completados
+            </p>
+
         </article>
+
 
 
         <article class="stat-card">
 
-            <span>
-                Días de actividad
+            <span class="stat-label">
+                DÍAS ACTIVOS
             </span>
+
 
             <strong id="active-days">
                 0
             </strong>
 
+
+            <p>
+                días estudiados
+            </p>
+
         </article>
+
 
 
         <article class="stat-card">
 
-            <span>
-                Racha actual
+            <span class="stat-label">
+                RACHA ACTUAL
             </span>
 
-            <strong id="current-streak">
-                0
+
+            <strong>
+                🔥
+                <span id="current-streak">
+                    0
+                </span>
             </strong>
 
+
+            <p>
+                días consecutivos
+            </p>
+
         </article>
+
 
 
         <article class="stat-card">
 
-            <span>
-                Total de conceptos
+            <span class="stat-label">
+                TOTAL
             </span>
+
 
             <strong id="total-words">
                 0
             </strong>
 
+
+            <p>
+                conceptos disponibles
+            </p>
+
         </article>
+
 
     </section>
 
 
-    <section class="progress-section">
 
-        <div class="progress-header">
+    <!-- =================================================
+         PROGRESO GENERAL
+    ================================================== -->
+
+    <section class="progress-overview">
+
+        <div class="progress-overview-header">
 
             <div>
 
                 <span class="small-label">
-                    AVANCE
+                    PROGRESO GENERAL
                 </span>
+
 
                 <h2>
                     Tu biblioteca empresarial
                 </h2>
 
             </div>
+
 
             <strong id="progress-percentage">
                 0%
@@ -143,19 +230,31 @@
 
         </div>
 
+
+        <p>
+            Completa conceptos diariamente para
+            aumentar tu conocimiento acumulado.
+        </p>
+
     </section>
 
 
-    <section class="concept-list-section">
 
-        <div class="section-header left">
+    <!-- =================================================
+         LISTA DE CONCEPTOS
+    ================================================== -->
+
+    <section class="concepts-progress">
+
+        <div class="section-heading">
 
             <span class="small-label">
-                CONCEPTOS
+                BIBLIOTECA
             </span>
 
+
             <h2>
-                Lo que ya has estudiado
+                Conceptos
             </h2>
 
         </div>
@@ -165,11 +264,43 @@
             id="concept-list"
             class="concept-list"
         >
-            <!-- Se genera automáticamente -->
+
+            <!-- JavaScript genera la lista -->
+
         </div>
 
     </section>
 
+
+
+    <!-- =================================================
+         ACCIONES
+    ================================================== -->
+
+    <section class="progress-actions">
+
+        <a
+            href="aprender.html"
+            class="btn btn-primary"
+        >
+            Aprender hoy
+        </a>
+
+
+        <a
+            href="repaso.html"
+            class="btn btn-secondary"
+        >
+            Repasar
+        </a>
+
+    </section>
+
+
+
+    <!-- =================================================
+         REINICIAR
+    ================================================== -->
 
     <section class="danger-zone">
 
@@ -177,9 +308,13 @@
             Reiniciar progreso
         </h3>
 
+
         <p>
-            Esta acción eliminará el progreso guardado en este dispositivo.
+            Esta acción eliminará los conceptos
+            aprendidos, días activos y racha guardados
+            en este dispositivo.
         </p>
+
 
         <button
             id="reset-progress"
@@ -190,14 +325,49 @@
 
     </section>
 
+
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
 <footer class="footer">
 
-    <p>
-        EMPRESA DIARIO
-    </p>
+    <div>
+
+        <strong>
+            ZENTROX
+        </strong>
+
+        <p>
+            Aprende. Razona. Aplica.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="aprender.html">
+            Aprender
+        </a>
+
+        <a href="repaso.html">
+            Repaso
+        </a>
+
+        <a href="progreso.html">
+            Progreso
+        </a>
+
+    </div>
 
 </footer>
 
@@ -206,4 +376,6 @@
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
+```
