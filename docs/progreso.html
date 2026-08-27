@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Progreso | Empresa Diario</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+        EMPRESA<span>DIARIO</span>
+    </a>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="aprender.html">Aprender</a>
+        <a href="repaso.html">Repaso</a>
+        <a href="progreso.html" class="active">Progreso</a>
+    </nav>
+
+</header>
+
+
+<main class="page-container">
+
+    <section class="section-header">
+
+        <span class="small-label">
+            TU PROGRESO
+        </span>
+
+        <h1>
+            Construye conocimiento poco a poco.
+        </h1>
+
+        <p>
+            Tu objetivo no es terminar rápido. Es construir una base
+            de conocimiento que puedas utilizar para comprender mejor
+            los negocios.
+        </p>
+
+    </section>
+
+
+    <section class="stats-grid">
+
+        <article class="stat-card">
+
+            <span>
+                Conceptos aprendidos
+            </span>
+
+            <strong id="completed-count">
+                0
+            </strong>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <span>
+                Días de actividad
+            </span>
+
+            <strong id="active-days">
+                0
+            </strong>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <span>
+                Racha actual
+            </span>
+
+            <strong id="current-streak">
+                0
+            </strong>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <span>
+                Total de conceptos
+            </span>
+
+            <strong id="total-words">
+                0
+            </strong>
+
+        </article>
+
+    </section>
+
+
+    <section class="progress-section">
+
+        <div class="progress-header">
+
+            <div>
+
+                <span class="small-label">
+                    AVANCE
+                </span>
+
+                <h2>
+                    Tu biblioteca empresarial
+                </h2>
+
+            </div>
+
+            <strong id="progress-percentage">
+                0%
+            </strong>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div
+                id="progress-fill"
+                class="progress-fill"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <section class="concept-list-section">
+
+        <div class="section-header left">
+
+            <span class="small-label">
+                CONCEPTOS
+            </span>
+
+            <h2>
+                Lo que ya has estudiado
+            </h2>
+
+        </div>
+
+
+        <div
+            id="concept-list"
+            class="concept-list"
+        >
+            <!-- Se genera automáticamente -->
+        </div>
+
+    </section>
+
+
+    <section class="danger-zone">
+
+        <h3>
+            Reiniciar progreso
+        </h3>
+
+        <p>
+            Esta acción eliminará el progreso guardado en este dispositivo.
+        </p>
+
+        <button
+            id="reset-progress"
+            class="reset-button"
+        >
+            Reiniciar progreso
+        </button>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>
+        EMPRESA DIARIO
+    </p>
+
+</footer>
+
+
+<script src="js/palabras.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
