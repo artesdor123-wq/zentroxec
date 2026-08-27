@@ -11,28 +11,48 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <meta
+        name="description"
+        content="Aprende conceptos de negocios, finanzas y emprendimiento con ZENTROX."
+    >
+
     <title>Aprender | ZENTROX</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     ENCABEZADO
+====================================================== -->
+
 <header class="topbar">
 
-    <a href="index.html" class="logo">
+    <a
+        href="index.html"
+        class="logo"
+    >
         ZENTROX
     </a>
 
-    <nav>
+
+    <nav class="main-nav">
 
         <a href="index.html">
             Inicio
         </a>
 
-        <a href="aprender.html" class="active">
+        <a
+            href="aprender.html"
+            class="active"
+        >
             Aprender
         </a>
 
@@ -49,66 +69,88 @@
 </header>
 
 
+
+<!-- =====================================================
+     CONTENIDO PRINCIPAL
+====================================================== -->
+
 <main class="learning-page">
 
-    <div class="learning-top">
 
-        <div>
+    <!-- =================================================
+         ENCABEZADO DE APRENDIZAJE
+    ================================================== -->
+
+    <section class="page-heading">
+
+        <div class="learning-top">
 
             <span class="small-label">
-                PALABRA DEL DÍA
+                APRENDIZAJE DIARIO
             </span>
 
-            <p
-                id="day-counter"
-                class="muted"
+
+            <span
+                class="streak"
+                id="streak-display"
             >
-                Concepto de aprendizaje
-            </p>
-
-        </div>
-
-
-        <div class="streak">
-
-            🔥
-
-            <span id="streak">
-                0
+                🔥 0 días
             </span>
 
         </div>
 
-    </div>
 
+        <h1>
+            Aprende un concepto.
+            <span>Compréndelo.</span>
+        </h1>
+
+
+        <p>
+            El objetivo no es memorizar una definición.
+            Es entender el concepto, verlo funcionando
+            en un negocio y aprender a utilizarlo para
+            razonar sobre situaciones empresariales.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         TARJETA PRINCIPAL DEL CONCEPTO
+    ================================================== -->
 
     <section class="learning-card">
 
 
         <!-- =================================================
-             CONCEPTO
+             01 — PALABRA DEL DÍA
         ================================================== -->
 
         <div class="concept-header">
 
+
             <span
-                id="category"
+                id="word-category"
                 class="category"
             >
                 FINANZAS
             </span>
 
 
-            <h1 id="word">
+            <h1 id="word-title">
                 Activo
             </h1>
 
 
             <p
-                id="short-definition"
+                id="word-definition"
                 class="concept-description"
             >
-                Cargando...
+                Algo que tiene valor económico para una
+                empresa y que puede utilizarse para generar
+                beneficios o realizar sus operaciones.
             </p>
 
         </div>
@@ -116,10 +158,11 @@
 
 
         <!-- =================================================
-             SIGNIFICADO
+             02 — SIGNIFICADO SENCILLO
         ================================================== -->
 
         <div class="learning-section">
+
 
             <div class="section-number">
                 01
@@ -133,8 +176,12 @@
                 </h2>
 
 
-                <p id="definition">
-                    Cargando...
+                <p id="simple-definition">
+
+                    Un activo es algo que pertenece o está
+                    controlado por una empresa y tiene valor
+                    económico.
+
                 </p>
 
             </div>
@@ -144,10 +191,11 @@
 
 
         <!-- =================================================
-             EJEMPLOS
+             03 — EJEMPLOS EMPRESARIALES
         ================================================== -->
 
         <div class="learning-section">
+
 
             <div class="section-number">
                 02
@@ -161,9 +209,10 @@
                 </h2>
 
 
-                <p class="section-intro">
-                    Un concepto se entiende mejor cuando puedes
-                    reconocerlo en diferentes situaciones.
+                <p>
+                    No estudies el concepto aislado.
+                    Observa cómo aparece en diferentes
+                    situaciones de negocio.
                 </p>
 
 
@@ -172,10 +221,110 @@
                     class="examples-container"
                 >
 
+
                     <!--
-                        Los ejemplos se generan automáticamente
-                        desde palabras.js.
+                        Los ejemplos se generan desde
+                        palabras.js.
+
+                        Ejemplo:
+
+                        1. Inventario
+                        2. Dinero en banco
+                        3. Vehículo de la empresa
+                        4. Equipo de trabajo
+
                     -->
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 01
+                        </span>
+
+
+                        <h3>
+                            Inventario
+                        </h3>
+
+
+                        <p>
+                            Una tienda compra productos para
+                            venderlos posteriormente. Mientras
+                            permanecen en inventario, representan
+                            un recurso económico de la empresa.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 02
+                        </span>
+
+
+                        <h3>
+                            Dinero disponible
+                        </h3>
+
+
+                        <p>
+                            El dinero que la empresa mantiene
+                            en su cuenta bancaria puede utilizarse
+                            para pagar proveedores, empleados
+                            u otras operaciones.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 03
+                        </span>
+
+
+                        <h3>
+                            Equipo de trabajo
+                        </h3>
+
+
+                        <p>
+                            Una computadora utilizada por la
+                            empresa para realizar sus operaciones
+                            también puede representar un activo.
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 04
+                        </span>
+
+
+                        <h3>
+                            Vehículo empresarial
+                        </h3>
+
+
+                        <p>
+                            Si una empresa utiliza un vehículo
+                            para realizar entregas o transportar
+                            mercancía, este puede formar parte
+                            de sus activos.
+                        </p>
+
+                    </article>
+
 
                 </div>
 
@@ -186,10 +335,11 @@
 
 
         <!-- =================================================
-             PREGUNTA INTERACTIVA
+             04 — SITUACIÓN EMPRESARIAL
         ================================================== -->
 
         <div class="learning-section">
+
 
             <div class="section-number">
                 03
@@ -199,42 +349,159 @@
             <div>
 
                 <h2>
-                    Ahora piensa
+                    Piensa como empresario
                 </h2>
 
 
-                <p
-                    id="question"
-                    class="question"
-                >
-                    Cargando...
+                <p>
+                    Ahora aplica el concepto a una situación
+                    concreta antes de ver la respuesta.
                 </p>
 
+
+                <div class="review-example">
+
+
+                    <span class="small-label">
+                        SITUACIÓN
+                    </span>
+
+
+                    <p id="business-situation">
+
+                        Compras $1.000 en productos para
+                        venderlos en tu negocio.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             05 — PREGUNTA
+        ================================================== -->
+
+        <div class="learning-section">
+
+
+            <div class="section-number">
+                04
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Comprueba tu comprensión
+                </h2>
+
+
+                <p class="question" id="question-text">
+
+                    Si compras $1.000 de productos para
+                    venderlos, ¿esos productos son un gasto
+                    o un activo?
+
+                </p>
+
+
+                <!-- =========================================
+                     OPCIONES
+                ========================================== -->
 
                 <div
                     id="options-container"
                     class="options-container"
                 >
 
-                    <!--
-                        Las opciones se generan mediante JavaScript.
-                    -->
+
+                    <button
+                        class="answer-option"
+                        data-answer="A"
+                        type="button"
+                    >
+
+                        <span class="option-letter">
+                            A
+                        </span>
+
+
+                        <span>
+                            Son un gasto inmediatamente.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="answer-option"
+                        data-answer="B"
+                        type="button"
+                    >
+
+                        <span class="option-letter">
+                            B
+                        </span>
+
+
+                        <span>
+                            Inicialmente forman parte del
+                            inventario, que es un activo.
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        class="answer-option"
+                        data-answer="C"
+                        type="button"
+                    >
+
+                        <span class="option-letter">
+                            C
+                        </span>
+
+
+                        <span>
+                            No tienen ningún efecto económico
+                            para la empresa.
+                        </span>
+
+                    </button>
+
 
                 </div>
 
+
+
+                <!-- =========================================
+                     RETROALIMENTACIÓN
+                ========================================== -->
 
                 <div
                     id="answer-feedback"
                     class="answer-feedback hidden"
                 >
 
-                    <h3 id="feedback-title">
-                        Resultado
+
+                    <h3
+                        id="feedback-title"
+                        class="correct-title"
+                    >
+                        ¡Correcto!
                     </h3>
 
 
-                    <p id="feedback-text">
-                        Resultado...
+                    <p id="feedback-message">
+                        Tu respuesta es correcta.
                     </p>
 
 
@@ -245,11 +512,74 @@
                         </strong>
 
 
-                        <p id="answer-explanation-text">
-                            Cargando...
+                        <p id="feedback-explanation">
+
+                            Inicialmente, los productos forman
+                            parte del inventario de la empresa,
+                            por lo que representan un activo.
+                            Cuando los productos se venden,
+                            aparece el costo correspondiente
+                            asociado a esa venta.
+
                         </p>
 
                     </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             06 — APLICACIÓN
+        ================================================== -->
+
+        <div
+            id="application-section"
+            class="learning-section hidden"
+        >
+
+
+            <div class="section-number">
+                05
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Llévalo a un negocio real
+                </h2>
+
+
+                <p id="application-text">
+
+                    Imagina que tienes una tienda y compras
+                    $500 de productos para vender. Antes de
+                    venderlos, debes reconocer qué representan
+                    dentro de tu negocio.
+
+                </p>
+
+
+                <div class="review-example">
+
+
+                    <span class="small-label">
+                        PREGUNTA DE APLICACIÓN
+                    </span>
+
+
+                    <p id="application-question">
+
+                        ¿Qué otros elementos de tu negocio
+                        podrían representar activos?
+
+                    </p>
 
                 </div>
 
@@ -260,59 +590,34 @@
 
 
         <!-- =================================================
-             APLICACIÓN
+             07 — COMPLETAR APRENDIZAJE
         ================================================== -->
 
-        <div class="learning-section">
+        <div
+            id="completion-area"
+            class="completion-area hidden"
+        >
 
-            <div class="section-number">
-                04
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Llévalo a la práctica
-                </h2>
-
-
-                <p id="application">
-                    Cargando...
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             COMPLETAR
-        ================================================== -->
-
-        <div class="completion-area">
 
             <p>
-                Completa la pregunta para finalizar
-                este aprendizaje.
+                Has completado el aprendizaje de hoy.
             </p>
 
 
             <button
                 id="complete-button"
                 class="btn btn-primary"
-                disabled
+                type="button"
             >
-                Marcar como aprendido
+                Completar concepto
             </button>
 
 
             <p
-                id="completion-message"
+                id="success-message"
                 class="success-message hidden"
             >
-                ✓ Concepto completado.
+                ✓ Concepto guardado en tu progreso.
             </p>
 
         </div>
@@ -320,24 +625,96 @@
 
     </section>
 
+
+
+    <!-- =================================================
+         CONSEJO DE APRENDIZAJE
+    ================================================== -->
+
+    <section class="learning-tip">
+
+
+        <span class="small-label">
+            MÉTODO ZENTROX
+        </span>
+
+
+        <h2>
+            No intentes recordar solamente la definición.
+        </h2>
+
+
+        <p>
+            Pregúntate: ¿Dónde aparece este concepto
+            dentro de un negocio? ¿Qué decisión podría
+            afectar? ¿Qué ocurriría si cambiara?
+        </p>
+
+    </section>
+
+
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
 <footer class="footer">
 
-    <p>
-        ZENTROX
-    </p>
 
-    <p>
-        Aprende. Razona. Aplica.
-    </p>
+    <div>
+
+        <strong>
+            ZENTROX
+        </strong>
+
+
+        <p>
+            Aprende. Razona. Aplica.
+        </p>
+
+    </div>
+
+
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+
+        <a href="aprender.html">
+            Aprender
+        </a>
+
+
+        <a href="repaso.html">
+            Repaso
+        </a>
+
+
+        <a href="progreso.html">
+            Progreso
+        </a>
+
+    </div>
+
 
 </footer>
 
 
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
 <script src="js/palabras.js"></script>
+
 <script src="js/app.js"></script>
+
 
 </body>
 
