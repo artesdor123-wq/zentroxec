@@ -1,6 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -8,24 +11,39 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Aprender | Empresa Diario</title>
+    <title>Aprender | ZENTROX</title>
 
     <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 
 <body>
 
 <header class="topbar">
 
     <a href="index.html" class="logo">
-        EMPRESA<span>DIARIO</span>
+        ZENTROX
     </a>
 
     <nav>
-        <a href="index.html">Inicio</a>
-        <a href="aprender.html" class="active">Aprender</a>
-        <a href="repaso.html">Repaso</a>
-        <a href="progreso.html">Progreso</a>
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="aprender.html" class="active">
+            Aprender
+        </a>
+
+        <a href="repaso.html">
+            Repaso
+        </a>
+
+        <a href="progreso.html">
+            Progreso
+        </a>
+
     </nav>
 
 </header>
@@ -36,17 +54,29 @@
     <div class="learning-top">
 
         <div>
+
             <span class="small-label">
                 PALABRA DEL DÍA
             </span>
 
-            <p id="day-counter" class="muted">
-                Día de aprendizaje
+            <p
+                id="day-counter"
+                class="muted"
+            >
+                Concepto de aprendizaje
             </p>
+
         </div>
 
+
         <div class="streak">
-            🔥 <span id="streak">0</span>
+
+            🔥
+
+            <span id="streak">
+                0
+            </span>
+
         </div>
 
     </div>
@@ -54,22 +84,40 @@
 
     <section class="learning-card">
 
+
+        <!-- =================================================
+             CONCEPTO
+        ================================================== -->
+
         <div class="concept-header">
 
-            <span id="category" class="category">
-                CONTABILIDAD
+            <span
+                id="category"
+                class="category"
+            >
+                FINANZAS
             </span>
+
 
             <h1 id="word">
                 Activo
             </h1>
 
-            <p id="short-definition" class="concept-description">
-                Algo que tiene valor económico para una empresa.
+
+            <p
+                id="short-definition"
+                class="concept-description"
+            >
+                Cargando...
             </p>
 
         </div>
 
+
+
+        <!-- =================================================
+             SIGNIFICADO
+        ================================================== -->
 
         <div class="learning-section">
 
@@ -77,16 +125,27 @@
                 01
             </div>
 
+
             <div>
-                <h2>Significado sencillo</h2>
+
+                <h2>
+                    Significado sencillo
+                </h2>
+
 
                 <p id="definition">
                     Cargando...
                 </p>
+
             </div>
 
         </div>
 
+
+
+        <!-- =================================================
+             EJEMPLOS
+        ================================================== -->
 
         <div class="learning-section">
 
@@ -94,20 +153,41 @@
                 02
             </div>
 
+
             <div>
-                <h2>Ejemplo empresarial</h2>
 
-                <div class="context-box">
+                <h2>
+                    Ejemplos empresariales
+                </h2>
 
-                    <p id="example">
-                        Cargando...
-                    </p>
+
+                <p class="section-intro">
+                    Un concepto se entiende mejor cuando puedes
+                    reconocerlo en diferentes situaciones.
+                </p>
+
+
+                <div
+                    id="examples-container"
+                    class="examples-container"
+                >
+
+                    <!--
+                        Los ejemplos se generan automáticamente
+                        desde palabras.js.
+                    -->
 
                 </div>
+
             </div>
 
         </div>
 
+
+
+        <!-- =================================================
+             PREGUNTA INTERACTIVA
+        ================================================== -->
 
         <div class="learning-section">
 
@@ -115,39 +195,61 @@
                 03
             </div>
 
+
             <div>
 
                 <h2>
                     Ahora piensa
                 </h2>
 
-                <p id="question" class="question">
+
+                <p
+                    id="question"
+                    class="question"
+                >
                     Cargando...
                 </p>
 
 
-                <div id="answer-area">
+                <div
+                    id="options-container"
+                    class="options-container"
+                >
 
-                    <button
-                        id="show-answer"
-                        class="btn btn-primary"
-                    >
-                        Ver respuesta
-                    </button>
+                    <!--
+                        Las opciones se generan mediante JavaScript.
+                    -->
 
                 </div>
 
 
                 <div
-                    id="answer-box"
-                    class="answer-box hidden"
+                    id="answer-feedback"
+                    class="answer-feedback hidden"
                 >
 
-                    <strong>Respuesta</strong>
+                    <h3 id="feedback-title">
+                        Resultado
+                    </h3>
 
-                    <p id="answer">
-                        Cargando...
+
+                    <p id="feedback-text">
+                        Resultado...
                     </p>
+
+
+                    <div class="answer-explanation">
+
+                        <strong>
+                            ¿Por qué?
+                        </strong>
+
+
+                        <p id="answer-explanation-text">
+                            Cargando...
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -156,17 +258,24 @@
         </div>
 
 
+
+        <!-- =================================================
+             APLICACIÓN
+        ================================================== -->
+
         <div class="learning-section">
 
             <div class="section-number">
                 04
             </div>
 
+
             <div>
 
                 <h2>
                     Llévalo a la práctica
                 </h2>
+
 
                 <p id="application">
                     Cargando...
@@ -177,18 +286,27 @@
         </div>
 
 
+
+        <!-- =================================================
+             COMPLETAR
+        ================================================== -->
+
         <div class="completion-area">
 
             <p>
-                ¿Terminaste de estudiar este concepto?
+                Completa la pregunta para finalizar
+                este aprendizaje.
             </p>
+
 
             <button
                 id="complete-button"
                 class="btn btn-primary"
+                disabled
             >
                 Marcar como aprendido
             </button>
+
 
             <p
                 id="completion-message"
@@ -199,6 +317,7 @@
 
         </div>
 
+
     </section>
 
 </main>
@@ -207,7 +326,11 @@
 <footer class="footer">
 
     <p>
-        EMPRESA DIARIO
+        ZENTROX
+    </p>
+
+    <p>
+        Aprende. Razona. Aplica.
     </p>
 
 </footer>
@@ -217,4 +340,6 @@
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
+```
