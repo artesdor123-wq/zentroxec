@@ -1,1 +1,6256 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <meta
+        name="description"
+        content="Aprende conocimiento y criterio empresarial mediante aprendizaje diario y práctica."
+    >
+
+    <title>
+        Criterio Empresarial
+    </title>
+
+
+    <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+
+            --bg:
+                #f5f6f8;
+
+            --card:
+                #ffffff;
+
+            --text:
+                #17181b;
+
+            --muted:
+                #6b7078;
+
+            --border:
+                #e5e7eb;
+
+            --black:
+                #111111;
+
+            --red:
+                #d91f26;
+
+            --soft:
+                #f0f1f3;
+
+            --green:
+                #177245;
+
+            --green-bg:
+                #eaf7ef;
+
+            --danger:
+                #b42318;
+
+            --danger-bg:
+                #fff0ee;
+
+            --yellow:
+                #9a6700;
+
+            --yellow-bg:
+                #fff8df;
+
+            --shadow:
+                0 10px 30px rgba(0, 0, 0, 0.07);
+
+            --radius:
+                20px;
+
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            box-sizing:
+                border-box;
+        }
+
+
+        html {
+
+            scroll-behavior:
+                smooth;
+
+        }
+
+
+        body {
+
+            margin:
+                0;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            line-height:
+                1.55;
+
+        }
+
+
+        button,
+        input {
+
+            font:
+                inherit;
+
+        }
+
+
+        button {
+
+            cursor:
+                pointer;
+
+        }
+
+
+        /* =========================================================
+           APP
+        ========================================================= */
+
+        .app {
+
+            width:
+                min(100%, 520px);
+
+            min-height:
+                100vh;
+
+            margin:
+                0 auto;
+
+            background:
+                var(--bg);
+
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .topbar {
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                20;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                calc(14px + env(safe-area-inset-top))
+                18px
+                14px;
+
+            background:
+                rgba(245, 246, 248, 0.94);
+
+            backdrop-filter:
+                blur(12px);
+
+            border-bottom:
+                1px solid rgba(229, 231, 235, 0.75);
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                -0.02em;
+
+        }
+
+
+        .brand-mark {
+
+            width:
+                34px;
+
+            height:
+                34px;
+
+            border-radius:
+                10px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .icon-btn {
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            border-radius:
+                12px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            color:
+                var(--text);
+
+            font-size:
+                21px;
+
+        }
+
+
+        .icon-btn:hover {
+
+            background:
+                var(--soft);
+
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        main {
+
+            padding:
+                20px
+                16px
+                100px;
+
+        }
+
+
+        .screen {
+
+            display:
+                none;
+
+            animation:
+                fade 0.2s ease;
+
+        }
+
+
+        .screen.active {
+
+            display:
+                block;
+
+        }
+
+
+        @keyframes fade {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(4px);
+
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    none;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+            border-radius:
+                26px;
+
+            padding:
+                24px 20px;
+
+            box-shadow:
+                var(--shadow);
+
+            margin-bottom:
+                16px;
+
+        }
+
+
+        .eyebrow {
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                0.12em;
+
+            text-transform:
+                uppercase;
+
+            opacity:
+                0.7;
+
+        }
+
+
+        .hero h1 {
+
+            margin:
+                7px 0 8px;
+
+            font-size:
+                30px;
+
+            line-height:
+                1.08;
+
+            letter-spacing:
+                -0.04em;
+
+        }
+
+
+        .hero p {
+
+            margin:
+                0;
+
+            color:
+                rgba(255, 255, 255, 0.78);
+
+        }
+
+
+        .hero-actions {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            margin-top:
+                20px;
+
+        }
+
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .btn {
+
+            width:
+                100%;
+
+            border:
+                0;
+
+            border-radius:
+                14px;
+
+            padding:
+                14px 16px;
+
+            font-weight:
+                800;
+
+            transition:
+                0.15s transform,
+                0.15s opacity;
+
+        }
+
+
+        .btn:active {
+
+            transform:
+                scale(0.98);
+
+        }
+
+
+        .btn-primary {
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+        }
+
+
+        .btn-light {
+
+            background:
+                white;
+
+            color:
+                var(--text);
+
+        }
+
+
+        .btn-danger {
+
+            background:
+                var(--red);
+
+            color:
+                white;
+
+        }
+
+
+        .btn-outline {
+
+            background:
+                transparent;
+
+            color:
+                var(--text);
+
+            border:
+                1px solid var(--border);
+
+        }
+
+
+        .btn:disabled {
+
+            opacity:
+                0.45;
+
+            cursor:
+                not-allowed;
+
+        }
+
+
+        /* =========================================================
+           STATS
+        ========================================================= */
+
+        .grid-2 {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                12px;
+
+        }
+
+
+        .stat {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                18px;
+
+            padding:
+                16px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.03);
+
+        }
+
+
+        .stat .value {
+
+            font-size:
+                25px;
+
+            font-weight:
+                850;
+
+            letter-spacing:
+                -0.04em;
+
+        }
+
+
+        .stat .label {
+
+            font-size:
+                12px;
+
+            color:
+                var(--muted);
+
+            margin-top:
+                2px;
+
+        }
+
+
+        /* =========================================================
+           TITULOS
+        ========================================================= */
+
+        .section-title {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            margin:
+                24px 2px 10px;
+
+        }
+
+
+        .section-title h2 {
+
+            font-size:
+                17px;
+
+            margin:
+                0;
+
+            letter-spacing:
+                -0.02em;
+
+        }
+
+
+        .section-title span {
+
+            font-size:
+                12px;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        /* =========================================================
+           CARD
+        ========================================================= */
+
+        .card {
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            padding:
+                20px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, 0.03);
+
+            margin-bottom:
+                14px;
+
+        }
+
+
+        .card p {
+
+            margin:
+                7px 0 0;
+
+        }
+
+
+        /* =========================================================
+           TERM
+        ========================================================= */
+
+        .term {
+
+            font-size:
+                34px;
+
+            line-height:
+                1.05;
+
+            letter-spacing:
+                -0.045em;
+
+            margin:
+                6px 0 0;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .concept-meta {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            flex-wrap:
+                wrap;
+
+            margin:
+                12px 0;
+
+        }
+
+
+        .badge {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            padding:
+                6px 9px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--soft);
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .badge.basic {
+
+            background:
+                var(--green-bg);
+
+            color:
+                #17633d;
+
+        }
+
+
+        .badge.intermediate {
+
+            background:
+                var(--yellow-bg);
+
+            color:
+                #805600;
+
+        }
+
+
+        .badge.advanced {
+
+            background:
+                var(--danger-bg);
+
+            color:
+                #a51c14;
+
+        }
+
+
+        /* =========================================================
+           LABELS
+        ========================================================= */
+
+        .label {
+
+            margin-top:
+                20px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.1em;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        /* =========================================================
+           EJEMPLO
+        ========================================================= */
+
+        .quote {
+
+            margin-top:
+                10px;
+
+            border-left:
+                3px solid var(--red);
+
+            padding:
+                10px 12px;
+
+            background:
+                #fafafa;
+
+            border-radius:
+                0 12px 12px 0;
+
+        }
+
+
+        /* =========================================================
+           RELACIONADOS
+        ========================================================= */
+
+        .related {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                8px;
+
+            margin-top:
+                10px;
+
+        }
+
+
+        .related span {
+
+            padding:
+                7px 10px;
+
+            border-radius:
+                10px;
+
+            background:
+                var(--soft);
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =========================================================
+           PROGRESO
+        ========================================================= */
+
+        .progressbar {
+
+            height:
+                9px;
+
+            background:
+                var(--soft);
+
+            border-radius:
+                99px;
+
+            overflow:
+                hidden;
+
+        }
+
+
+        .progressbar > div {
+
+            height:
+                100%;
+
+            width:
+                0;
+
+            background:
+                var(--red);
+
+            border-radius:
+                99px;
+
+            transition:
+                width 0.4s ease;
+
+        }
+
+
+        /* =========================================================
+           PREGUNTA
+        ========================================================= */
+
+        .question-card {
+
+            background:
+                white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                18px;
+
+        }
+
+
+        .question {
+
+            font-size:
+                18px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.35;
+
+            margin:
+                0;
+
+        }
+
+
+        .options {
+
+            display:
+                grid;
+
+            gap:
+                10px;
+
+            margin-top:
+                16px;
+
+        }
+
+
+        .option {
+
+            width:
+                100%;
+
+            text-align:
+                left;
+
+            background:
+                white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            padding:
+                14px;
+
+            display:
+                flex;
+
+            gap:
+                12px;
+
+            align-items:
+                flex-start;
+
+            color:
+                var(--text);
+
+        }
+
+
+        .option:hover {
+
+            border-color:
+                #b7bac0;
+
+            background:
+                #fafafa;
+
+        }
+
+
+        .option.selected {
+
+            border:
+                2px solid var(--black);
+
+            padding:
+                13px;
+
+            background:
+                #f8f8f8;
+
+        }
+
+
+        .option.correct {
+
+            border-color:
+                var(--green);
+
+            background:
+                var(--green-bg);
+
+        }
+
+
+        .option.wrong {
+
+            border-color:
+                var(--danger);
+
+            background:
+                var(--danger-bg);
+
+        }
+
+
+        .option-letter {
+
+            width:
+                28px;
+
+            height:
+                28px;
+
+            min-width:
+                28px;
+
+            border-radius:
+                9px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            background:
+                var(--soft);
+
+            font-weight:
+                900;
+
+            font-size:
+                12px;
+
+        }
+
+
+        /* =========================================================
+           FEEDBACK
+        ========================================================= */
+
+        .feedback {
+
+            margin-top:
+                14px;
+
+            padding:
+                15px;
+
+            border-radius:
+                15px;
+
+            border:
+                1px solid var(--border);
+
+        }
+
+
+        .feedback.correct {
+
+            background:
+                var(--green-bg);
+
+            border-color:
+                #bce6ca;
+
+        }
+
+
+        .feedback.wrong {
+
+            background:
+                var(--danger-bg);
+
+            border-color:
+                #f2c0bb;
+
+        }
+
+
+        .feedback strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                4px;
+
+        }
+
+
+        /* =========================================================
+           XP
+        ========================================================= */
+
+        .xp {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+            border-radius:
+                999px;
+
+            padding:
+                7px 11px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        /* =========================================================
+           BUSCADOR
+        ========================================================= */
+
+        .library-search {
+
+            width:
+                100%;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            padding:
+                13px 14px;
+
+            outline:
+                none;
+
+            background:
+                white;
+
+        }
+
+
+        .library-search:focus {
+
+            border-color:
+                #999;
+
+        }
+
+
+        /* =========================================================
+           FILTROS
+        ========================================================= */
+
+        .filter-row {
+
+            display:
+                flex;
+
+            gap:
+                8px;
+
+            overflow:
+                auto;
+
+            padding:
+                10px 0 2px;
+
+        }
+
+
+        .filter {
+
+            white-space:
+                nowrap;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                white;
+
+            border-radius:
+                999px;
+
+            padding:
+                8px 11px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .filter.active {
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+            border-color:
+                var(--black);
+
+        }
+
+
+        /* =========================================================
+           LISTA
+        ========================================================= */
+
+        .concept-item {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                12px;
+
+            padding:
+                15px 0;
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        .concept-item:last-child {
+
+            border-bottom:
+                0;
+
+        }
+
+
+        .concept-item h3 {
+
+            margin:
+                0;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .concept-item p {
+
+            margin:
+                2px 0 0;
+
+            font-size:
+                12px;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .mastery {
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        /* =========================================================
+           OTROS
+        ========================================================= */
+
+        .empty {
+
+            padding:
+                30px 10px;
+
+            text-align:
+                center;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .small-note {
+
+            font-size:
+                12px;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .success-text {
+
+            color:
+                var(--green);
+
+        }
+
+
+        .next-box {
+
+            background:
+                #fafafa;
+
+            border:
+                1px dashed #d6d8dc;
+
+            padding:
+                14px;
+
+            border-radius:
+                15px;
+
+            margin-top:
+                14px;
+
+        }
+
+
+        /* =========================================================
+           TOAST
+        ========================================================= */
+
+        .toast {
+
+            position:
+                fixed;
+
+            left:
+                50%;
+
+            bottom:
+                78px;
+
+            transform:
+                translate(-50%, 20px);
+
+            background:
+                var(--black);
+
+            color:
+                white;
+
+            padding:
+                12px 16px;
+
+            border-radius:
+                13px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            opacity:
+                0;
+
+            pointer-events:
+                none;
+
+            z-index:
+                50;
+
+            transition:
+                0.2s;
+
+            width:
+                max-content;
+
+            max-width:
+                90%;
+
+        }
+
+
+        .toast.show {
+
+            opacity:
+                1;
+
+            transform:
+                translate(-50%, 0);
+
+        }
+
+
+        /* =========================================================
+           NAV
+        ========================================================= */
+
+        .bottom-nav {
+
+            position:
+                fixed;
+
+            z-index:
+                30;
+
+            bottom:
+                0;
+
+            left:
+                50%;
+
+            transform:
+                translateX(-50%);
+
+            width:
+                min(100%, 520px);
+
+            padding:
+                8px
+                10px
+                calc(8px + env(safe-area-inset-bottom));
+
+            background:
+                rgba(255, 255, 255, 0.96);
+
+            backdrop-filter:
+                blur(14px);
+
+            border-top:
+                1px solid var(--border);
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                5px;
+
+        }
+
+
+        .nav-btn {
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            border-radius:
+                12px;
+
+            padding:
+                8px 4px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            display:
+                grid;
+
+            gap:
+                3px;
+
+            place-items:
+                center;
+
+        }
+
+
+        .nav-btn.active {
+
+            color:
+                var(--text);
+
+            background:
+                var(--soft);
+
+        }
+
+
+        .nav-icon {
+
+            font-size:
+                18px;
+
+            line-height:
+                1;
+
+        }
+
+
+        /* =========================================================
+           DESKTOP
+        ========================================================= */
+
+        @media (min-width: 700px) {
+
+            body {
+
+                padding:
+                    20px 0;
+
+            }
+
+
+            .app {
+
+                border-radius:
+                    28px;
+
+                overflow:
+                    hidden;
+
+                box-shadow:
+                    0 15px 50px rgba(0, 0, 0, 0.1);
+
+            }
+
+
+            .topbar {
+
+                position:
+                    relative;
+
+            }
+
+
+            .bottom-nav {
+
+                position:
+                    relative;
+
+                transform:
+                    none;
+
+                left:
+                    auto;
+
+                width:
+                    100%;
+
+            }
+
+
+            main {
+
+                padding-bottom:
+                    25px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                CE
+            </div>
+
+            <span>
+                Criterio Empresarial
+            </span>
+
+        </div>
+
+
+        <button
+            class="icon-btn"
+            id="resetBtn"
+            aria-label="Restablecer progreso"
+            title="Restablecer progreso"
+        >
+            ↻
+        </button>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- =====================================================
+             INICIO
+        ====================================================== -->
+
+        <section
+            class="screen active"
+            id="screen-home"
+        >
+
+
+            <div class="hero">
+
+                <div class="eyebrow">
+                    Concepto empresarial del día
+                </div>
+
+
+                <h1 id="homeTerm">
+                    Activo
+                </h1>
+
+
+                <p id="homeIntro">
+                    Aprende, entiende y practica.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <button
+                        class="btn btn-light"
+                        id="startBtn"
+                    >
+                        Empezar
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ESTADÍSTICAS -->
+
+            <div class="grid-2">
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="streakValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        🔥 días de racha
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="xpValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        ⭐ XP total
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="learnedValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        📚 conceptos vistos
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="masteredValue"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        🧠 conceptos dominados
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PRECISIÓN -->
+
+            <div class="section-title">
+
+                <h2>
+                    Precisión
+                </h2>
+
+                <span id="accuracyText">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="progressbar">
+
+                    <div
+                        id="accuracyBar"
+                    ></div>
+
+                </div>
+
+
+                <p
+                    class="small-note"
+                    id="accuracyNote"
+                >
+                    Completa algunas preguntas para ver tu precisión.
+                </p>
+
+            </div>
+
+
+
+            <!-- MISIÓN -->
+
+            <div class="section-title">
+
+                <h2>
+                    Tu misión
+                </h2>
+
+            </div>
+
+
+            <div class="card">
+
+                <p>
+                    <strong>
+                        Hoy no memorices solamente.
+                    </strong>
+                </p>
+
+                <p>
+                    Intenta reconocer el concepto en situaciones
+                    reales y pregúntate cómo podría afectar a una empresa.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             APRENDER
+        ====================================================== -->
+
+        <section
+            class="screen"
+            id="screen-learn"
+        >
+
+
+            <div class="section-title">
+
+                <h2>
+                    Aprender
+                </h2>
+
+                <span id="learnStep">
+                    1 / 4
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+
+                <div class="eyebrow">
+                    Concepto del día
+                </div>
+
+
+                <div
+                    class="term"
+                    id="learnTerm"
+                >
+                    Activo
+                </div>
+
+
+                <div class="concept-meta">
+
+                    <span
+                        class="badge"
+                        id="learnCategory"
+                    >
+                        Contabilidad
+                    </span>
+
+
+                    <span
+                        class="badge"
+                        id="learnLevel"
+                    >
+                        Básico
+                    </span>
+
+                </div>
+
+
+
+                <div class="label">
+                    Significado sencillo
+                </div>
+
+
+                <p id="learnDefinition"></p>
+
+
+
+                <div class="label">
+                    Entiéndelo
+                </div>
+
+
+                <p id="learnExplanation"></p>
+
+
+
+                <div class="label">
+                    Ejemplo empresarial
+                </div>
+
+
+                <div
+                    class="quote"
+                    id="learnExample"
+                ></div>
+
+
+
+                <div class="label">
+                    ¿Por qué importa?
+                </div>
+
+
+                <p id="learnWhy"></p>
+
+
+
+                <div class="label">
+                    Relacionado con
+                </div>
+
+
+                <div
+                    class="related"
+                    id="learnRelated"
+                ></div>
+
+
+
+                <div style="margin-top:20px">
+
+                    <button
+                        class="btn btn-primary"
+                        id="toPracticeBtn"
+                    >
+                        Lo entiendo → Practicar
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PRACTICAR
+        ====================================================== -->
+
+        <section
+            class="screen"
+            id="screen-practice"
+        >
+
+
+            <div class="section-title">
+
+                <h2>
+                    Piensa como empresario
+                </h2>
+
+                <span id="practiceTerm">
+                    Activo
+                </span>
+
+            </div>
+
+
+            <div class="question-card">
+
+
+                <p
+                    class="question"
+                    id="questionText"
+                ></p>
+
+
+                <div
+                    class="options"
+                    id="options"
+                ></div>
+
+
+                <button
+                    class="btn btn-primary"
+                    id="checkBtn"
+                    disabled
+                    style="margin-top:15px"
+                >
+                    Comprobar respuesta
+                </button>
+
+
+                <div
+                    id="feedback"
+                    style="display:none"
+                ></div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             RESULTADO
+        ====================================================== -->
+
+        <section
+            class="screen"
+            id="screen-result"
+        >
+
+
+            <div class="hero">
+
+
+                <div
+                    class="eyebrow"
+                    id="resultEyebrow"
+                >
+                    Sesión completada
+                </div>
+
+
+                <h1 id="resultTitle">
+                    ¡Correcto!
+                </h1>
+
+
+                <p id="resultSubtitle"></p>
+
+
+                <div style="margin-top:16px">
+
+                    <span
+                        class="xp"
+                        id="resultXp"
+                    >
+                        +10 XP
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="card">
+
+
+                <div class="label">
+                    Explicación
+                </div>
+
+
+                <p id="resultExplanation"></p>
+
+
+
+                <div class="label">
+                    Qué debes recordar
+                </div>
+
+
+                <p id="resultRemember"></p>
+
+
+
+                <div class="next-box">
+
+                    <strong>
+                        🎯 Siguiente objetivo
+                    </strong>
+
+
+                    <p
+                        class="small-note"
+                        id="nextObjective"
+                    >
+                        Vuelve mañana para continuar.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    id="finishBtn"
+                    style="margin-top:15px"
+                >
+                    Volver al inicio
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PROGRESO
+        ====================================================== -->
+
+        <section
+            class="screen"
+            id="screen-progress"
+        >
+
+
+            <div class="section-title">
+
+                <h2>
+                    Tu progreso
+                </h2>
+
+            </div>
+
+
+
+            <div class="grid-2">
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="pXp"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        ⭐ XP
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="pStreak"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        🔥 racha
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="pSeen"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        📚 vistos
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div
+                        class="value"
+                        id="pMastered"
+                    >
+                        0
+                    </div>
+
+                    <div class="label">
+                        🧠 dominados
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="section-title">
+
+                <h2>
+                    Precisión general
+                </h2>
+
+                <span id="pAccuracy">
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="progressbar">
+
+                    <div
+                        id="pAccuracyBar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="section-title">
+
+                <h2>
+                    Dominio por concepto
+                </h2>
+
+            </div>
+
+
+            <div
+                class="card"
+                id="masteryList"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+             BIBLIOTECA
+        ====================================================== -->
+
+        <section
+            class="screen"
+            id="screen-library"
+        >
+
+
+            <div class="section-title">
+
+                <h2>
+                    Biblioteca
+                </h2>
+
+                <span>
+                    30 conceptos
+                </span>
+
+            </div>
+
+
+
+            <input
+                class="library-search"
+                id="searchInput"
+                type="search"
+                placeholder="Buscar un concepto..."
+            >
+
+
+
+            <div
+                class="filter-row"
+                id="filters"
+            ></div>
+
+
+
+            <div
+                class="card"
+                id="libraryList"
+            ></div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================================================
+         NAVEGACIÓN
+    ========================================================== -->
+
+    <nav class="bottom-nav">
+
+
+        <button
+            class="nav-btn active"
+            data-screen="home"
+        >
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            Inicio
+
+        </button>
+
+
+        <button
+            class="nav-btn"
+            data-screen="library"
+        >
+
+            <span class="nav-icon">
+                📚
+            </span>
+
+            Biblioteca
+
+        </button>
+
+
+        <button
+            class="nav-btn"
+            data-screen="progress"
+        >
+
+            <span class="nav-icon">
+                📊
+            </span>
+
+            Progreso
+
+        </button>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+
+<script>
+
+/* =============================================================
+   DATOS DE LOS CONCEPTOS
+============================================================= */
+
+const concepts = [
+
+    {
+        id: 1,
+
+        nombre: "Ingreso",
+
+        categoria: "Finanzas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Dinero que una empresa genera como resultado de sus actividades.",
+
+        explicacion:
+            "Si una empresa vende productos o servicios y recibe una contraprestación a cambio, está generando ingresos. Ingreso no significa automáticamente utilidad.",
+
+        ejemplo:
+            "Una tienda vende 10 productos a $20 cada uno. Sus ventas generan $200 de ingresos.",
+
+        porQue:
+            "Distinguir ingresos de utilidad ayuda a evitar el error de pensar que todo el dinero vendido representa ganancia.",
+
+        pregunta:
+            "Una tienda tuvo $10.000 en ventas este mes. ¿Significa que ganó $10.000?",
+
+        opciones: [
+
+            "Sí, porque vendió $10.000.",
+
+            "No necesariamente; los $10.000 son ingresos y todavía deben considerarse costos, gastos y otros elementos.",
+
+            "Sí, siempre que haya cobrado.",
+
+            "No, porque las ventas nunca son ingresos."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Los $10.000 representan ingresos por ventas. Para determinar la utilidad deben considerarse los costos, gastos y otros elementos correspondientes.",
+
+        recordar:
+            "Ingreso es lo que genera la actividad; no es sinónimo de utilidad.",
+
+        relacionados: [
+
+            "Ventas",
+            "Costo",
+            "Gasto",
+            "Utilidad",
+            "Margen"
+
+        ]
+
+    },
+
+
+    {
+        id: 2,
+
+        nombre: "Costo",
+
+        categoria: "Finanzas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Desembolso o consumo de recursos económicos relacionado con obtener o producir un producto o servicio.",
+
+        explicacion:
+            "Cuando compras o produces algo destinado a generar ingresos, los recursos utilizados pueden formar parte de su costo según el contexto y el tratamiento contable.",
+
+        ejemplo:
+            "Compras un cable por $8 y lo vendes por $15. Los $8 están relacionados con el costo del producto vendido.",
+
+        porQue:
+            "Conocer los costos permite analizar cuánto cuesta generar las ventas y cuánto margen queda antes de otros gastos.",
+
+        pregunta:
+            "Compras un producto por $10 y lo vendes por $20. ¿Tu ganancia es automáticamente $20?",
+
+        opciones: [
+
+            "Sí, porque recibiste $20.",
+
+            "No. $20 es el ingreso de la venta; hay que considerar el costo y otros gastos aplicables.",
+
+            "Sí, si el cliente pagó en efectivo.",
+
+            "No, porque una venta nunca produce utilidad."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Los $20 son el ingreso de la venta. El costo del producto y otros conceptos deben considerarse para determinar el resultado.",
+
+        recordar:
+            "Precio de venta, ingreso, costo y utilidad son conceptos diferentes.",
+
+        relacionados: [
+
+            "Ingreso",
+            "Gasto",
+            "Margen",
+            "Utilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 3,
+
+        nombre: "Gasto",
+
+        categoria: "Finanzas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Desembolso o consumo de recursos relacionado con el funcionamiento de una empresa.",
+
+        explicacion:
+            "Los gastos permiten sostener actividades del negocio, como administración, alquiler, servicios, publicidad u otras funciones, según el caso.",
+
+        ejemplo:
+            "Una tienda paga $300 de alquiler para mantener funcionando su local.",
+
+        porQue:
+            "Separar costos y gastos ayuda a entender dónde se están utilizando los recursos del negocio.",
+
+        pregunta:
+            "Tu tienda vende $5.000 y paga $500 de publicidad. ¿La publicidad afecta el resultado económico?",
+
+        opciones: [
+
+            "No, porque la publicidad no es un producto.",
+
+            "Sí, porque es un desembolso relacionado con la actividad del negocio y debe considerarse según su tratamiento contable.",
+
+            "No, porque solo afectan los costos.",
+
+            "Sí, pero solamente si no hubo ventas."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "La publicidad representa un desembolso relacionado con la actividad del negocio y puede afectar el resultado económico.",
+
+        recordar:
+            "Un gasto puede ser necesario para operar y aun así reducir el resultado económico.",
+
+        relacionados: [
+
+            "Costo",
+            "Ingreso",
+            "Utilidad",
+            "Publicidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 4,
+
+        nombre: "Utilidad",
+
+        categoria: "Finanzas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Resultado positivo que queda después de considerar los costos y gastos correspondientes.",
+
+        explicacion:
+            "Una empresa puede generar ingresos y, después de reconocer los costos y gastos aplicables, obtener una utilidad.",
+
+        ejemplo:
+            "Una empresa obtiene $10.000 de ingresos y, después de considerar sus costos y gastos correspondientes, tiene $2.000 de utilidad.",
+
+        porQue:
+            "La utilidad permite analizar si la actividad empresarial está generando un resultado positivo bajo un determinado período y criterio.",
+
+        pregunta:
+            "¿Una empresa puede tener muchas ventas y poca utilidad?",
+
+        opciones: [
+
+            "No, muchas ventas siempre significan mucha utilidad.",
+
+            "Sí, porque puede tener costos y gastos elevados.",
+
+            "No, si vende más de $1.000.",
+
+            "Solo si no tiene clientes."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Sí. Un negocio puede vender mucho y aun así obtener poca utilidad si sus costos y gastos son elevados.",
+
+        recordar:
+            "Más ventas no siempre significan más utilidad.",
+
+        relacionados: [
+
+            "Ingreso",
+            "Costo",
+            "Gasto",
+            "Margen",
+            "Rentabilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 5,
+
+        nombre: "Pérdida",
+
+        categoria: "Finanzas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Resultado negativo cuando los costos, gastos u otros efectos reconocidos superan los ingresos u otros resultados positivos correspondientes.",
+
+        explicacion:
+            "Una empresa puede vender productos y aun así terminar con pérdida si el resultado de sus costos, gastos y demás partidas supera lo que genera.",
+
+        ejemplo:
+            "Una empresa tiene ingresos de $5.000 pero sus costos y gastos reconocidos ascienden a $6.000.",
+
+        porQue:
+            "Identificar pérdidas permite detectar problemas de precios, costos, gastos, demanda u operación.",
+
+        pregunta:
+            "¿Tener $5.000 en ventas significa necesariamente que el negocio fue rentable?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No; puede existir pérdida si los costos y gastos son superiores al resultado generado.",
+
+            "Sí, si tiene inventario.",
+
+            "Solo depende del número de clientes."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Las ventas por sí solas no determinan rentabilidad. Deben analizarse junto con costos, gastos y otros elementos.",
+
+        recordar:
+            "Ventas no son lo mismo que rentabilidad.",
+
+        relacionados: [
+
+            "Utilidad",
+            "Ingreso",
+            "Gasto",
+            "Rentabilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 6,
+
+        nombre: "Precio",
+
+        categoria: "Ventas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Cantidad de dinero que se establece para vender un producto o servicio.",
+
+        explicacion:
+            "El precio es una decisión comercial que puede considerar costos, demanda, competencia, valor percibido y estrategia.",
+
+        ejemplo:
+            "Una empresa establece un precio de $25 para un producto.",
+
+        porQue:
+            "Un precio mal planteado puede reducir el margen, dificultar las ventas o hacer que la empresa pierda oportunidades.",
+
+        pregunta:
+            "¿El precio debería determinarse únicamente mirando cuánto cobra la competencia?",
+
+        opciones: [
+
+            "Sí, siempre.",
+
+            "No. También deberían analizarse costos, demanda, valor percibido, posicionamiento y estrategia.",
+
+            "Sí, porque el mercado decide todo.",
+
+            "No, porque el precio nunca importa."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "La competencia es una referencia, pero el precio también depende de costos, demanda, valor percibido y estrategia.",
+
+        recordar:
+            "El precio es una decisión estratégica, no solamente una copia del competidor.",
+
+        relacionados: [
+
+            "Costo",
+            "Margen",
+            "Valor",
+            "Competencia"
+
+        ]
+
+    },
+
+
+    {
+        id: 7,
+
+        nombre: "Venta",
+
+        categoria: "Ventas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Intercambio mediante el cual una empresa ofrece un producto o servicio a un cliente a cambio de una contraprestación.",
+
+        explicacion:
+            "Una venta es una operación comercial. Puede generar ingresos, pero eso no significa automáticamente que exista utilidad.",
+
+        ejemplo:
+            "Una tienda vende un monitor por $150.",
+
+        porQue:
+            "Entender la diferencia entre venta, ingreso y utilidad ayuda a analizar el negocio correctamente.",
+
+        pregunta:
+            "¿Una venta siempre significa que el negocio ganó dinero?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. Una venta puede generar ingresos, pero la rentabilidad depende también de costos y otros gastos.",
+
+            "Sí, si el producto se entregó.",
+
+            "Solo si fue una venta online."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una venta puede generar ingresos, pero para conocer el resultado económico hay que considerar costos y gastos.",
+
+        recordar:
+            "Una venta es una operación; la utilidad es un resultado.",
+
+        relacionados: [
+
+            "Ingreso",
+            "Cliente",
+            "Precio",
+            "Margen"
+
+        ]
+
+    },
+
+
+    {
+        id: 8,
+
+        nombre: "Cliente",
+
+        categoria: "Ventas",
+
+        nivel: "Básico",
+
+        definicion:
+            "Persona o empresa que adquiere productos o servicios de un negocio.",
+
+        explicacion:
+            "El cliente es quien compra una solución. Comprender sus necesidades, problemas y comportamiento es fundamental para vender y crear valor.",
+
+        ejemplo:
+            "Una persona compra un SSD en una tienda de tecnología.",
+
+        porQue:
+            "Sin clientes dispuestos a comprar, una oferta difícilmente puede convertirse en un negocio sostenible.",
+
+        pregunta:
+            "¿Es mejor conseguir nuevos clientes o lograr que algunos clientes vuelvan a comprar?",
+
+        opciones: [
+
+            "Siempre nuevos.",
+
+            "Siempre repetidores.",
+
+            "Depende del modelo de negocio; adquisición y retención cumplen funciones diferentes y ambas pueden ser importantes.",
+
+            "Ninguno importa si el producto es bueno."
+
+        ],
+
+        respuesta: 2,
+
+        explicacionRespuesta:
+            "La respuesta depende del modelo. La adquisición trae nuevos clientes y la retención puede aumentar el valor de los clientes existentes.",
+
+        recordar:
+            "Adquirir y retener clientes son problemas empresariales diferentes.",
+
+        relacionados: [
+
+            "Venta",
+            "Retención",
+            "Marketing",
+            "Cliente potencial"
+
+        ]
+
+    },
+
+
+    {
+        id: 9,
+
+        nombre: "Proveedor",
+
+        categoria: "Operaciones",
+
+        nivel: "Básico",
+
+        definicion:
+            "Persona o empresa que suministra productos, materiales o servicios a otra empresa.",
+
+        explicacion:
+            "Los proveedores forman parte de la cadena que permite que una empresa consiga los recursos necesarios para operar.",
+
+        ejemplo:
+            "Una tienda compra cables a un proveedor mayorista.",
+
+        porQue:
+            "Precio, calidad, disponibilidad y tiempos de entrega del proveedor pueden afectar directamente al negocio.",
+
+        pregunta:
+            "¿Por qué puede ser peligroso depender completamente de un solo proveedor?",
+
+        opciones: [
+
+            "Porque un proveedor nunca es útil.",
+
+            "Porque problemas de precio, disponibilidad, calidad o entrega podrían afectar las operaciones.",
+
+            "Porque los proveedores siempre cobran más.",
+
+            "Porque tener proveedores reduce las ventas."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una dependencia excesiva puede hacer que una interrupción del proveedor afecte inventario, precios o capacidad de vender.",
+
+        recordar:
+            "Un proveedor también representa un riesgo operativo que debe gestionarse.",
+
+        relacionados: [
+
+            "Inventario",
+            "Costo",
+            "Compras",
+            "Operaciones"
+
+        ]
+
+    },
+
+
+    {
+        id: 10,
+
+        nombre: "Activo",
+
+        categoria: "Contabilidad",
+
+        nivel: "Básico",
+
+        definicion:
+            "Recurso económico que una empresa controla como resultado de hechos pasados y del que se esperan beneficios económicos futuros.",
+
+        explicacion:
+            "Un activo puede ser efectivo, inventario, equipos, cuentas por cobrar u otros recursos que cumplen los criterios contables correspondientes.",
+
+        ejemplo:
+            "El inventario de productos de una tienda es un activo.",
+
+        porQue:
+            "Conocer los activos ayuda a entender qué recursos económicos controla la empresa.",
+
+        pregunta:
+            "Compras $1.000 de productos para venderlos. ¿Son automáticamente un gasto?",
+
+        opciones: [
+
+            "Sí, porque salió dinero.",
+
+            "No necesariamente; inicialmente pueden formar parte del inventario, que es un activo. Al venderse, se reconoce el costo correspondiente según las reglas contables aplicables.",
+
+            "Sí, siempre que se paguen en efectivo.",
+
+            "Son una utilidad."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "La salida de efectivo no convierte automáticamente la compra en gasto. Los productos para la venta pueden reconocerse inicialmente como inventario, un activo, y su costo se reconoce cuando corresponda.",
+
+        recordar:
+            "La salida de dinero y el reconocimiento contable de un gasto no son necesariamente lo mismo.",
+
+        relacionados: [
+
+            "Inventario",
+            "Pasivo",
+            "Patrimonio",
+            "Depreciación"
+
+        ]
+
+    },
+
+
+    {
+        id: 11,
+
+        nombre: "Pasivo",
+
+        categoria: "Contabilidad",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Obligación presente de una empresa que deberá cumplir en el futuro.",
+
+        explicacion:
+            "Las obligaciones pueden surgir por compras a crédito, préstamos, impuestos y otras operaciones, según corresponda.",
+
+        ejemplo:
+            "Una empresa compra mercancía a crédito y queda debiendo $2.000 al proveedor.",
+
+        porQue:
+            "Conocer los pasivos ayuda a evaluar las obligaciones que la empresa debe gestionar.",
+
+        pregunta:
+            "¿Tener una deuda significa necesariamente que la empresa está quebrada?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. Las obligaciones pueden formar parte normal de la financiación y operación; importa la capacidad de gestionarlas.",
+
+            "Sí, si supera $1.000.",
+
+            "Solo si tiene inventario."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una deuda no implica por sí sola insolvencia. Debe analizarse su tamaño, vencimiento, costo y capacidad de pago.",
+
+        recordar:
+            "Pasivo significa obligación; no es sinónimo de quiebra.",
+
+        relacionados: [
+
+            "Activo",
+            "Patrimonio",
+            "Deuda",
+            "Liquidez"
+
+        ]
+
+    },
+
+
+    {
+        id: 12,
+
+        nombre: "Patrimonio",
+
+        categoria: "Contabilidad",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Participación residual de los propietarios en los activos de una empresa después de considerar sus pasivos.",
+
+        explicacion:
+            "En términos simplificados, patrimonio = activos - pasivos, dentro del marco contable correspondiente.",
+
+        ejemplo:
+            "Una empresa posee activos por $20.000 y tiene pasivos por $8.000. Su patrimonio contable sería $12.000.",
+
+        porQue:
+            "Ayuda a entender qué parte de los recursos de la empresa corresponde a los propietarios después de considerar las obligaciones.",
+
+        pregunta:
+            "Si aumentan las deudas y los activos permanecen iguales, ¿qué ocurre con el patrimonio?",
+
+        opciones: [
+
+            "Aumenta.",
+
+            "Disminuye, en términos generales.",
+
+            "No cambia nunca.",
+
+            "Se convierte en ingreso."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Si los activos permanecen iguales y los pasivos aumentan, el patrimonio residual disminuye en términos generales.",
+
+        recordar:
+            "El patrimonio representa la participación residual de los propietarios.",
+
+        relacionados: [
+
+            "Activo",
+            "Pasivo",
+            "Capital"
+
+        ]
+
+    },
+
+
+    {
+        id: 13,
+
+        nombre: "Inventario",
+
+        categoria: "Operaciones",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Productos o bienes que una empresa mantiene para venderlos o utilizarlos en sus operaciones.",
+
+        explicacion:
+            "El inventario representa recursos que todavía no han completado su ciclo de venta. Mantenerlo tiene beneficios, pero también costos y riesgos.",
+
+        ejemplo:
+            "Una tienda de tecnología tiene 50 adaptadores almacenados esperando ser vendidos.",
+
+        porQue:
+            "Un inventario excesivo puede inmovilizar dinero y aumentar costos de almacenamiento u obsolescencia.",
+
+        pregunta:
+            "¿Tener demasiado inventario siempre es bueno?",
+
+        opciones: [
+
+            "Sí, porque tener más productos siempre mejora el negocio.",
+
+            "No. El exceso puede inmovilizar dinero, aumentar costos y generar riesgo de obsolescencia.",
+
+            "Sí, si el proveedor es barato.",
+
+            "No, porque una tienda nunca debe tener inventario."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "El inventario debe equilibrarse con la demanda y la capacidad financiera y operativa del negocio.",
+
+        recordar:
+            "Inventario disponible no significa automáticamente dinero disponible.",
+
+        relacionados: [
+
+            "Activo",
+            "Costo",
+            "Ventas",
+            "Flujo de caja"
+
+        ]
+
+    },
+
+
+    {
+        id: 14,
+
+        nombre: "Margen",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Diferencia entre ingresos y determinados costos, normalmente expresada también como porcentaje.",
+
+        explicacion:
+            "Existen distintos tipos de margen. Su interpretación depende de qué costos se estén descontando.",
+
+        ejemplo:
+            "Compras un producto por $10 y lo vendes por $20. La diferencia antes de otros costos y gastos es $10.",
+
+        porQue:
+            "El margen permite evaluar cuánto queda de las ventas después de determinados costos y ayuda a tomar decisiones de precio.",
+
+        pregunta:
+            "Si mantienes el precio de venta pero aumenta tu costo, ¿qué ocurre con tu margen?",
+
+        opciones: [
+
+            "Aumenta.",
+
+            "Se mantiene igual.",
+
+            "Se reduce.",
+
+            "Se convierte en ingreso."
+
+        ],
+
+        respuesta: 2,
+
+        explicacionRespuesta:
+            "Si el precio permanece igual y el costo aumenta, la diferencia entre ambos disminuye, por lo que el margen se reduce.",
+
+        recordar:
+            "Precio igual + costo mayor = menor margen, manteniendo los demás factores constantes.",
+
+        relacionados: [
+
+            "Precio",
+            "Costo",
+            "Utilidad",
+            "Rentabilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 15,
+
+        nombre: "Liquidez",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Capacidad de una empresa para disponer de recursos suficientes para cumplir sus obligaciones de corto plazo.",
+
+        explicacion:
+            "La liquidez se relaciona con la disponibilidad y conversión de recursos para afrontar pagos. No es lo mismo que rentabilidad.",
+
+        ejemplo:
+            "Una empresa puede ser rentable en sus estados financieros pero tener dificultades para pagar una obligación que vence esta semana.",
+
+        porQue:
+            "Una empresa necesita poder cumplir sus pagos a tiempo aunque sus resultados contables sean positivos.",
+
+        pregunta:
+            "¿Una empresa puede ser rentable y tener problemas de liquidez?",
+
+        opciones: [
+
+            "No, son exactamente lo mismo.",
+
+            "Sí. Rentabilidad y liquidez son conceptos diferentes.",
+
+            "Solo si no vende.",
+
+            "Nunca."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una empresa puede generar un resultado positivo y aun así tener poco efectivo disponible en el momento necesario.",
+
+        recordar:
+            "Rentabilidad responde a un problema distinto del de liquidez.",
+
+        relacionados: [
+
+            "Flujo de caja",
+            "Activo",
+            "Pasivo",
+            "Capital de trabajo"
+
+        ]
+
+    },
+
+
+    {
+        id: 16,
+
+        nombre: "Rentabilidad",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Capacidad de una empresa, inversión o actividad para generar un resultado positivo en relación con los recursos utilizados.",
+
+        explicacion:
+            "No basta con mirar cuánto dinero se gana. También importa cuánto capital o recursos fueron necesarios para obtener ese resultado.",
+
+        ejemplo:
+            "Dos negocios generan la misma utilidad, pero uno necesitó mucho más capital para conseguirla. Su rentabilidad puede ser diferente.",
+
+        porQue:
+            "Permite comparar la eficiencia económica de distintas actividades o inversiones.",
+
+        pregunta:
+            "¿El negocio que gana más dinero siempre es el más rentable?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No necesariamente. También importa cuánto capital o recursos fueron necesarios para generar ese resultado.",
+
+            "Sí, si vende más.",
+
+            "Solo si tiene más empleados."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Un resultado absoluto mayor no implica necesariamente una rentabilidad mayor. Debe relacionarse con los recursos utilizados.",
+
+        recordar:
+            "Resultado absoluto y rentabilidad no son lo mismo.",
+
+        relacionados: [
+
+            "Utilidad",
+            "Margen",
+            "ROI",
+            "Capital"
+
+        ]
+
+    },
+
+
+    {
+        id: 17,
+
+        nombre: "Flujo de caja",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Movimiento de efectivo que entra y sale de una empresa durante un período.",
+
+        explicacion:
+            "El flujo de caja se enfoca en movimientos de efectivo. Una venta a crédito puede generar un derecho de cobro sin que el efectivo haya entrado todavía.",
+
+        ejemplo:
+            "Una empresa recibe $5.000 de clientes y paga $3.500 a proveedores y otros conceptos durante un período.",
+
+        porQue:
+            "Ayuda a entender si la empresa tiene efectivo suficiente para sostener sus operaciones y cumplir pagos.",
+
+        pregunta:
+            "Si vendes $10.000 a crédito pero todavía no has cobrado, ¿tienes necesariamente esos $10.000 disponibles en efectivo?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. La venta puede generar un derecho de cobro sin que el efectivo haya entrado.",
+
+            "Sí, porque toda venta es efectivo.",
+
+            "Solo si el cliente es nuevo."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una venta a crédito no significa que el dinero ya esté disponible. El cobro ocurre en otro momento.",
+
+        recordar:
+            "Vender no siempre significa cobrar inmediatamente.",
+
+        relacionados: [
+
+            "Liquidez",
+            "Ingreso",
+            "Cobro",
+            "Capital de trabajo"
+
+        ]
+
+    },
+
+
+    {
+        id: 18,
+
+        nombre: "Punto de equilibrio",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Nivel de ventas en el que los ingresos cubren los costos y gastos considerados, sin generar ni utilidad ni pérdida.",
+
+        explicacion:
+            "El punto de equilibrio depende de supuestos como costos fijos, costos variables y precio. Es una herramienta para analizar el nivel mínimo de actividad necesario bajo esos supuestos.",
+
+        ejemplo:
+            "Si una empresa necesita vender 100 unidades para cubrir sus costos y gastos, esas 100 unidades representan su punto de equilibrio bajo esos supuestos.",
+
+        porQue:
+            "Ayuda a estimar cuánto hay que vender antes de comenzar a generar utilidad bajo un determinado escenario.",
+
+        pregunta:
+            "¿Qué ocurre después de superar el punto de equilibrio, manteniendo los demás supuestos constantes?",
+
+        opciones: [
+
+            "Las ventas desaparecen.",
+
+            "Las ventas adicionales pueden comenzar a contribuir a generar utilidad.",
+
+            "Los costos siempre se vuelven cero.",
+
+            "El negocio deja de necesitar clientes."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Bajo los supuestos utilizados, una vez cubiertos los costos y gastos del punto de equilibrio, ventas adicionales pueden contribuir a la utilidad.",
+
+        recordar:
+            "El punto de equilibrio es una referencia, no una garantía de rentabilidad futura.",
+
+        relacionados: [
+
+            "Costo",
+            "Gasto",
+            "Margen",
+            "Utilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 19,
+
+        nombre: "Capital de trabajo",
+
+        categoria: "Finanzas",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Recursos de corto plazo disponibles para sostener las operaciones; en un sentido contable común se relaciona con activos corrientes menos pasivos corrientes.",
+
+        explicacion:
+            "Una empresa puede necesitar financiar inventario y operaciones mientras espera cobrar a sus clientes.",
+
+        ejemplo:
+            "Una empresa necesita dinero para comprar inventario, pagar proveedores y mantener sus operaciones mientras espera los cobros.",
+
+        porQue:
+            "Una gestión deficiente del capital de trabajo puede provocar tensiones de liquidez incluso cuando el negocio vende.",
+
+        pregunta:
+            "¿Qué podría pasar si vendes mucho pero tus clientes tardan 90 días en pagar?",
+
+        opciones: [
+
+            "Nunca tendrás problemas.",
+
+            "Podrías necesitar suficiente capital de trabajo para mantener las operaciones mientras esperas los cobros.",
+
+            "La venta deja de existir.",
+
+            "Tus costos automáticamente bajan."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "El desfase entre ventas y cobros puede exigir recursos para financiar las operaciones durante el período de espera.",
+
+        recordar:
+            "El momento en que entra el efectivo importa tanto como el volumen de ventas para la liquidez.",
+
+        relacionados: [
+
+            "Liquidez",
+            "Inventario",
+            "Flujo de caja",
+            "Pasivo"
+
+        ]
+
+    },
+
+
+    {
+        id: 20,
+
+        nombre: "CAC",
+
+        categoria: "Marketing",
+
+        nivel: "Intermedio",
+
+        definicion:
+            "Costo promedio necesario para conseguir un nuevo cliente.",
+
+        explicacion:
+            "En una versión simplificada, puede calcularse dividiendo ciertos costos de marketing y ventas entre los nuevos clientes obtenidos. El alcance exacto del cálculo debe definirse.",
+
+        ejemplo:
+            "Gastas $500 en marketing y ventas y consigues 50 nuevos clientes. El CAC promedio sería $10 bajo esa forma simplificada de cálculo.",
+
+        porQue:
+            "Permite comparar cuánto cuesta conseguir clientes con el valor económico que esos clientes pueden generar.",
+
+        pregunta:
+            "Si conseguir un cliente cuesta $50 pero ese cliente genera muy poco valor económico, ¿hay un problema potencial?",
+
+        opciones: [
+
+            "No, porque conseguir clientes siempre es bueno.",
+
+            "Sí. El costo de adquisición debe analizarse junto con el valor económico que genera el cliente.",
+
+            "No, si el anuncio tuvo muchas visitas.",
+
+            "Solo si el cliente paga en efectivo."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "El CAC no debe analizarse aislado. Hay que compararlo con margen, valor del cliente y otros costos.",
+
+        recordar:
+            "Un cliente no es automáticamente rentable solo porque haya comprado.",
+
+        relacionados: [
+
+            "LTV",
+            "Retención",
+            "Conversión",
+            "Rentabilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 21,
+
+        nombre: "LTV",
+
+        categoria: "Marketing",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Estimación del valor económico que un cliente puede generar durante su relación con una empresa.",
+
+        explicacion:
+            "El LTV depende del modelo de negocio, frecuencia de compra, margen, duración de la relación y otros supuestos. No existe una única fórmula universal.",
+
+        ejemplo:
+            "Un cliente compra repetidamente durante varios años. El valor acumulado de esas compras puede ser mucho mayor que el de su primera compra.",
+
+        porQue:
+            "Ayuda a evaluar cuánto puede valer una relación con un cliente y a compararlo con el costo de adquirirlo.",
+
+        pregunta:
+            "¿Por qué una empresa podría aceptar gastar más para conseguir un cliente que realizará muchas compras?",
+
+        opciones: [
+
+            "Porque todos los clientes cuestan lo mismo.",
+
+            "Porque el valor esperado de la relación puede justificar un mayor costo de adquisición, dependiendo de márgenes y demás costos.",
+
+            "Porque gastar más siempre aumenta ventas.",
+
+            "Porque el CAC deja de importar."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Si el valor económico esperado de la relación es suficientemente alto, un CAC mayor podría ser sostenible, siempre considerando márgenes y otros costos.",
+
+        recordar:
+            "LTV y CAC deben analizarse juntos, no como números aislados.",
+
+        relacionados: [
+
+            "CAC",
+            "Retención",
+            "Cliente",
+            "Rentabilidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 22,
+
+        nombre: "ROI",
+
+        categoria: "Finanzas",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Indicador utilizado para relacionar el resultado obtenido con la inversión realizada.",
+
+        explicacion:
+            "El ROI puede expresarse de distintas formas según qué resultado e inversión se definan. Por eso siempre hay que mirar qué fórmula se está usando.",
+
+        ejemplo:
+            "Una empresa invierte $1.000 en una iniciativa y analiza el resultado económico atribuible a esa inversión para evaluar su rendimiento.",
+
+        porQue:
+            "Ayuda a comparar el rendimiento relativo de inversiones o iniciativas cuando se utilizan definiciones consistentes.",
+
+        pregunta:
+            "¿Una campaña que generó muchas ventas necesariamente tuvo un buen ROI?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. Hay que considerar cuánto se invirtió y qué resultado económico produjo.",
+
+            "Sí, si tuvo muchos clics.",
+
+            "Solo si duró más de un mes."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Muchas ventas no garantizan un buen retorno. Deben compararse los resultados con los recursos invertidos y definir correctamente qué se atribuye a la iniciativa.",
+
+        recordar:
+            "Más ventas no equivalen automáticamente a mejor retorno.",
+
+        relacionados: [
+
+            "Inversión",
+            "Rentabilidad",
+            "Marketing",
+            "ROAS"
+
+        ]
+
+    },
+
+
+    {
+        id: 23,
+
+        nombre: "ROAS",
+
+        categoria: "Marketing",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Relación entre los ingresos atribuidos a publicidad y el gasto publicitario.",
+
+        explicacion:
+            "El ROAS se centra en ingresos atribuidos a publicidad frente al gasto publicitario. No equivale por sí solo a la rentabilidad total.",
+
+        ejemplo:
+            "Si una campaña cuesta $100 y genera $500 de ingresos atribuidos, el ROAS sería 5.",
+
+        porQue:
+            "Permite evaluar la relación entre gasto publicitario e ingresos atribuidos a una campaña.",
+
+        pregunta:
+            "¿Un ROAS alto garantiza que una campaña sea rentable?",
+
+        opciones: [
+
+            "Sí, siempre.",
+
+            "No necesariamente. También deben considerarse margen, costos del producto, operación y otros gastos.",
+
+            "Sí, si hay más de 100 clics.",
+
+            "Solo si la campaña es nueva."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Un ROAS alto puede coexistir con poca o ninguna utilidad si los márgenes y demás costos consumen los ingresos.",
+
+        recordar:
+            "ROAS mide una relación publicitaria; no reemplaza un análisis de rentabilidad.",
+
+        relacionados: [
+
+            "ROI",
+            "CAC",
+            "Margen",
+            "Publicidad"
+
+        ]
+
+    },
+
+
+    {
+        id: 24,
+
+        nombre: "Escalabilidad",
+
+        categoria: "Emprendimiento",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Capacidad de un modelo de negocio para aumentar su actividad o ingresos sin que los costos aumenten proporcionalmente al mismo ritmo.",
+
+        explicacion:
+            "La escalabilidad depende de la estructura del negocio. Algunos modelos requieren aumentar recursos casi en proporción al crecimiento; otros pueden crecer con costos marginales menores.",
+
+        ejemplo:
+            "Un producto digital puede venderse a muchos usuarios adicionales sin necesitar fabricar físicamente una nueva unidad para cada cliente.",
+
+        porQue:
+            "Un modelo escalable puede crecer con mayor eficiencia cuando la demanda aumenta, aunque no todos los negocios necesitan maximizar la escalabilidad.",
+
+        pregunta:
+            "¿Por qué una empresa que necesita contratar una persona adicional por cada nuevo cliente puede tener más dificultades para escalar?",
+
+        opciones: [
+
+            "Porque contratar personas siempre es malo.",
+
+            "Porque sus costos pueden crecer de forma cercana al crecimiento de clientes o ingresos.",
+
+            "Porque los clientes no importan.",
+
+            "Porque un negocio escalable no tiene empleados."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Si cada cliente adicional exige recursos casi proporcionales, crecer puede requerir aumentos importantes de costos.",
+
+        recordar:
+            "Escalar no significa simplemente vender más; implica cómo crecen los recursos y costos junto con el negocio.",
+
+        relacionados: [
+
+            "Modelo de negocio",
+            "Costos",
+            "Crecimiento",
+            "Tecnología"
+
+        ]
+
+    },
+
+
+    {
+        id: 25,
+
+        nombre: "Modelo de negocio",
+
+        categoria: "Emprendimiento",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Forma en que una empresa crea, entrega y captura valor.",
+
+        explicacion:
+            "Incluye elementos como clientes, propuesta de valor, canales, recursos, actividades, costos e ingresos.",
+
+        ejemplo:
+            "Una tienda online obtiene productos de proveedores, los ofrece a consumidores y busca generar ingresos mediante el margen entre precio de venta y sus costos.",
+
+        porQue:
+            "Un producto puede ser bueno y aun así fallar si la empresa no tiene una forma sostenible de crear y capturar valor.",
+
+        pregunta:
+            "¿Tener un buen producto garantiza tener un buen modelo de negocio?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. También importa cómo se adquieren clientes, cómo se entrega el producto, cuánto cuesta operar y cómo se genera dinero.",
+
+            "Sí, si es innovador.",
+
+            "Solo si la competencia es pequeña."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "El producto es solo una parte. El modelo de negocio explica cómo la empresa funciona económicamente.",
+
+        recordar:
+            "Producto y modelo de negocio no son lo mismo.",
+
+        relacionados: [
+
+            "Propuesta de valor",
+            "Cliente",
+            "Ingresos",
+            "Costos",
+            "Margen"
+
+        ]
+
+    },
+
+
+    {
+        id: 26,
+
+        nombre: "Propuesta de valor",
+
+        categoria: "Marketing",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Razón principal por la que un cliente debería elegir una oferta porque resuelve un problema o satisface una necesidad de una manera valiosa para él.",
+
+        explicacion:
+            "Una buena propuesta de valor conecta una necesidad del cliente con un beneficio claro de la oferta.",
+
+        ejemplo:
+            "Una tienda puede ofrecer adaptadores difíciles de encontrar localmente y entregarlos rápidamente.",
+
+        porQue:
+            "Ayuda a comunicar por qué la oferta merece atención y por qué puede ser preferida frente a alternativas.",
+
+        pregunta:
+            "¿Cuál expresa mejor una propuesta de valor?",
+
+        opciones: [
+
+            "Vendemos cables.",
+
+            "Encuentra adaptadores difíciles de conseguir sin recorrer varias tiendas.",
+
+            "Tenemos una empresa.",
+
+            "Nuestros productos son productos."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "La segunda opción comunica un problema específico que la oferta intenta resolver y un beneficio para el cliente.",
+
+        recordar:
+            "La propuesta de valor debe hablar de valor para el cliente, no solo describir el producto.",
+
+        relacionados: [
+
+            "Cliente",
+            "Problema",
+            "Marketing",
+            "Modelo de negocio"
+
+        ]
+
+    },
+
+
+    {
+        id: 27,
+
+        nombre: "MVP",
+
+        categoria: "Emprendimiento",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Versión inicial de un producto que contiene lo necesario para probar una hipótesis importante con usuarios reales.",
+
+        explicacion:
+            "Un MVP busca obtener aprendizaje real con una inversión y alcance controlados. No significa crear un producto malo ni incompleto sin propósito.",
+
+        ejemplo:
+            "Antes de invertir en una aplicación enorme, un emprendedor crea una versión sencilla para comprobar si las personas realmente quieren utilizarla.",
+
+        porQue:
+            "Permite aprender del mercado antes de comprometer grandes cantidades de tiempo y dinero.",
+
+        pregunta:
+            "¿Por qué puede ser útil probar una versión sencilla antes de construir una aplicación completa?",
+
+        opciones: [
+
+            "Porque un producto nunca debe mejorar.",
+
+            "Porque permite obtener información real de usuarios antes de realizar una inversión mayor.",
+
+            "Porque los clientes no importan.",
+
+            "Porque reduce a cero todos los riesgos."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una prueba inicial puede revelar si existe interés, qué problemas aparecen y qué debe cambiarse antes de ampliar la inversión.",
+
+        recordar:
+            "Un MVP reduce incertidumbre; no elimina el riesgo.",
+
+        relacionados: [
+
+            "Validación",
+            "Modelo de negocio",
+            "Producto",
+            "Cliente"
+
+        ]
+
+    },
+
+
+    {
+        id: 28,
+
+        nombre: "Validación",
+
+        categoria: "Emprendimiento",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Proceso de obtener evidencia para comprobar si una idea, producto o hipótesis tiene sentido en el mercado.",
+
+        explicacion:
+            "La validación busca evidencia del comportamiento real de clientes potenciales, no solamente opiniones favorables.",
+
+        ejemplo:
+            "Antes de crear una plataforma completa, un emprendedor consigue usuarios interesados y analiza si realmente utilizan y pagarían por la solución.",
+
+        porQue:
+            "Permite reducir la posibilidad de invertir mucho en una idea que no resuelve un problema suficientemente importante.",
+
+        pregunta:
+            "¿Que tus amigos digan 'es una buena idea' significa que está validada?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. Es una opinión; la validación requiere evidencia más cercana al comportamiento real del mercado.",
+
+            "Sí, si son muchos amigos.",
+
+            "Solo si tienen redes sociales."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Las opiniones pueden ser útiles, pero la validación requiere evidencia relevante, como uso, interés, pagos, reservas u otros comportamientos según la hipótesis.",
+
+        recordar:
+            "Opinión positiva no equivale a validación.",
+
+        relacionados: [
+
+            "MVP",
+            "Cliente",
+            "Demanda",
+            "Modelo de negocio"
+
+        ]
+
+    },
+
+
+    {
+        id: 29,
+
+        nombre: "Conversión",
+
+        categoria: "Marketing",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Cuando una persona realiza la acción que una empresa busca, como comprar, registrarse o solicitar información.",
+
+        explicacion:
+            "La conversión depende de cuál sea el objetivo definido. Una conversión puede ser una compra, registro, solicitud, descarga u otra acción.",
+
+        ejemplo:
+            "100 personas visitan una página y 5 realizan una compra. La tasa de conversión de visitantes a compradores sería 5%.",
+
+        porQue:
+            "Ayuda a medir qué proporción de las personas que llegan a un punto del proceso realizan la acción deseada.",
+
+        pregunta:
+            "Si aumentas el tráfico de una página pero la tasa de conversión cae mucho, ¿el crecimiento del tráfico necesariamente significa que mejoraste el negocio?",
+
+        opciones: [
+
+            "Sí.",
+
+            "No. Más visitantes no garantizan mejores resultados si la capacidad de convertirlos empeora.",
+
+            "Sí, porque tráfico siempre es bueno.",
+
+            "Solo si la página carga rápido."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Hay que analizar tanto el volumen de visitantes como la proporción que realiza la acción deseada y el valor económico generado.",
+
+        recordar:
+            "Más tráfico y mejor conversión son métricas diferentes.",
+
+        relacionados: [
+
+            "Ventas",
+            "Cliente",
+            "Marketing",
+            "Embudo"
+
+        ]
+
+    },
+
+
+    {
+        id: 30,
+
+        nombre: "Embudo de ventas",
+
+        categoria: "Ventas / Marketing",
+
+        nivel: "Avanzado",
+
+        definicion:
+            "Modelo que representa las etapas por las que pasan las personas desde que conocen una oferta hasta que realizan una acción, como comprar.",
+
+        explicacion:
+            "El embudo permite observar cuántas personas avanzan de una etapa a otra y dónde se pierden oportunidades.",
+
+        ejemplo:
+            "1.000 personas ven un anuncio → 200 visitan la página → 40 preguntan → 10 compran.",
+
+        porQue:
+            "Analizar cada etapa permite detectar dónde existen problemas de atención, confianza, oferta, precio, experiencia o cierre.",
+
+        pregunta:
+            "Si 1.000 personas llegan a tu página pero solamente 2 compran, ¿qué deberías investigar?",
+
+        opciones: [
+
+            "Solo conseguir más visitas.",
+
+            "Oferta, precio, confianza, experiencia de usuario, propuesta de valor, proceso de compra y otros factores que afecten la conversión.",
+
+            "Eliminar el producto inmediatamente.",
+
+            "Subir siempre el precio."
+
+        ],
+
+        respuesta: 1,
+
+        explicacionRespuesta:
+            "Una conversión baja puede tener múltiples causas. Antes de decidir, conviene analizar dónde y por qué se pierden las personas.",
+
+        recordar:
+            "El embudo sirve para localizar puntos de pérdida y formular hipótesis.",
+
+        relacionados: [
+
+            "Conversión",
+            "Cliente potencial",
+            "Venta",
+            "CAC"
+
+        ]
+
+    }
+
+];
+
+
+
+/* =============================================================
+   ESTADO
+============================================================= */
+
+const STORAGE_KEY =
+    "criterioEmpresarialV1";
+
+
+const defaultState = {
+
+    xp:
+        0,
+
+    streak:
+        0,
+
+    lastCompletedDate:
+        null,
+
+    seen:
+        [],
+
+    mastered:
+        [],
+
+    stats: {
+
+        correct:
+            0,
+
+        wrong:
+            0,
+
+        answered:
+            0
+
+    },
+
+    mastery:
+        {},
+
+    completedToday:
+        false
+
+};
+
+
+
+let state =
+    loadState();
+
+
+let currentConcept =
+    null;
+
+
+let selectedAnswer =
+    null;
+
+
+let currentFilter =
+    "Todos";
+
+
+let currentSearch =
+    "";
+
+
+
+/* =============================================================
+   CARGAR ESTADO
+============================================================= */
+
+function cloneDefault() {
+
+    return JSON.parse(
+        JSON.stringify(defaultState)
+    );
+
+}
+
+
+function loadState() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                )
+            );
+
+
+        if (!saved) {
+
+            return cloneDefault();
+
+        }
+
+
+        return {
+
+            ...cloneDefault(),
+
+            ...saved,
+
+            stats: {
+
+                ...defaultState.stats,
+
+                ...(saved.stats || {})
+
+            },
+
+            mastery:
+                saved.mastery || {}
+
+        };
+
+    }
+
+    catch (error) {
+
+        return cloneDefault();
+
+    }
+
+}
+
+
+
+/* =============================================================
+   GUARDAR
+============================================================= */
+
+function saveState() {
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(state)
+
+    );
+
+}
+
+
+
+/* =============================================================
+   FECHA
+============================================================= */
+
+function todayKey() {
+
+    const d =
+        new Date();
+
+
+    return (
+
+        d.getFullYear()
+        +
+        "-"
+        +
+        String(
+            d.getMonth() + 1
+        ).padStart(2, "0")
+        +
+        "-"
+        +
+        String(
+            d.getDate()
+        ).padStart(2, "0")
+
+    );
+
+}
+
+
+
+function dateDiff(a, b) {
+
+    const da =
+        new Date(
+            a + "T00:00:00"
+        );
+
+
+    const db =
+        new Date(
+            b + "T00:00:00"
+        );
+
+
+    return Math.round(
+
+        (
+            db - da
+        )
+        /
+        86400000
+
+    );
+
+}
+
+
+
+/* =============================================================
+   ESTADO DIARIO
+============================================================= */
+
+function updateDailyStatus() {
+
+    const today =
+        todayKey();
+
+
+    if (
+
+        state.lastCompletedDate
+        &&
+        state.lastCompletedDate !== today
+
+    ) {
+
+        const diff =
+            dateDiff(
+                state.lastCompletedDate,
+                today
+            );
+
+
+        if (diff > 1) {
+
+            state.streak =
+                0;
+
+        }
+
+
+        state.completedToday =
+            false;
+
+
+        saveState();
+
+    }
+
+}
+
+
+
+/* =============================================================
+   CONCEPTO DEL DÍA
+============================================================= */
+
+function conceptOfDay() {
+
+    /*
+       La fecha determina automáticamente
+       qué concepto aparece.
+
+       El mismo día siempre mostrará
+       el mismo concepto.
+
+       Más adelante esto podrá cambiarse
+       por un sistema inteligente de
+       repetición espaciada.
+    */
+
+
+    const start =
+        new Date(
+            2026,
+            0,
+            1
+        );
+
+
+    const now =
+        new Date();
+
+
+    const current =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
+
+
+    const diff =
+        Math.floor(
+            (
+                current - start
+            )
+            /
+            86400000
+        );
+
+
+    return concepts[
+        (
+            diff %
+            concepts.length
+        )
+    ];
+
+}
+
+
+
+/* =============================================================
+   CLASE DEL NIVEL
+============================================================= */
+
+function levelClass(nivel) {
+
+    if (
+        nivel === "Básico"
+    ) {
+
+        return "basic";
+
+    }
+
+
+    if (
+        nivel === "Intermedio"
+    ) {
+
+        return "intermediate";
+
+    }
+
+
+    return "advanced";
+
+}
+
+
+
+/* =============================================================
+   DOMINIO
+============================================================= */
+
+function masteryPercent(id) {
+
+    const m =
+        state.mastery[id]
+        ||
+        {
+
+            correct:
+                0,
+
+            wrong:
+                0,
+
+            seen:
+                0
+
+        };
+
+
+    if (!m.seen) {
+
+        return 0;
+
+    }
+
+
+    const total =
+        m.correct +
+        m.wrong;
+
+
+    if (!total) {
+
+        return 0;
+
+    }
+
+
+    return Math.round(
+
+        (
+            m.correct /
+            total
+        )
+        *
+        100
+
+    );
+
+}
+
+
+
+/* =============================================================
+   CONCEPTOS DOMINADOS
+============================================================= */
+
+function masteredCount() {
+
+    return concepts.filter(
+
+        c =>
+
+            masteryPercent(c.id) >= 80
+
+            &&
+
+            (
+                state.mastery[c.id]?.seen
+                ||
+                0
+            ) >= 2
+
+    ).length;
+
+}
+
+
+
+/* =============================================================
+   PRECISIÓN
+============================================================= */
+
+function accuracy() {
+
+    if (
+        !state.stats.answered
+    ) {
+
+        return 0;
+
+    }
+
+
+    return Math.round(
+
+        (
+            state.stats.correct /
+            state.stats.answered
+        )
+        *
+        100
+
+    );
+
+}
+
+
+
+/* =============================================================
+   HOME
+============================================================= */
+
+function renderHome() {
+
+    const c =
+        conceptOfDay();
+
+
+    document.getElementById(
+        "homeTerm"
+    ).textContent =
+        c.nombre;
+
+
+    document.getElementById(
+        "homeIntro"
+    ).textContent =
+
+        `${c.categoria} · ${c.nivel}. Aprende el concepto, ponlo en contexto y practica.`;
+
+
+
+    document.getElementById(
+        "streakValue"
+    ).textContent =
+        state.streak;
+
+
+
+    document.getElementById(
+        "xpValue"
+    ).textContent =
+        state.xp;
+
+
+
+    document.getElementById(
+        "learnedValue"
+    ).textContent =
+        state.seen.length;
+
+
+
+    document.getElementById(
+        "masteredValue"
+    ).textContent =
+        masteredCount();
+
+
+
+    document.getElementById(
+        "accuracyText"
+    ).textContent =
+        accuracy() + "%";
+
+
+
+    document.getElementById(
+        "accuracyBar"
+    ).style.width =
+        accuracy() + "%";
+
+
+
+    document.getElementById(
+        "accuracyNote"
+    ).textContent =
+
+        state.stats.answered
+
+        ?
+
+        `Has respondido ${state.stats.answered} preguntas.`
+
+        :
+
+        "Completa algunas preguntas para ver tu precisión.";
+
+}
+
+
+
+/* =============================================================
+   APRENDER
+============================================================= */
+
+function renderLearn(c) {
+
+    currentConcept =
+        c;
+
+
+    document.getElementById(
+        "learnTerm"
+    ).textContent =
+        c.nombre;
+
+
+    document.getElementById(
+        "learnCategory"
+    ).textContent =
+        c.categoria;
+
+
+    document.getElementById(
+        "learnCategory"
+    ).className =
+        "badge";
+
+
+    document.getElementById(
+        "learnLevel"
+    ).textContent =
+        c.nivel;
+
+
+    document.getElementById(
+        "learnLevel"
+    ).className =
+        "badge " +
+        levelClass(c.nivel);
+
+
+    document.getElementById(
+        "learnDefinition"
+    ).textContent =
+        c.definicion;
+
+
+    document.getElementById(
+        "learnExplanation"
+    ).textContent =
+        c.explicacion;
+
+
+    document.getElementById(
+        "learnExample"
+    ).textContent =
+        c.ejemplo;
+
+
+    document.getElementById(
+        "learnWhy"
+    ).textContent =
+        c.porQue;
+
+
+    document.getElementById(
+        "learnRelated"
+    ).innerHTML =
+
+        c.relacionados
+            .map(
+
+                x =>
+                    `<span>${escapeHtml(x)}</span>`
+
+            )
+            .join("");
+
+
+
+    document.getElementById(
+        "learnStep"
+    ).textContent =
+        "1 / 4";
+
+}
+
+
+
+/* =============================================================
+   PRACTICAR
+============================================================= */
+
+function renderPractice(c) {
+
+    currentConcept =
+        c;
+
+
+    selectedAnswer =
+        null;
+
+
+    document.getElementById(
+        "practiceTerm"
+    ).textContent =
+        c.nombre;
+
+
+    document.getElementById(
+        "questionText"
+    ).textContent =
+        c.pregunta;
+
+
+
+    const options =
+        document.getElementById(
+            "options"
+        );
+
+
+    options.innerHTML =
+
+        c.opciones
+            .map(
+
+                (op, i) =>
+
+                    `
+
+                    <button
+                        class="option"
+                        data-index="${i}"
+                    >
+
+                        <span
+                            class="option-letter"
+                        >
+                            ${String.fromCharCode(65 + i)}
+                        </span>
+
+                        <span>
+                            ${escapeHtml(op)}
+                        </span>
+
+                    </button>
+
+                    `
+
+            )
+            .join("");
+
+
+
+    const checkBtn =
+        document.getElementById(
+            "checkBtn"
+        );
+
+
+    checkBtn.disabled =
+        true;
+
+
+    checkBtn.textContent =
+        "Comprobar respuesta";
+
+
+    checkBtn.onclick =
+        checkAnswer;
+
+
+
+    document.getElementById(
+        "feedback"
+    ).style.display =
+        "none";
+
+
+
+    document.getElementById(
+        "feedback"
+    ).innerHTML =
+        "";
+
+}
+
+
+
+/* =============================================================
+   SELECCIONAR RESPUESTA
+============================================================= */
+
+function selectOption(index) {
+
+    selectedAnswer =
+        index;
+
+
+    document
+        .querySelectorAll(
+            ".option"
+        )
+        .forEach(
+
+            (el, i) => {
+
+                el.classList.toggle(
+
+                    "selected",
+
+                    i === index
+
+                );
+
+            }
+
+        );
+
+
+
+    document.getElementById(
+        "checkBtn"
+    ).disabled =
+        false;
+
+}
+
+
+
+/* =============================================================
+   COMPROBAR
+============================================================= */
+
+function checkAnswer() {
+
+    if (
+        selectedAnswer === null
+        ||
+        !currentConcept
+    ) {
+
+        return;
+
+    }
+
+
+    const correct =
+
+        selectedAnswer ===
+        currentConcept.respuesta;
+
+
+
+    const mastery =
+
+        state.mastery[
+            currentConcept.id
+        ]
+
+        ||
+
+        {
+
+            correct:
+                0,
+
+            wrong:
+                0,
+
+            seen:
+                0
+
+        };
+
+
+
+    mastery.seen += 1;
+
+
+
+    if (correct) {
+
+        mastery.correct += 1;
+
+        state.stats.correct += 1;
+
+        state.xp += 10;
+
+    }
+
+    else {
+
+        mastery.wrong += 1;
+
+        state.stats.wrong += 1;
+
+        state.xp += 2;
+
+    }
+
+
+
+    state.stats.answered += 1;
+
+
+
+    state.mastery[
+        currentConcept.id
+    ] =
+        mastery;
+
+
+
+    if (
+        !state.seen.includes(
+            currentConcept.id
+        )
+    ) {
+
+        state.seen.push(
+            currentConcept.id
+        );
+
+    }
+
+
+
+    document
+        .querySelectorAll(
+            ".option"
+        )
+        .forEach(
+
+            (el, i) => {
+
+                el.disabled =
+                    true;
+
+
+                if (
+                    i ===
+                    currentConcept.respuesta
+                ) {
+
+                    el.classList.add(
+                        "correct"
+                    );
+
+                }
+
+
+                if (
+
+                    i === selectedAnswer
+
+                    &&
+
+                    i !==
+                    currentConcept.respuesta
+
+                ) {
+
+                    el.classList.add(
+                        "wrong"
+                    );
+
+                }
+
+            }
+
+        );
+
+
+
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+
+    feedback.style.display =
+        "block";
+
+
+    feedback.className =
+
+        "feedback " +
+        (
+            correct
+                ?
+                "correct"
+                :
+                "wrong"
+        );
+
+
+
+    feedback.innerHTML =
+
+        `
+
+        <strong>
+
+            ${
+                correct
+                ?
+                "✓ Correcto"
+                :
+                "✕ No exactamente"
+            }
+
+        </strong>
+
+        ${
+            correct
+
+            ?
+
+            "Has identificado correctamente la idea principal."
+
+            :
+
+            "La respuesta correcta es la opción "
+            +
+            String.fromCharCode(
+                65 +
+                currentConcept.respuesta
+            )
+            +
+            "."
+
+        }
+
+        <div
+            class="small-note"
+            style="margin-top:6px"
+        >
+
+            ${
+                escapeHtml(
+                    currentConcept.explicacionRespuesta
+                )
+            }
+
+        </div>
+
+        `;
+
+
+
+    const checkBtn =
+        document.getElementById(
+            "checkBtn"
+        );
+
+
+    checkBtn.textContent =
+        "Ver resultado";
+
+
+    checkBtn.onclick =
+
+        () => showResult(correct);
+
+
+
+    saveState();
+
+    renderHome();
+
+}
+
+
+
+/* =============================================================
+   RESULTADO
+============================================================= */
+
+function showResult(correct) {
+
+    document.getElementById(
+        "resultEyebrow"
+    ).textContent =
+
+        correct
+
+        ?
+
+        "Sesión completada"
+
+        :
+
+        "Aprendizaje completado";
+
+
+
+    document.getElementById(
+        "resultTitle"
+    ).textContent =
+
+        correct
+
+        ?
+
+        "¡Correcto!"
+
+        :
+
+        "Buen intento";
+
+
+
+    document.getElementById(
+        "resultSubtitle"
+    ).textContent =
+
+        correct
+
+        ?
+
+        `Has practicado: ${currentConcept.nombre}`
+
+        :
+
+        `El error también forma parte del aprendizaje: ${currentConcept.nombre}`;
+
+
+
+    document.getElementById(
+        "resultXp"
+    ).textContent =
+
+        correct
+
+        ?
+
+        "+10 XP"
+
+        :
+
+        "+2 XP";
+
+
+
+    document.getElementById(
+        "resultExplanation"
+    ).textContent =
+        currentConcept.explicacionRespuesta;
+
+
+
+    document.getElementById(
+        "resultRemember"
+    ).textContent =
+        currentConcept.recordar;
+
+
+
+    document.getElementById(
+        "nextObjective"
+    ).textContent =
+
+        "Vuelve mañana para aprender el siguiente concepto y repasar lo que necesites reforzar.";
+
+
+
+    showScreen(
+        "result"
+    );
+
+}
+
+
+
+/* =============================================================
+   COMPLETAR SESIÓN
+============================================================= */
+
+function completeDaily() {
+
+    const today =
+        todayKey();
+
+
+    if (
+        state.lastCompletedDate !== today
+    ) {
+
+
+        if (
+            state.lastCompletedDate
+        ) {
+
+            const diff =
+
+                dateDiff(
+
+                    state.lastCompletedDate,
+
+                    today
+
+                );
+
+
+            state.streak =
+
+                diff === 1
+
+                ?
+
+                state.streak + 1
+
+                :
+
+                1;
+
+        }
+
+        else {
+
+            state.streak =
+                1;
+
+        }
+
+
+        state.lastCompletedDate =
+            today;
+
+
+        state.completedToday =
+            true;
+
+
+        saveState();
+
+    }
+
+}
+
+
+
+/* =============================================================
+   TERMINAR
+============================================================= */
+
+function finishSession() {
+
+    completeDaily();
+
+
+    renderHome();
+
+
+    renderProgress();
+
+
+    showScreen(
+        "home"
+    );
+
+
+    toast(
+        "Sesión guardada. ¡Buen trabajo!"
+    );
+
+}
+
+
+
+/* =============================================================
+   CAMBIAR PANTALLA
+============================================================= */
+
+function showScreen(name) {
+
+    document
+        .querySelectorAll(
+            ".screen"
+        )
+        .forEach(
+
+            s =>
+                s.classList.remove(
+                    "active"
+                )
+
+        );
+
+
+
+    const target =
+        document.getElementById(
+            "screen-" + name
+        );
+
+
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+
+
+    document
+        .querySelectorAll(
+            ".nav-btn"
+        )
+        .forEach(
+
+            b =>
+
+                b.classList.toggle(
+
+                    "active",
+
+                    b.dataset.screen === name
+
+                )
+
+        );
+
+
+
+    window.scrollTo({
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
+    });
+
+
+
+    if (
+        name === "home"
+    ) {
+
+        renderHome();
+
+    }
+
+
+    if (
+        name === "progress"
+    ) {
+
+        renderProgress();
+
+    }
+
+
+    if (
+        name === "library"
+    ) {
+
+        renderLibrary();
+
+    }
+
+}
+
+
+
+/* =============================================================
+   PROGRESO
+============================================================= */
+
+function renderProgress() {
+
+    document.getElementById(
+        "pXp"
+    ).textContent =
+        state.xp;
+
+
+    document.getElementById(
+        "pStreak"
+    ).textContent =
+        state.streak;
+
+
+    document.getElementById(
+        "pSeen"
+    ).textContent =
+        state.seen.length;
+
+
+    document.getElementById(
+        "pMastered"
+    ).textContent =
+        masteredCount();
+
+
+
+    document.getElementById(
+        "pAccuracy"
+    ).textContent =
+        accuracy() + "%";
+
+
+    document.getElementById(
+        "pAccuracyBar"
+    ).style.width =
+        accuracy() + "%";
+
+
+
+    const list =
+        document.getElementById(
+            "masteryList"
+        );
+
+
+
+    list.innerHTML =
+
+        concepts
+            .map(
+
+                c => {
+
+                    const pct =
+                        masteryPercent(
+                            c.id
+                        );
+
+
+                    const status =
+
+                        pct >= 80
+
+                        &&
+                        (
+                            state.mastery[c.id]?.seen
+                            ||
+                            0
+                        ) >= 2
+
+                        ?
+
+                        "Dominado"
+
+                        :
+
+                        pct > 0
+
+                        ?
+
+                        "En aprendizaje"
+
+                        :
+
+                        "Nuevo";
+
+
+
+                    const cls =
+
+                        status === "Dominado"
+
+                        ?
+
+                        "success-text"
+
+                        :
+
+                        "small-note";
+
+
+
+                    return `
+
+                        <div class="concept-item">
+
+                            <div>
+
+                                <h3>
+                                    ${escapeHtml(c.nombre)}
+                                </h3>
+
+                                <p>
+                                    ${escapeHtml(c.categoria)}
+                                    ·
+                                    ${escapeHtml(c.nivel)}
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                class="mastery ${cls}"
+                            >
+
+                                ${status}
+
+                                ${
+                                    pct
+                                    ?
+                                    " · " + pct + "%"
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+
+            )
+            .join("");
+
+}
+
+
+
+/* =============================================================
+   FILTROS
+============================================================= */
+
+function setupFilters() {
+
+    const cats = [
+
+        "Todos",
+
+        ...new Set(
+
+            concepts.map(
+                c => c.categoria
+            )
+
+        )
+
+    ];
+
+
+
+    document.getElementById(
+        "filters"
+    ).innerHTML =
+
+        cats
+            .map(
+
+                cat =>
+
+                    `
+
+                    <button
+                        class="filter ${
+                            cat === "Todos"
+                            ?
+                            "active"
+                            :
+                            ""
+                        }"
+                        data-filter="${escapeHtml(cat)}"
+                    >
+
+                        ${escapeHtml(cat)}
+
+                    </button>
+
+                    `
+
+            )
+            .join("");
+
+}
+
+
+
+/* =============================================================
+   BIBLIOTECA
+============================================================= */
+
+function renderLibrary() {
+
+    const list =
+        document.getElementById(
+            "libraryList"
+        );
+
+
+    const query =
+        currentSearch
+            .trim()
+            .toLowerCase();
+
+
+
+    const filtered =
+
+        concepts.filter(
+
+            c => {
+
+                const matchesFilter =
+
+                    currentFilter === "Todos"
+
+                    ||
+
+                    c.categoria ===
+                    currentFilter;
+
+
+
+                const matchesSearch =
+
+                    !query
+
+                    ||
+
+                    `
+
+                    ${c.nombre}
+
+                    ${c.categoria}
+
+                    ${c.definicion}
+
+                    `
+
+                    .toLowerCase()
+                    .includes(
+                        query
+                    );
+
+
+
+                return (
+
+                    matchesFilter
+                    &&
+                    matchesSearch
+
+                );
+
+            }
+
+        );
+
+
+
+    if (
+        !filtered.length
+    ) {
+
+        list.innerHTML =
+
+            `
+
+            <div class="empty">
+
+                No encontramos conceptos
+                con esa búsqueda.
+
+            </div>
+
+            `;
+
+        return;
+
+    }
+
+
+
+    list.innerHTML =
+
+        filtered
+            .map(
+
+                c => {
+
+                    const pct =
+                        masteryPercent(
+                            c.id
+                        );
+
+
+                    return `
+
+                        <button
+                            class="concept-item"
+                            style="
+                                width:100%;
+                                background:transparent;
+                                border:0;
+                                text-align:left;
+                            "
+                            data-concept-id="${c.id}"
+                        >
+
+                            <div>
+
+                                <h3>
+                                    ${escapeHtml(c.nombre)}
+                                </h3>
+
+                                <p>
+
+                                    ${escapeHtml(c.categoria)}
+
+                                    ·
+
+                                    ${escapeHtml(c.nivel)}
+
+                                </p>
+
+                            </div>
+
+
+                            <div class="mastery">
+
+                                ${
+                                    pct
+                                    ?
+                                    pct + "%"
+                                    :
+                                    "Nuevo"
+                                }
+
+                                ›
+
+                            </div>
+
+                        </button>
+
+                    `;
+
+                }
+
+            )
+            .join("");
+
+}
+
+
+
+/* =============================================================
+   ABRIR CONCEPTO
+============================================================= */
+
+function openConcept(id) {
+
+    const c =
+        concepts.find(
+
+            x =>
+                x.id ===
+                Number(id)
+
+        );
+
+
+    if (!c) {
+
+        return;
+
+    }
+
+
+    renderLearn(c);
+
+
+    showScreen(
+        "learn"
+    );
+
+}
+
+
+
+/* =============================================================
+   SEGURIDAD HTML
+============================================================= */
+
+function escapeHtml(str) {
+
+    return String(str).replace(
+
+        /[&<>"']/g,
+
+        m => ({
+
+            "&":
+                "&amp;",
+
+            "<":
+                "&lt;",
+
+            ">":
+                "&gt;",
+
+            '"':
+                "&quot;",
+
+            "'":
+                "&#039;"
+
+        }[m])
+
+    );
+
+}
+
+
+
+/* =============================================================
+   TOAST
+============================================================= */
+
+let toastTimer;
+
+
+function toast(msg) {
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+
+    el.textContent =
+        msg;
+
+
+    el.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+
+        setTimeout(
+
+            () =>
+
+                el.classList.remove(
+                    "show"
+                ),
+
+            2200
+
+        );
+
+}
+
+
+
+/* =============================================================
+   EVENTOS
+============================================================= */
+
+
+/* INICIAR */
+
+document
+    .getElementById(
+        "startBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => {
+
+            const c =
+                conceptOfDay();
+
+
+            renderLearn(c);
+
+
+            showScreen(
+                "learn"
+            );
+
+        }
+
+    );
+
+
+
+/* IR A PRACTICAR */
+
+document
+    .getElementById(
+        "toPracticeBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => {
+
+            renderPractice(
+                currentConcept
+            );
+
+
+            showScreen(
+                "practice"
+            );
+
+        }
+
+    );
+
+
+
+/* OPCIONES */
+
+document
+    .getElementById(
+        "options"
+    )
+    .addEventListener(
+
+        "click",
+
+        e => {
+
+            const option =
+                e.target.closest(
+                    ".option"
+                );
+
+
+            if (option) {
+
+                selectOption(
+
+                    Number(
+                        option.dataset.index
+                    )
+
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+/* BOTÓN COMPROBAR */
+
+document
+    .getElementById(
+        "checkBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        checkAnswer
+
+    );
+
+
+
+/* TERMINAR */
+
+document
+    .getElementById(
+        "finishBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        finishSession
+
+    );
+
+
+
+/* NAVEGACIÓN */
+
+document
+    .querySelectorAll(
+        ".nav-btn"
+    )
+    .forEach(
+
+        btn => {
+
+            btn.addEventListener(
+
+                "click",
+
+                () =>
+
+                    showScreen(
+                        btn.dataset.screen
+                    )
+
+            );
+
+        }
+
+    );
+
+
+
+/* BUSCADOR */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+
+        "input",
+
+        e => {
+
+            currentSearch =
+                e.target.value;
+
+
+            renderLibrary();
+
+        }
+
+    );
+
+
+
+/* FILTROS */
+
+document
+    .getElementById(
+        "filters"
+    )
+    .addEventListener(
+
+        "click",
+
+        e => {
+
+            const btn =
+                e.target.closest(
+                    ".filter"
+                );
+
+
+            if (!btn) {
+
+                return;
+
+            }
+
+
+            currentFilter =
+                btn.dataset.filter;
+
+
+            document
+                .querySelectorAll(
+                    ".filter"
+                )
+                .forEach(
+
+                    x =>
+
+                        x.classList.toggle(
+
+                            "active",
+
+                            x === btn
+
+                        )
+
+                );
+
+
+            renderLibrary();
+
+        }
+
+    );
+
+
+
+/* ABRIR CONCEPTO DESDE BIBLIOTECA */
+
+document
+    .getElementById(
+        "libraryList"
+    )
+    .addEventListener(
+
+        "click",
+
+        e => {
+
+            const item =
+                e.target.closest(
+                    "[data-concept-id]"
+                );
+
+
+            if (item) {
+
+                openConcept(
+                    item.dataset.conceptId
+                );
+
+            }
+
+        }
+
+    );
+
+
+
+/* REINICIAR */
+
+document
+    .getElementById(
+        "resetBtn"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => {
+
+            const ok =
+                confirm(
+
+                    "¿Quieres borrar todo tu progreso de esta V1?"
+
+                );
+
+
+            if (!ok) {
+
+                return;
+
+            }
+
+
+            state =
+                cloneDefault();
+
+
+            saveState();
+
+
+            renderHome();
+
+
+            renderProgress();
+
+
+            toast(
+                "Progreso restablecido."
+            );
+
+        }
+
+    );
+
+
+
+/* =============================================================
+   INICIALIZACIÓN
+============================================================= */
+
+updateDailyStatus();
+
+setupFilters();
+
+renderHome();
+
+renderProgress();
+
+renderLibrary();
+
+</script>
+
+
+</body>
+
+</html>
