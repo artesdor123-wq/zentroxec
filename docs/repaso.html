@@ -1,5 +1,7 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
     <meta charset="UTF-8">
@@ -9,134 +11,220 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Repaso | Empresa Diario</title>
+    <meta
+        name="description"
+        content="Repasa conceptos empresariales aprendidos en ZENTROX."
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Repaso | ZENTROX</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
 
 
 <body>
 
+
+<!-- =====================================================
+     ENCABEZADO
+====================================================== -->
+
 <header class="topbar">
 
-    <a href="index.html" class="logo">
-        EMPRESA<span>DIARIO</span>
+    <a
+        href="index.html"
+        class="logo"
+    >
+        ZENTROX
     </a>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="aprender.html">Aprender</a>
-        <a href="repaso.html" class="active">Repaso</a>
-        <a href="progreso.html">Progreso</a>
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="aprender.html">
+            Aprender
+        </a>
+
+        <a
+            href="repaso.html"
+            class="active"
+        >
+            Repaso
+        </a>
+
+        <a href="progreso.html">
+            Progreso
+        </a>
+
     </nav>
 
 </header>
 
 
-<main class="page-container">
 
-    <section class="section-header">
+<!-- =====================================================
+     CONTENIDO
+====================================================== -->
+
+<main class="review-page">
+
+
+    <section class="page-heading">
 
         <span class="small-label">
             REPASO
         </span>
 
+
         <h1>
-            Comprueba qué recuerdas.
+            ¿Todavía recuerdas
+            lo que aprendiste?
         </h1>
 
+
         <p>
-            El aprendizaje no termina cuando lees la explicación.
-            Intenta recordar el concepto antes de consultar la respuesta.
+            El aprendizaje no termina cuando respondes
+            una pregunta. Repasar ayuda a comprobar
+            si realmente puedes recordar el concepto.
         </p>
 
     </section>
 
 
+
+    <!-- =================================================
+         SIN CONCEPTOS
+    ================================================== -->
+
     <section
         id="review-empty"
-        class="empty-state hidden"
+        class="empty-state"
     >
+
+        <div class="empty-icon">
+            ✓
+        </div>
+
 
         <h2>
             Todavía no tienes conceptos para repasar.
         </h2>
 
+
         <p>
-            Completa algunos aprendizajes diarios y volverán a aparecer
-            aquí para reforzar lo aprendido.
+            Completa tu primer aprendizaje y aquí
+            aparecerán tus conceptos.
         </p>
+
 
         <a
             href="aprender.html"
             class="btn btn-primary"
         >
-            Aprender ahora
+            Comenzar a aprender
         </a>
 
     </section>
 
 
+
+    <!-- =================================================
+         TARJETA DE REPASO
+    ================================================== -->
+
     <section
         id="review-card"
-        class="review-card"
+        class="review-card hidden"
     >
 
-        <span
-            id="review-category"
-            class="category"
-        >
-            CONTABILIDAD
-        </span>
+
+        <div class="review-header">
+
+            <span
+                id="review-category"
+                class="category"
+            >
+                FINANZAS
+            </span>
 
 
-        <h2 id="review-word">
-            Activo
-        </h2>
+            <h2 id="review-word">
+                Concepto
+            </h2>
 
 
-        <p class="review-instruction">
-            Antes de ver la respuesta, intenta explicar con tus propias
-            palabras qué significa este concepto.
-        </p>
+            <p id="review-definition">
+                Definición
+            </p>
+
+        </div>
 
 
-        <button
-            id="review-answer-button"
-            class="btn btn-primary"
-        >
-            Mostrar respuesta
-        </button>
+
+        <div class="review-example">
+
+            <span class="small-label">
+                EJEMPLO
+            </span>
+
+
+            <p id="review-example">
+                Ejemplo empresarial
+            </p>
+
+        </div>
+
+
+
+        <div class="review-question">
+
+            <h3>
+                Intenta recordarlo.
+            </h3>
+
+
+            <p>
+                Antes de mostrarte la respuesta,
+                intenta explicar mentalmente qué
+                significa este concepto.
+            </p>
+
+
+            <button
+                id="review-answer-button"
+                class="btn btn-primary"
+            >
+                Mostrar explicación
+            </button>
+
+        </div>
+
 
 
         <div
             id="review-answer"
-            class="answer-box hidden"
+            class="review-answer hidden"
         >
 
             <strong>
                 Explicación
             </strong>
 
-            <p id="review-definition">
-                Cargando...
+            <p>
+                Aquí aparecerá la explicación
+                del concepto.
             </p>
 
-
-            <div class="context-box">
-
-                <strong>
-                    Ejemplo
-                </strong>
-
-                <p id="review-example">
-                    Cargando...
-                </p>
-
-            </div>
-
         </div>
+
 
 
         <div
@@ -145,42 +233,112 @@
         >
 
             <p>
-                ¿Qué tan bien lo recordabas?
+                ¿Qué tan bien recuerdas este concepto?
             </p>
 
-            <button
-                class="review-button difficult"
-                data-result="difficult"
-            >
-                Necesito repasarlo
-            </button>
 
-            <button
-                class="review-button good"
-                data-result="good"
-            >
-                Lo recordé
-            </button>
+            <div class="review-buttons">
 
-            <button
-                class="review-button easy"
-                data-result="easy"
-            >
-                Lo domino
-            </button>
+                <button
+                    class="review-button difficult"
+                    data-result="difficult"
+                >
+                    Necesito repasarlo
+                </button>
+
+
+                <button
+                    class="review-button good"
+                    data-result="good"
+                >
+                    Lo recordé
+                </button>
+
+
+                <button
+                    class="review-button easy"
+                    data-result="easy"
+                >
+                    Lo domino
+                </button>
+
+            </div>
 
         </div>
 
+
     </section>
+
+
+
+    <!-- =================================================
+         CONSEJO
+    ================================================== -->
+
+    <section class="learning-tip">
+
+        <span class="small-label">
+            RECUERDA
+        </span>
+
+
+        <h2>
+            Reconocer una palabra no significa
+            necesariamente comprenderla.
+        </h2>
+
+
+        <p>
+            Intenta explicar cada concepto con tus
+            propias palabras y relacionarlo con un
+            negocio que conozcas.
+        </p>
+
+    </section>
+
 
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
 <footer class="footer">
 
-    <p>
-        EMPRESA DIARIO
-    </p>
+    <div>
+
+        <strong>
+            ZENTROX
+        </strong>
+
+        <p>
+            Aprende. Razona. Aplica.
+        </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="aprender.html">
+            Aprender
+        </a>
+
+        <a href="repaso.html">
+            Repaso
+        </a>
+
+        <a href="progreso.html">
+            Progreso
+        </a>
+
+    </div>
 
 </footer>
 
@@ -189,4 +347,6 @@
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
+```
