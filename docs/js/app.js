@@ -1,33 +1,38 @@
+```javascript
 /* =========================================================
-   EMPRESA DIARIO
+   ZENTROX
    SISTEMA PRINCIPAL V1
 
-   Funciones:
+   Metodología:
 
-   1. Seleccionar palabra del día
-   2. Guardar progreso
-   3. Controlar conceptos aprendidos
-   4. Controlar repaso
-   5. Calcular racha
-   6. Mostrar estadísticas
-   7. Reiniciar progreso
+   COMPRENDER
+        ↓
+   VER CONTEXTO
+        ↓
+   RAZONAR
+        ↓
+   ELEGIR
+        ↓
+   RECIBIR FEEDBACK
+        ↓
+   APLICAR
+        ↓
+   REPASAR
 ========================================================= */
 
 
-/* =========================================================
-   CONFIGURACIÓN
-========================================================= */
-
-const STORAGE_KEY = "empresaDiarioV1";
+const STORAGE_KEY = "zentroxV1";
 
 
 /* =========================================================
-   ESTADO INICIAL
+   ESTADO
 ========================================================= */
 
 function obtenerEstado() {
 
-    const guardado = localStorage.getItem(STORAGE_KEY);
+    const guardado =
+        localStorage.getItem(STORAGE_KEY);
+
 
     if (guardado) {
 
@@ -38,7 +43,7 @@ function obtenerEstado() {
         } catch (error) {
 
             console.error(
-                "No se pudo leer el progreso.",
+                "Error leyendo el progreso:",
                 error
             );
 
@@ -65,7 +70,7 @@ function obtenerEstado() {
 
 
 /* =========================================================
-   GUARDAR ESTADO
+   GUARDAR
 ========================================================= */
 
 function guardarEstado(estado) {
@@ -79,22 +84,29 @@ function guardarEstado(estado) {
 
 
 /* =========================================================
-   FECHA LOCAL
+   FECHA
 ========================================================= */
 
 function obtenerFechaLocal() {
 
-    const ahora = new Date();
+    const ahora =
+        new Date();
 
-    const year = ahora.getFullYear();
 
-    const month = String(
-        ahora.getMonth() + 1
-    ).padStart(2, "0");
+    const year =
+        ahora.getFullYear();
 
-    const day = String(
-        ahora.getDate()
-    ).padStart(2, "0");
+
+    const month =
+        String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+
+
+    const day =
+        String(
+            ahora.getDate()
+        ).padStart(2, "0");
 
 
     return `${year}-${month}-${day}`;
@@ -103,38 +115,47 @@ function obtenerFechaLocal() {
 
 
 /* =========================================================
-   PALABRA DEL DÍA
+   ÍNDICE DE LA PALABRA DEL DÍA
 ========================================================= */
 
 function obtenerIndiceDia() {
 
-    const inicio = new Date(
-        "2026-01-01T00:00:00"
-    );
+    const inicio =
+        new Date(
+            "2026-01-01T00:00:00"
+        );
 
-    const hoy = new Date();
+
+    const hoy =
+        new Date();
+
 
     const diferencia =
         hoy.getTime() -
         inicio.getTime();
 
-    const dias = Math.floor(
-        diferencia / 86400000
-    );
+
+    const dias =
+        Math.floor(
+            diferencia / 86400000
+        );
 
 
-    return (
-        Math.abs(dias) % palabras.length
-    );
+    return Math.abs(dias)
+        % palabras.length;
 
 }
 
 
+/* =========================================================
+   PALABRA DEL DÍA
+========================================================= */
+
 function obtenerPalabraDelDia() {
 
-    const indice = obtenerIndiceDia();
-
-    return palabras[indice];
+    return palabras[
+        obtenerIndiceDia()
+    ];
 
 }
 
@@ -145,33 +166,54 @@ function obtenerPalabraDelDia() {
 
 function registrarActividad() {
 
-    const estado = obtenerEstado();
+    const estado =
+        obtenerEstado();
 
-    const hoy = obtenerFechaLocal();
+
+    const hoy =
+        obtenerFechaLocal();
 
 
-    if (!estado.activeDays.includes(hoy)) {
+    if (
+        !estado.activeDays.includes(
+            hoy
+        )
+    ) {
 
-        estado.activeDays.push(hoy);
+        estado.activeDays.push(
+            hoy
+        );
 
     }
 
 
-    actualizarRacha(estado);
+    actualizarRacha(
+        estado
+    );
 
 
-    guardarEstado(estado);
+    estado.lastStudyDate =
+        hoy;
+
+
+    guardarEstado(
+        estado
+    );
 
 }
 
 
 /* =========================================================
-   CALCULAR RACHA
+   RACHA
 ========================================================= */
 
-function actualizarRacha(estado) {
+function actualizarRacha(
+    estado
+) {
 
-    if (!estado.activeDays.length) {
+    if (
+        !estado.activeDays.length
+    ) {
 
         estado.streak = 0;
 
@@ -190,13 +232,22 @@ function actualizarRacha(estado) {
     let racha = 1;
 
 
-    for (let i = 0; i < fechas.length - 1; i++) {
+    for (
+        let i = 0;
+        i < fechas.length - 1;
+        i++
+    ) {
 
         const fechaActual =
-            new Date(fechas[i]);
+            new Date(
+                fechas[i]
+            );
+
 
         const fechaAnterior =
-            new Date(fechas[i + 1]);
+            new Date(
+                fechas[i + 1]
+            );
 
 
         const diferencia =
@@ -206,7 +257,9 @@ function actualizarRacha(estado) {
             ) / 86400000;
 
 
-        if (diferencia === 1) {
+        if (
+            diferencia === 1
+        ) {
 
             racha++;
 
@@ -219,23 +272,33 @@ function actualizarRacha(estado) {
     }
 
 
-    estado.streak = racha;
+    estado.streak =
+        racha;
 
 }
 
 
 /* =========================================================
-   MARCAR PALABRA COMO COMPLETADA
+   MARCAR COMO APRENDIDO
 ========================================================= */
 
-function marcarComoCompletada(id) {
+function marcarComoCompletada(
+    id
+) {
 
-    const estado = obtenerEstado();
+    const estado =
+        obtenerEstado();
 
 
-    if (!estado.completed.includes(id)) {
+    if (
+        !estado.completed.includes(
+            id
+        )
+    ) {
 
-        estado.completed.push(id);
+        estado.completed.push(
+            id
+        );
 
     }
 
@@ -243,23 +306,31 @@ function marcarComoCompletada(id) {
     registrarActividad();
 
 
-    const nuevoEstado = obtenerEstado();
+    const nuevoEstado =
+        obtenerEstado();
 
-    nuevoEstado.completed = estado.completed;
 
-    guardarEstado(nuevoEstado);
+    nuevoEstado.completed =
+        estado.completed;
+
+
+    guardarEstado(
+        nuevoEstado
+    );
 
 }
 
 
 /* =========================================================
-   INICIALIZAR APRENDER.HTML
+   APRENDIZAJE
 ========================================================= */
 
 function iniciarAprendizaje() {
 
     const wordElement =
-        document.getElementById("word");
+        document.getElementById(
+            "word"
+        );
 
 
     if (!wordElement) {
@@ -272,6 +343,10 @@ function iniciarAprendizaje() {
     const palabra =
         obtenerPalabraDelDia();
 
+
+    /* -----------------------------------------
+       INFORMACIÓN PRINCIPAL
+    ----------------------------------------- */
 
     document.getElementById(
         "category"
@@ -298,27 +373,25 @@ function iniciarAprendizaje() {
 
 
     document.getElementById(
-        "example"
-    ).textContent =
-        palabra.ejemplo;
-
-
-    document.getElementById(
         "question"
     ).textContent =
         palabra.pregunta;
 
 
     document.getElementById(
-        "answer"
-    ).textContent =
-        palabra.respuesta;
-
-
-    document.getElementById(
         "application"
     ).textContent =
         palabra.aplicacion;
+
+
+    document.getElementById(
+        "day-counter"
+    ).textContent =
+        `Concepto ${
+            obtenerIndiceDia() + 1
+        } de ${
+            palabras.length
+        }`;
 
 
     const estado =
@@ -331,41 +404,129 @@ function iniciarAprendizaje() {
         estado.streak;
 
 
-    document.getElementById(
-        "day-counter"
-    ).textContent =
-        `Concepto ${obtenerIndiceDia() + 1} de ${palabras.length}`;
 
+    /* -----------------------------------------
+       EJEMPLOS
+    ----------------------------------------- */
 
-    const showAnswer =
+    const examplesContainer =
         document.getElementById(
-            "show-answer"
+            "examples-container"
         );
 
 
-    const answerBox =
-        document.getElementById(
-            "answer-box"
-        );
+    examplesContainer.innerHTML = "";
 
 
-    showAnswer.addEventListener(
-        "click",
-        function () {
+    palabra.ejemplos.forEach(
+        (ejemplo, index) => {
 
-            answerBox.classList.remove(
-                "hidden"
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "example-card";
+
+
+            box.innerHTML = `
+
+                <span class="example-number">
+                    Ejemplo ${index + 1}
+                </span>
+
+                <h3>
+                    ${ejemplo.titulo}
+                </h3>
+
+                <p>
+                    ${ejemplo.texto}
+                </p>
+
+            `;
+
+
+            examplesContainer.appendChild(
+                box
             );
-
-            showAnswer.classList.add(
-                "hidden"
-            );
-
-            registrarActividad();
 
         }
     );
 
+
+
+    /* -----------------------------------------
+       OPCIONES
+    ----------------------------------------- */
+
+    const optionsContainer =
+        document.getElementById(
+            "options-container"
+        );
+
+
+    optionsContainer.innerHTML = "";
+
+
+    palabra.opciones.forEach(
+        (opcion, index) => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "answer-option";
+
+
+            button.dataset.index =
+                index;
+
+
+            button.innerHTML = `
+
+                <span class="option-letter">
+                    ${String.fromCharCode(
+                        65 + index
+                    )}
+                </span>
+
+                <span>
+                    ${opcion}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    seleccionarRespuesta(
+                        index,
+                        palabra
+                    );
+
+                }
+            );
+
+
+            optionsContainer.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+
+    /* -----------------------------------------
+       ESTADO DE COMPLETADO
+    ----------------------------------------- */
 
     const completeButton =
         document.getElementById(
@@ -385,10 +546,13 @@ function iniciarAprendizaje() {
         )
     ) {
 
+        completeButton.disabled =
+            true;
+
+
         completeButton.textContent =
             "✓ Ya aprendido";
 
-        completeButton.disabled = true;
 
         completionMessage.classList.remove(
             "hidden"
@@ -396,44 +560,225 @@ function iniciarAprendizaje() {
 
     }
 
-
-    completeButton.addEventListener(
-        "click",
-        function () {
-
-            marcarComoCompletada(
-                palabra.id
-            );
+}
 
 
-            completeButton.textContent =
-                "✓ Aprendizaje completado";
+/* =========================================================
+   SELECCIONAR RESPUESTA
+========================================================= */
 
-            completeButton.disabled = true;
+function seleccionarRespuesta(
+    indiceSeleccionado,
+    palabra
+) {
+
+    const botones =
+        document.querySelectorAll(
+            ".answer-option"
+        );
 
 
-            completionMessage.classList.remove(
-                "hidden"
-            );
+    botones.forEach(
+        boton => {
 
-
-            const estadoActual =
-                obtenerEstado();
-
-
-            document.getElementById(
-                "streak"
-            ).textContent =
-                estadoActual.streak;
+            boton.disabled =
+                true;
 
         }
     );
+
+
+    const correcto =
+        indiceSeleccionado ===
+        palabra.respuestaCorrecta;
+
+
+    botones.forEach(
+        (boton, index) => {
+
+            if (
+                index ===
+                palabra.respuestaCorrecta
+            ) {
+
+                boton.classList.add(
+                    "correct"
+                );
+
+            }
+
+
+            if (
+                index ===
+                indiceSeleccionado &&
+                !correcto
+            ) {
+
+                boton.classList.add(
+                    "incorrect"
+                );
+
+            }
+
+        }
+    );
+
+
+    const feedback =
+        document.getElementById(
+            "answer-feedback"
+        );
+
+
+    const title =
+        document.getElementById(
+            "feedback-title"
+        );
+
+
+    const text =
+        document.getElementById(
+            "feedback-text"
+        );
+
+
+    const explanation =
+        document.getElementById(
+            "answer-explanation-text"
+        );
+
+
+    feedback.classList.remove(
+        "hidden"
+    );
+
+
+    if (correcto) {
+
+        title.textContent =
+            "✓ Correcto";
+
+
+        title.className =
+            "correct-title";
+
+
+        text.textContent =
+            "Bien. No solo elegiste la respuesta correcta: ahora revisa por qué."
+
+
+    } else {
+
+        title.textContent =
+            "✗ No exactamente";
+
+
+        title.className =
+            "incorrect-title";
+
+
+        text.textContent =
+            "La respuesta correcta está marcada. Revisa la explicación y vuelve a pensar en el concepto.";
+
+    }
+
+
+    explanation.textContent =
+        palabra.explicacion;
+
+
+    registrarActividad();
+
+
+    const completeButton =
+        document.getElementById(
+            "complete-button"
+        );
+
+
+    completeButton.disabled =
+        false;
+
+
+    completeButton.dataset.answered =
+        "true";
+
+
+    completeButton.dataset.correct =
+        correcto
+            ? "true"
+            : "false";
 
 }
 
 
 /* =========================================================
-   OBTENER CONCEPTOS PARA REPASAR
+   BOTÓN COMPLETAR
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const completeButton =
+            document.getElementById(
+                "complete-button"
+            );
+
+
+        if (completeButton) {
+
+            completeButton.addEventListener(
+                "click",
+                function () {
+
+                    const palabra =
+                        obtenerPalabraDelDia();
+
+
+                    if (
+                        completeButton.dataset.answered
+                        !==
+                        "true"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    marcarComoCompletada(
+                        palabra.id
+                    );
+
+
+                    completeButton.disabled =
+                        true;
+
+
+                    completeButton.textContent =
+                        "✓ Aprendizaje completado";
+
+
+                    document
+                        .getElementById(
+                            "completion-message"
+                        )
+                        .classList.remove(
+                            "hidden"
+                        );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REPASO
 ========================================================= */
 
 function obtenerConceptosParaRepaso() {
@@ -451,10 +796,6 @@ function obtenerConceptosParaRepaso() {
 
 }
 
-
-/* =========================================================
-   INICIALIZAR REPASO
-========================================================= */
 
 function iniciarRepaso() {
 
@@ -487,19 +828,16 @@ function iniciarRepaso() {
             "hidden"
         );
 
+
         emptyState.classList.remove(
             "hidden"
         );
+
 
         return;
 
     }
 
-
-    /*
-       Seleccionamos un concepto
-       de manera sencilla.
-    */
 
     const estado =
         obtenerEstado();
@@ -548,7 +886,7 @@ function iniciarRepaso() {
     document.getElementById(
         "review-example"
     ).textContent =
-        concepto.ejemplo;
+        concepto.ejemplos[0].texto;
 
 
     const answerButton =
@@ -577,9 +915,11 @@ function iniciarRepaso() {
                 "hidden"
             );
 
+
             actions.classList.remove(
                 "hidden"
             );
+
 
             answerButton.classList.add(
                 "hidden"
@@ -624,11 +964,20 @@ function iniciarRepaso() {
 
 
                     answer.innerHTML = `
-                        <strong>Repaso registrado</strong>
+
+                        <strong>
+                            Repaso registrado
+                        </strong>
+
                         <p>
                             Has marcado este concepto como:
-                            <strong>${textoResultado(result)}</strong>.
+                            <strong>
+                                ${textoResultado(
+                                    result
+                                )}
+                            </strong>.
                         </p>
+
                     `;
 
 
@@ -663,26 +1012,37 @@ function iniciarRepaso() {
 
 
 /* =========================================================
-   TEXTO DE RESULTADO
+   TEXTO REPASO
 ========================================================= */
 
-function textoResultado(resultado) {
+function textoResultado(
+    resultado
+) {
 
-    if (resultado === "difficult") {
+    if (
+        resultado ===
+        "difficult"
+    ) {
 
         return "Necesito repasarlo";
 
     }
 
 
-    if (resultado === "good") {
+    if (
+        resultado ===
+        "good"
+    ) {
 
         return "Lo recordé";
 
     }
 
 
-    if (resultado === "easy") {
+    if (
+        resultado ===
+        "easy"
+    ) {
 
         return "Lo domino";
 
@@ -695,7 +1055,7 @@ function textoResultado(resultado) {
 
 
 /* =========================================================
-   INICIALIZAR PROGRESO
+   PROGRESO
 ========================================================= */
 
 function iniciarProgreso() {
@@ -781,38 +1141,42 @@ function iniciarProgreso() {
         );
 
 
-    resetButton.addEventListener(
-        "click",
-        function () {
+    if (resetButton) {
 
-            const confirmar =
-                confirm(
-                    "¿Seguro que quieres eliminar todo tu progreso?"
+        resetButton.addEventListener(
+            "click",
+            function () {
+
+                const confirmar =
+                    confirm(
+                        "¿Seguro que quieres eliminar todo tu progreso?"
+                    );
+
+
+                if (!confirmar) {
+
+                    return;
+
+                }
+
+
+                localStorage.removeItem(
+                    STORAGE_KEY
                 );
 
 
-            if (!confirmar) {
-
-                return;
+                window.location.reload();
 
             }
+        );
 
-
-            localStorage.removeItem(
-                STORAGE_KEY
-            );
-
-
-            window.location.reload();
-
-        }
-    );
+    }
 
 }
 
 
 /* =========================================================
-   MOSTRAR LISTA DE CONCEPTOS
+   LISTA DE CONCEPTOS
 ========================================================= */
 
 function mostrarListaConceptos(
@@ -823,6 +1187,13 @@ function mostrarListaConceptos(
         document.getElementById(
             "concept-list"
         );
+
+
+    if (!container) {
+
+        return;
+
+    }
 
 
     container.innerHTML = "";
@@ -865,8 +1236,8 @@ function mostrarListaConceptos(
 
                     ${
                         aprendido
-                        ? "✓ Aprendido"
-                        : "Pendiente"
+                            ? "✓ Aprendido"
+                            : "Pendiente"
                     }
 
                 </div>
@@ -885,7 +1256,7 @@ function mostrarListaConceptos(
 
 
 /* =========================================================
-   EJECUTAR SEGÚN LA PÁGINA
+   INICIO
 ========================================================= */
 
 document.addEventListener(
@@ -900,3 +1271,4 @@ document.addEventListener(
 
     }
 );
+```
