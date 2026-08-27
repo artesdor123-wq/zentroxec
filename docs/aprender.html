@@ -11,12 +11,21 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <title>Aprender | ZENTROX</title>
+
     <meta
         name="description"
-        content="Aprende conceptos de negocios, finanzas y emprendimiento con ZENTROX."
+        content="Aprende conceptos empresariales mediante contexto, preguntas, aplicación, explicación y repaso."
     >
 
-    <title>Aprender | ZENTROX</title>
+    <meta
+        name="theme-color"
+        content="#0b0b0b"
+    >
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
 
     <link
         rel="stylesheet"
@@ -29,21 +38,25 @@
 <body>
 
 
-<!-- =====================================================
-     ENCABEZADO
-====================================================== -->
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header class="topbar">
 
     <a
         href="index.html"
         class="logo"
+        aria-label="ZENTROX - Inicio"
     >
         ZENTROX
     </a>
 
 
-    <nav class="main-nav">
+    <nav
+        class="main-nav"
+        aria-label="Navegación principal"
+    >
 
         <a href="index.html">
             Inicio
@@ -70,16 +83,16 @@
 
 
 
-<!-- =====================================================
-     CONTENIDO PRINCIPAL
-====================================================== -->
+<!-- =========================================================
+     CONTENIDO
+========================================================= -->
 
 <main class="learning-page">
 
 
-    <!-- =================================================
-         ENCABEZADO DE APRENDIZAJE
-    ================================================== -->
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
 
     <section class="page-heading">
 
@@ -90,12 +103,16 @@
             </span>
 
 
-            <span
+            <div
                 class="streak"
-                id="streak-display"
+                id="streak"
+                aria-label="Racha de aprendizaje"
             >
-                🔥 0 días
-            </span>
+                🔥
+                <span id="streak-count">
+                    0 días
+                </span>
+            </div>
 
         </div>
 
@@ -107,21 +124,26 @@
 
 
         <p>
-            El objetivo no es memorizar una definición.
-            Es entender el concepto, verlo funcionando
-            en un negocio y aprender a utilizarlo para
-            razonar sobre situaciones empresariales.
+
+            No intentes memorizar solamente.
+            Aprende el concepto, entiéndelo,
+            aplícalo y comprueba si puedes
+            explicarlo con tus propias palabras.
+
         </p>
 
     </section>
 
 
 
-    <!-- =================================================
-         TARJETA PRINCIPAL DEL CONCEPTO
-    ================================================== -->
+    <!-- =====================================================
+         TARJETA PRINCIPAL
+    ====================================================== -->
 
-    <section class="learning-card">
+    <section
+        class="learning-card"
+        id="learning-card"
+    >
 
 
         <!-- =================================================
@@ -130,14 +152,17 @@
 
         <div class="concept-header">
 
-
-            <span
-                id="word-category"
-                class="category"
-            >
-                FINANZAS
+            <span class="category">
+                PALABRA DEL DÍA
             </span>
 
+
+            <!--
+
+                app.js puede reemplazar este contenido
+                dinámicamente utilizando palabras.js.
+
+            -->
 
             <h1 id="word-title">
                 Activo
@@ -145,12 +170,12 @@
 
 
             <p
-                id="word-definition"
                 class="concept-description"
+                id="word-description"
             >
                 Algo que tiene valor económico para una
-                empresa y que puede utilizarse para generar
-                beneficios o realizar sus operaciones.
+                empresa y que puede utilizarse en sus
+                operaciones o contribuir a generar beneficios.
             </p>
 
         </div>
@@ -161,8 +186,7 @@
              02 — SIGNIFICADO SENCILLO
         ================================================== -->
 
-        <div class="learning-section">
-
+        <section class="learning-section">
 
             <div class="section-number">
                 01
@@ -171,22 +195,28 @@
 
             <div>
 
+                <span class="small-label">
+                    SIGNIFICADO SENCILLO
+                </span>
+
+
                 <h2>
-                    Significado sencillo
+                    ¿Qué significa?
                 </h2>
 
 
                 <p id="simple-definition">
 
                     Un activo es algo que pertenece o está
-                    controlado por una empresa y tiene valor
-                    económico.
+                    bajo control de una empresa, tiene valor
+                    económico y puede ser utilizado para
+                    operar o generar beneficios.
 
                 </p>
 
             </div>
 
-        </div>
+        </section>
 
 
 
@@ -194,8 +224,7 @@
              03 — EJEMPLOS EMPRESARIALES
         ================================================== -->
 
-        <div class="learning-section">
-
+        <section class="learning-section">
 
             <div class="section-number">
                 02
@@ -204,37 +233,35 @@
 
             <div>
 
+                <span class="small-label">
+                    CONTEXTO
+                </span>
+
+
                 <h2>
                     Ejemplos empresariales
                 </h2>
 
 
                 <p>
-                    No estudies el concepto aislado.
-                    Observa cómo aparece en diferentes
-                    situaciones de negocio.
+
+                    El objetivo no es aprender una definición
+                    aislada. Observa cómo el concepto aparece
+                    en diferentes tipos de negocios.
+
                 </p>
 
 
+
                 <div
-                    id="examples-container"
                     class="examples-container"
+                    id="examples-container"
                 >
 
 
-                    <!--
-                        Los ejemplos se generan desde
-                        palabras.js.
-
-                        Ejemplo:
-
-                        1. Inventario
-                        2. Dinero en banco
-                        3. Vehículo de la empresa
-                        4. Equipo de trabajo
-
-                    -->
-
+                    <!-- =====================================
+                         EJEMPLO 1
+                    ====================================== -->
 
                     <article class="example-card">
 
@@ -249,15 +276,22 @@
 
 
                         <p>
-                            Una tienda compra productos para
-                            venderlos posteriormente. Mientras
-                            permanecen en inventario, representan
-                            un recurso económico de la empresa.
+
+                            Una tienda compra $1.000 en
+                            productos para venderlos.
+                            Mientras permanecen en inventario,
+                            representan un recurso económico
+                            de la empresa.
+
                         </p>
 
                     </article>
 
 
+
+                    <!-- =====================================
+                         EJEMPLO 2
+                    ====================================== -->
 
                     <article class="example-card">
 
@@ -272,15 +306,21 @@
 
 
                         <p>
-                            El dinero que la empresa mantiene
-                            en su cuenta bancaria puede utilizarse
-                            para pagar proveedores, empleados
-                            u otras operaciones.
+
+                            El dinero que una empresa tiene
+                            disponible en efectivo o en una
+                            cuenta bancaria puede representar
+                            un recurso económico de la empresa.
+
                         </p>
 
                     </article>
 
 
+
+                    <!-- =====================================
+                         EJEMPLO 3
+                    ====================================== -->
 
                     <article class="example-card">
 
@@ -295,14 +335,21 @@
 
 
                         <p>
-                            Una computadora utilizada por la
+
+                            Una computadora utilizada por una
                             empresa para realizar sus operaciones
-                            también puede representar un activo.
+                            puede representar un recurso con
+                            valor económico para el negocio.
+
                         </p>
 
                     </article>
 
 
+
+                    <!-- =====================================
+                         EJEMPLO 4
+                    ====================================== -->
 
                     <article class="example-card">
 
@@ -317,29 +364,31 @@
 
 
                         <p>
-                            Si una empresa utiliza un vehículo
-                            para realizar entregas o transportar
-                            mercancía, este puede formar parte
-                            de sus activos.
+
+                            Un vehículo utilizado por una
+                            empresa para realizar entregas,
+                            transportar productos o prestar
+                            servicios puede representar un activo.
+
                         </p>
 
                     </article>
+
 
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
 
         <!-- =================================================
-             04 — SITUACIÓN EMPRESARIAL
+             04 — COMPRENSIÓN
         ================================================== -->
 
-        <div class="learning-section">
-
+        <section class="learning-section">
 
             <div class="section-number">
                 03
@@ -348,66 +397,44 @@
 
             <div>
 
+                <span class="small-label">
+                    COMPRENSIÓN
+                </span>
+
+
                 <h2>
-                    Piensa como empresario
+                    Ahora decide.
                 </h2>
 
 
                 <p>
-                    Ahora aplica el concepto a una situación
-                    concreta antes de ver la respuesta.
+
+                    No mires solamente la respuesta.
+                    Intenta resolver la situación antes
+                    de comprobar la explicación.
+
                 </p>
 
 
-                <div class="review-example">
 
+                <div class="review-example">
 
                     <span class="small-label">
                         SITUACIÓN
                     </span>
 
 
-                    <p id="business-situation">
+                    <p id="question-text">
 
-                        Compras $1.000 en productos para
-                        venderlos en tu negocio.
+                        Compras $1.000 de productos para
+                        venderlos posteriormente.
+                        ¿Qué representan inicialmente
+                        esos productos?
 
                     </p>
 
                 </div>
 
-            </div>
-
-        </div>
-
-
-
-        <!-- =================================================
-             05 — PREGUNTA
-        ================================================== -->
-
-        <div class="learning-section">
-
-
-            <div class="section-number">
-                04
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Comprueba tu comprensión
-                </h2>
-
-
-                <p class="question" id="question-text">
-
-                    Si compras $1.000 de productos para
-                    venderlos, ¿esos productos son un gasto
-                    o un activo?
-
-                </p>
 
 
                 <!-- =========================================
@@ -415,24 +442,25 @@
                 ========================================== -->
 
                 <div
-                    id="options-container"
                     class="options-container"
+                    id="answer-options"
+                    role="group"
+                    aria-label="Opciones de respuesta"
                 >
 
 
                     <button
-                        class="answer-option"
-                        data-answer="A"
                         type="button"
+                        class="answer-option"
+                        data-answer="a"
                     >
 
                         <span class="option-letter">
                             A
                         </span>
 
-
                         <span>
-                            Son un gasto inmediatamente.
+                            Un gasto
                         </span>
 
                     </button>
@@ -440,19 +468,17 @@
 
 
                     <button
-                        class="answer-option"
-                        data-answer="B"
                         type="button"
+                        class="answer-option"
+                        data-answer="b"
                     >
 
                         <span class="option-letter">
                             B
                         </span>
 
-
                         <span>
-                            Inicialmente forman parte del
-                            inventario, que es un activo.
+                            Un activo dentro del inventario
                         </span>
 
                     </button>
@@ -460,19 +486,35 @@
 
 
                     <button
-                        class="answer-option"
-                        data-answer="C"
                         type="button"
+                        class="answer-option"
+                        data-answer="c"
                     >
 
                         <span class="option-letter">
                             C
                         </span>
 
+                        <span>
+                            Una pérdida
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-answer="d"
+                    >
+
+                        <span class="option-letter">
+                            D
+                        </span>
 
                         <span>
-                            No tienen ningún efecto económico
-                            para la empresa.
+                            Una deuda
                         </span>
 
                     </button>
@@ -483,14 +525,14 @@
 
 
                 <!-- =========================================
-                     RETROALIMENTACIÓN
+                     FEEDBACK
                 ========================================== -->
 
                 <div
-                    id="answer-feedback"
                     class="answer-feedback hidden"
+                    id="answer-feedback"
+                    aria-live="polite"
                 >
-
 
                     <h3
                         id="feedback-title"
@@ -501,7 +543,10 @@
 
 
                     <p id="feedback-message">
-                        Tu respuesta es correcta.
+
+                        Los productos comprados para vender
+                        forman inicialmente parte del inventario.
+
                     </p>
 
 
@@ -514,12 +559,11 @@
 
                         <p id="feedback-explanation">
 
-                            Inicialmente, los productos forman
-                            parte del inventario de la empresa,
-                            por lo que representan un activo.
-                            Cuando los productos se venden,
-                            aparece el costo correspondiente
-                            asociado a esa venta.
+                            Porque todavía representan un recurso
+                            económico que la empresa mantiene para
+                            venderlo. Cuando se venden, el tratamiento
+                            económico cambia y aparece el costo
+                            correspondiente.
 
                         </p>
 
@@ -527,22 +571,218 @@
 
                 </div>
 
-
             </div>
 
-        </div>
+        </section>
 
 
 
         <!-- =================================================
-             06 — APLICACIÓN
+             05 — APLICACIÓN
         ================================================== -->
 
-        <div
+        <section
+            class="learning-section"
             id="application-section"
-            class="learning-section hidden"
         >
 
+            <div class="section-number">
+                04
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    APLICACIÓN
+                </span>
+
+
+                <h2>
+                    Ahora utiliza el concepto en otra situación.
+                </h2>
+
+
+                <p>
+
+                    Esta pregunta es diferente de la anterior.
+                    La idea es comprobar si puedes transferir
+                    lo aprendido a un contexto nuevo.
+
+                </p>
+
+
+
+                <div class="review-example">
+
+                    <span class="small-label">
+                        NUEVA SITUACIÓN
+                    </span>
+
+
+                    <p id="application-question">
+
+                        Tienes una empresa de venta de
+                        computadoras. Posees $2.000 en efectivo,
+                        $3.000 en computadoras disponibles para
+                        vender y una deuda de $1.000 con un proveedor.
+
+                        ¿Cuál de los siguientes representa
+                        un activo?
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     OPCIONES DE APLICACIÓN
+                ========================================== -->
+
+                <div
+                    class="options-container"
+                    id="application-options"
+                    role="group"
+                    aria-label="Opciones de aplicación"
+                >
+
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-application-answer="a"
+                    >
+
+                        <span class="option-letter">
+                            A
+                        </span>
+
+                        <span>
+                            La deuda de $1.000
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-application-answer="b"
+                    >
+
+                        <span class="option-letter">
+                            B
+                        </span>
+
+                        <span>
+                            Las computadoras disponibles para vender
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-application-answer="c"
+                    >
+
+                        <span class="option-letter">
+                            C
+                        </span>
+
+                        <span>
+                            Ninguno
+                        </span>
+
+                    </button>
+
+
+
+                    <button
+                        type="button"
+                        class="answer-option"
+                        data-application-answer="d"
+                    >
+
+                        <span class="option-letter">
+                            D
+                        </span>
+
+                        <span>
+                            La deuda y las computadoras
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- =========================================
+                     FEEDBACK DE APLICACIÓN
+                ========================================== -->
+
+                <div
+                    class="answer-feedback hidden"
+                    id="application-feedback"
+                    aria-live="polite"
+                >
+
+                    <h3
+                        id="application-feedback-title"
+                        class="correct-title"
+                    >
+                        Correcto.
+                    </h3>
+
+
+                    <p id="application-feedback-message">
+
+                        Las computadoras disponibles para vender
+                        representan inventario y forman parte de
+                        los recursos económicos de la empresa.
+
+                    </p>
+
+
+                    <div class="answer-explanation">
+
+                        <strong>
+                            Recuerda:
+                        </strong>
+
+
+                        <p>
+
+                            Una deuda con un proveedor no es un
+                            activo. Representa una obligación de
+                            la empresa.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             06 — EXPLICA CON TUS PALABRAS
+        ================================================== -->
+
+        <section
+            class="learning-section"
+            id="explain-section"
+        >
 
             <div class="section-number">
                 05
@@ -551,73 +791,413 @@
 
             <div>
 
+                <span class="small-label">
+                    RECUPERACIÓN
+                </span>
+
+
                 <h2>
-                    Llévalo a un negocio real
+                    Explícalo con tus propias palabras.
                 </h2>
 
 
-                <p id="application-text">
+                <p>
 
-                    Imagina que tienes una tienda y compras
-                    $500 de productos para vender. Antes de
-                    venderlos, debes reconocer qué representan
-                    dentro de tu negocio.
+                    Sin copiar la definición anterior,
+                    intenta explicar qué significa el concepto
+                    que acabas de estudiar.
 
                 </p>
 
 
-                <div class="review-example">
+                <div style="margin-top: 20px;">
+
+                    <label
+                        for="user-explanation"
+                        class="small-label"
+                        style="display:block; margin-bottom:10px;"
+                    >
+                        TU EXPLICACIÓN
+                    </label>
 
 
-                    <span class="small-label">
-                        PREGUNTA DE APLICACIÓN
-                    </span>
+                    <textarea
+                        id="user-explanation"
+                        rows="5"
+                        placeholder="Escribe aquí qué significa para ti..."
+                    ></textarea>
 
 
-                    <p id="application-question">
+                    <div
+                        style="margin-top: 15px;"
+                    >
 
-                        ¿Qué otros elementos de tu negocio
-                        podrían representar activos?
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="check-explanation"
+                        >
+                            Comprobar explicación
+                        </button>
 
-                    </p>
+                    </div>
+
+
+                    <!-- =====================================
+                         RESULTADO EXPLICACIÓN
+                    ====================================== -->
+
+                    <div
+                        class="answer-feedback hidden"
+                        id="explanation-feedback"
+                        aria-live="polite"
+                        style="margin-top:20px;"
+                    >
+
+                        <h3>
+                            Buena práctica.
+                        </h3>
+
+
+                        <p>
+
+                            Una explicación sólida debería
+                            relacionar el concepto con su
+                            significado económico y con la
+                            función que cumple dentro de una
+                            empresa.
+
+                        </p>
+
+
+                        <div class="answer-explanation">
+
+                            <strong>
+                                Una forma de entenderlo:
+                            </strong>
+
+
+                            <p>
+
+                                Un activo es un recurso con valor
+                                económico que la empresa controla
+                                y que puede utilizar en sus
+                                operaciones o contribuir a generar
+                                beneficios.
+
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
 
         <!-- =================================================
-             07 — COMPLETAR APRENDIZAJE
+             07 — DOMINIO DEL CONCEPTO
         ================================================== -->
 
-        <div
-            id="completion-area"
-            class="completion-area hidden"
+        <section
+            class="learning-section"
+            id="mastery-section"
         >
 
+            <div class="section-number">
+                06
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    DOMINIO
+                </span>
+
+
+                <h2>
+                    Tu nivel de dominio
+                </h2>
+
+
+                <p>
+
+                    ZENTROX no considera que un concepto está
+                    dominado simplemente porque acertaste una
+                    pregunta.
+
+                </p>
+
+
+                <div
+                    class="stats-grid"
+                    style="margin-top:20px;"
+                >
+
+
+                    <div class="stat-card">
+
+                        <strong id="mastery-understood">
+                            0
+                        </strong>
+
+                        <span>
+                            Comprensión
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <strong id="mastery-application">
+                            0
+                        </strong>
+
+                        <span>
+                            Aplicación
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <strong id="mastery-explanation">
+                            0
+                        </strong>
+
+                        <span>
+                            Explicación
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stat-card">
+
+                        <strong id="mastery-total">
+                            0/3
+                        </strong>
+
+                        <span>
+                            Dominio
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    class="progress-bar"
+                    aria-label="Progreso de dominio"
+                >
+
+                    <div
+                        class="progress-fill"
+                        id="mastery-progress"
+                    ></div>
+
+                </div>
+
+
+                <p
+                    id="mastery-message"
+                    style="margin-top:15px;"
+                >
+
+                    Completa las actividades para evaluar
+                    tu dominio del concepto.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             08 — CONCEPTOS RELACIONADOS
+        ================================================== -->
+
+        <section
+            class="learning-section"
+            id="related-section"
+        >
+
+            <div class="section-number">
+                07
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    CONEXIONES
+                </span>
+
+
+                <h2>
+                    Conceptos relacionados
+                </h2>
+
+
+                <p>
+
+                    Los conceptos empresariales no existen
+                    de manera aislada. Comprender uno facilita
+                    entender otros.
+
+                </p>
+
+
+                <div class="examples-container">
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            RELACIONADO
+                        </span>
+
+
+                        <h3>
+                            Pasivo
+                        </h3>
+
+
+                        <p>
+
+                            Representa obligaciones o deudas
+                            que tiene la empresa.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            RELACIONADO
+                        </span>
+
+
+                        <h3>
+                            Patrimonio
+                        </h3>
+
+
+                        <p>
+
+                            Representa la participación residual
+                            en los activos después de considerar
+                            las obligaciones.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            PRÓXIMAMENTE
+                        </span>
+
+
+                        <h3>
+                            Ingreso
+                        </h3>
+
+
+                        <p>
+
+                            Concepto fundamental para analizar
+                            cómo una empresa genera recursos
+                            económicos.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            PRÓXIMAMENTE
+                        </span>
+
+
+                        <h3>
+                            Gasto
+                        </h3>
+
+
+                        <p>
+
+                            Concepto necesario para comprender
+                            cómo se utilizan recursos para operar
+                            un negocio.
+
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINALIZAR SESIÓN
+        ================================================== -->
+
+        <div class="completion-area">
 
             <p>
-                Has completado el aprendizaje de hoy.
+
+                Responder correctamente es solo una parte
+                del aprendizaje. El concepto deberá volver
+                a aparecer durante tus próximos repasos.
+
             </p>
 
 
             <button
-                id="complete-button"
-                class="btn btn-primary"
                 type="button"
+                class="btn btn-primary"
+                id="complete-concept"
             >
-                Completar concepto
+                Terminar sesión
             </button>
 
 
             <p
-                id="success-message"
                 class="success-message hidden"
+                id="completion-message"
+                aria-live="polite"
             >
-                ✓ Concepto guardado en tu progreso.
+                ✓ Sesión completada. Este concepto será
+                considerado para futuros repasos.
             </p>
 
         </div>
@@ -627,12 +1207,11 @@
 
 
 
-    <!-- =================================================
-         CONSEJO DE APRENDIZAJE
-    ================================================== -->
+    <!-- =====================================================
+         CONSEJO FINAL
+    ====================================================== -->
 
     <section class="learning-tip">
-
 
         <span class="small-label">
             MÉTODO ZENTROX
@@ -640,14 +1219,22 @@
 
 
         <h2>
-            No intentes recordar solamente la definición.
+            No memorices solamente.
         </h2>
 
 
         <p>
-            Pregúntate: ¿Dónde aparece este concepto
-            dentro de un negocio? ¿Qué decisión podría
-            afectar? ¿Qué ocurriría si cambiara?
+
+            Aprende el concepto.
+            Compréndelo.
+            Aplícalo.
+            Explícalo.
+            Repásalo.
+
+            El objetivo de ZENTROX es ayudarte a desarrollar
+            conocimiento y criterio empresarial mediante
+            práctica constante.
+
         </p>
 
     </section>
@@ -657,9 +1244,9 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      FOOTER
-====================================================== -->
+========================================================= -->
 
 <footer class="footer">
 
@@ -672,11 +1259,10 @@
 
 
         <p>
-            Aprende. Razona. Aplica.
+            Aprendizaje y criterio empresarial.
         </p>
 
     </div>
-
 
 
     <div class="footer-links">
@@ -707,9 +1293,18 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      JAVASCRIPT
-====================================================== -->
+=========================================================
+
+     IMPORTANTE:
+
+     1. palabras.js contiene los conceptos.
+     2. app.js controla la lógica de aprendizaje.
+     3. palabras.js DEBE cargarse antes que app.js.
+
+========================================================= -->
+
 
 <script src="js/palabras.js"></script>
 
