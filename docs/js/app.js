@@ -1,111 +1,142 @@
 ```javascript
 /* =========================================================
    ZENTROX
-   SISTEMA PRINCIPAL V1
+   SISTEMA DE APRENDIZAJE V1
 
-   Metodología:
+   app.js
 
-   COMPRENDER
-        ↓
-   VER CONTEXTO
-        ↓
-   RAZONAR
-        ↓
-   ELEGIR
-        ↓
-   RECIBIR FEEDBACK
-        ↓
-   APLICAR
-        ↓
-   REPASAR
+   Funciones principales:
+
+   1. Seleccionar la palabra del día.
+   2. Mostrar el concepto en aprender.html.
+   3. Mostrar múltiples ejemplos empresariales.
+   4. Presentar una situación empresarial.
+   5. Permitir elegir una respuesta.
+   6. Evaluar la respuesta.
+   7. Mostrar retroalimentación.
+   8. Desbloquear aplicación práctica.
+   9. Guardar progreso.
+   10. Calcular días activos.
+   11. Calcular racha.
+   12. Gestionar repaso.
+   13. Mostrar progreso.
 ========================================================= */
-
-
-const STORAGE_KEY = "zentroxV1";
 
 
 /* =========================================================
-   ESTADO
+   CONFIGURACIÓN
 ========================================================= */
 
-function obtenerEstado() {
-
-    const guardado =
-        localStorage.getItem(STORAGE_KEY);
+const ZENTROX_STORAGE_KEY = "zentrox_v1";
 
 
-    if (guardado) {
+/* =========================================================
+   FUNCIONES GENERALES
+========================================================= */
 
-        try {
 
-            return JSON.parse(guardado);
+/**
+ * Obtiene todos los datos guardados.
+ */
+function getData() {
 
-        } catch (error) {
+    const savedData =
+        localStorage.getItem(ZENTROX_STORAGE_KEY);
 
-            console.error(
-                "Error leyendo el progreso:",
-                error
-            );
 
-        }
+    if (!savedData) {
+
+        return {
+
+            completedWords: [],
+
+            activeDays: [],
+
+            currentStreak: 0,
+
+            lastStudyDate: null,
+
+            reviewData: {},
+
+            dailyWordDate: null,
+
+            dailyWordId: null
+
+        };
 
     }
 
 
-    return {
+    try {
 
-        completed: [],
+        return JSON.parse(savedData);
 
-        reviews: {},
+    } catch (error) {
 
-        activeDays: [],
+        console.error(
+            "Error leyendo los datos de ZENTROX:",
+            error
+        );
 
-        lastStudyDate: null,
 
-        streak: 0
+        return {
 
-    };
+            completedWords: [],
+
+            activeDays: [],
+
+            currentStreak: 0,
+
+            lastStudyDate: null,
+
+            reviewData: {},
+
+            dailyWordDate: null,
+
+            dailyWordId: null
+
+        };
+
+    }
 
 }
 
 
-/* =========================================================
-   GUARDAR
-========================================================= */
-
-function guardarEstado(estado) {
+/**
+ * Guarda los datos.
+ */
+function saveData(data) {
 
     localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(estado)
+        ZENTROX_STORAGE_KEY,
+        JSON.stringify(data)
     );
 
 }
 
 
-/* =========================================================
-   FECHA
-========================================================= */
+/**
+ * Devuelve la fecha actual en formato YYYY-MM-DD.
+ */
+function getTodayString() {
 
-function obtenerFechaLocal() {
-
-    const ahora =
+    const date =
         new Date();
 
 
     const year =
-        ahora.getFullYear();
+        date.getFullYear();
 
 
     const month =
         String(
-            ahora.getMonth() + 1
+            date.getMonth() + 1
         ).padStart(2, "0");
 
 
     const day =
         String(
-            ahora.getDate()
+            date.getDate()
         ).padStart(2, "0");
 
 
@@ -114,35 +145,112 @@ function obtenerFechaLocal() {
 }
 
 
+/**
+ * Convierte una fecha YYYY-MM-DD
+ * en objeto Date.
+ */
+function dateFromString(dateString) {
+
+    const parts =
+        dateString.split("-");
+
+
+    return new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+}
+
+
+/**
+ * Devuelve la diferencia en días
+ * entre dos fechas.
+ */
+function daysBetween(dateA, dateB) {
+
+    const millisecondsPerDay =
+        1000 * 60 * 60 * 24;
+
+
+    return Math.round(
+        (
+            dateB.getTime() -
+            dateA.getTime()
+        ) / millisecondsPerDay
+    );
+
+}
+
+
 /* =========================================================
-   ÍNDICE DE LA PALABRA DEL DÍA
+   OBTENER PALABRAS
 ========================================================= */
 
-function obtenerIndiceDia() {
 
-    const inicio =
-        new Date(
-            "2026-01-01T00:00:00"
-        );
+/**
+ * Devuelve el arreglo de palabras disponible
+ * desde palabras.js.
+ *
+ * Se admiten varios nombres para facilitar
+ * compatibilidad con versiones anteriores.
+ */
+function getWords() {
 
+    if (
+        typeof palabras !== "undefined" &&
+        Array.isArray(palabras)
+    ) {
 
-    const hoy =
-        new Date();
+        return palabras;
 
-
-    const diferencia =
-        hoy.getTime() -
-        inicio.getTime();
-
-
-    const dias =
-        Math.floor(
-            diferencia / 86400000
-        );
+    }
 
 
-    return Math.abs(dias)
-        % palabras.length;
+    if (
+        typeof PALABRAS !== "undefined" &&
+        Array.isArray(PALABRAS)
+    ) {
+
+        return PALABRAS;
+
+    }
+
+
+    if (
+        typeof words !== "undefined" &&
+        Array.isArray(words)
+    ) {
+
+        return words;
+
+    }
+
+
+    console.error(
+        "No se encontró el arreglo de palabras."
+    );
+
+
+    return [];
+
+}
+
+
+/**
+ * Obtiene una palabra utilizando su ID.
+ */
+function getWordById(id) {
+
+    const words =
+        getWords();
+
+
+    return words.find(
+        word =>
+            String(word.id) === String(id)
+    );
 
 }
 
@@ -151,117 +259,1211 @@ function obtenerIndiceDia() {
    PALABRA DEL DÍA
 ========================================================= */
 
-function obtenerPalabraDelDia() {
 
-    return palabras[
-        obtenerIndiceDia()
-    ];
+/**
+ * Selecciona una palabra estable para cada día.
+ *
+ * Esto significa que si el usuario entra varias
+ * veces el mismo día, verá la misma palabra.
+ */
+function getDailyWord() {
 
-}
-
-
-/* =========================================================
-   REGISTRAR ACTIVIDAD
-========================================================= */
-
-function registrarActividad() {
-
-    const estado =
-        obtenerEstado();
+    const words =
+        getWords();
 
 
-    const hoy =
-        obtenerFechaLocal();
+    if (!words.length) {
 
-
-    if (
-        !estado.activeDays.includes(
-            hoy
-        )
-    ) {
-
-        estado.activeDays.push(
-            hoy
-        );
+        return null;
 
     }
 
 
-    actualizarRacha(
-        estado
-    );
+    const today =
+        getTodayString();
 
 
-    estado.lastStudyDate =
-        hoy;
+    const data =
+        getData();
 
 
-    guardarEstado(
-        estado
-    );
+    /*
+     * Si ya existe una palabra asignada para hoy
+     * y todavía existe en palabras.js, la usamos.
+     */
+
+    if (
+        data.dailyWordDate === today &&
+        data.dailyWordId !== null
+    ) {
+
+        const savedWord =
+            getWordById(
+                data.dailyWordId
+            );
+
+
+        if (savedWord) {
+
+            return savedWord;
+
+        }
+
+    }
+
+
+    /*
+     * Selección basada en la fecha.
+     *
+     * No utiliza números aleatorios para evitar
+     * que la palabra cambie durante el mismo día.
+     */
+
+    const startDate =
+        new Date(
+            2026,
+            0,
+            1
+        );
+
+
+    const todayDate =
+        new Date();
+
+
+    const difference =
+        Math.floor(
+            (
+                todayDate.getTime() -
+                startDate.getTime()
+            ) /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const index =
+        Math.abs(difference) %
+        words.length;
+
+
+    const word =
+        words[index];
+
+
+    data.dailyWordDate =
+        today;
+
+
+    data.dailyWordId =
+        word.id;
+
+
+    saveData(data);
+
+
+    return word;
 
 }
 
 
 /* =========================================================
-   RACHA
+   APRENDER.HTML
 ========================================================= */
 
-function actualizarRacha(
-    estado
-) {
+function initializeLearningPage() {
 
-    if (
-        !estado.activeDays.length
-    ) {
+    const title =
+        document.getElementById(
+            "word-title"
+        );
 
-        estado.streak = 0;
+
+    /*
+     * Si no existe este elemento,
+     * no estamos en aprender.html.
+     */
+
+    if (!title) {
 
         return;
 
     }
 
 
-    const fechas = [
-        ...new Set(
-            estado.activeDays
-        )
-    ].sort().reverse();
+    const word =
+        getDailyWord();
 
 
-    let racha = 1;
+    if (!word) {
+
+        console.error(
+            "No hay palabras disponibles."
+        );
+
+
+        return;
+
+    }
+
+
+    loadWordIntoPage(
+        word
+    );
+
+
+    initializeAnswerSystem(
+        word
+    );
+
+
+    updateStreakDisplay();
+
+}
+
+
+/* =========================================================
+   CARGAR PALABRA
+========================================================= */
+
+function loadWordIntoPage(word) {
+
+
+    /* -----------------------------------------------
+       CATEGORÍA
+    ------------------------------------------------ */
+
+    const category =
+        document.getElementById(
+            "word-category"
+        );
+
+
+    if (category) {
+
+        category.textContent =
+            word.categoria ||
+            word.category ||
+            "NEGOCIOS";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       TÍTULO
+    ------------------------------------------------ */
+
+    const title =
+        document.getElementById(
+            "word-title"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            word.palabra ||
+            word.word ||
+            "Concepto";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       DEFINICIÓN
+    ------------------------------------------------ */
+
+    const definition =
+        document.getElementById(
+            "word-definition"
+        );
+
+
+    if (definition) {
+
+        definition.textContent =
+            word.significado ||
+            word.definition ||
+            "";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       SIGNIFICADO SENCILLO
+    ------------------------------------------------ */
+
+    const simpleDefinition =
+        document.getElementById(
+            "simple-definition"
+        );
+
+
+    if (simpleDefinition) {
+
+        simpleDefinition.textContent =
+            word.significado_sencillo ||
+            word.simpleDefinition ||
+            word.significado ||
+            word.definition ||
+            "";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       SITUACIÓN EMPRESARIAL
+    ------------------------------------------------ */
+
+    const situation =
+        document.getElementById(
+            "business-situation"
+        );
+
+
+    if (situation) {
+
+        situation.textContent =
+            word.situacion ||
+            word.situation ||
+            "";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       PREGUNTA
+    ------------------------------------------------ */
+
+    const question =
+        document.getElementById(
+            "question-text"
+        );
+
+
+    if (question) {
+
+        question.textContent =
+            word.pregunta ||
+            word.question ||
+            "";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       APLICACIÓN
+    ------------------------------------------------ */
+
+    const applicationText =
+        document.getElementById(
+            "application-text"
+        );
+
+
+    if (applicationText) {
+
+        applicationText.textContent =
+            word.aplicacion ||
+            word.application ||
+            "";
+
+    }
+
+
+
+    const applicationQuestion =
+        document.getElementById(
+            "application-question"
+        );
+
+
+    if (applicationQuestion) {
+
+        applicationQuestion.textContent =
+            word.pregunta_aplicacion ||
+            word.applicationQuestion ||
+            "";
+
+    }
+
+
+
+    /* -----------------------------------------------
+       EJEMPLOS
+    ------------------------------------------------ */
+
+    loadExamples(
+        word
+    );
+
+
+    /* -----------------------------------------------
+       OPCIONES
+    ------------------------------------------------ */
+
+    loadOptions(
+        word
+    );
+
+}
+
+
+/* =========================================================
+   EJEMPLOS EMPRESARIALES
+========================================================= */
+
+function loadExamples(word) {
+
+    const container =
+        document.getElementById(
+            "examples-container"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const examples =
+        word.ejemplos ||
+        word.examples ||
+        [];
+
+
+    /*
+     * Si palabras.js tiene ejemplos,
+     * se generan automáticamente.
+     */
+
+    if (
+        Array.isArray(examples) &&
+        examples.length
+    ) {
+
+        container.innerHTML = "";
+
+
+        examples.forEach(
+            (
+                example,
+                index
+            ) => {
+
+
+                /*
+                 * Permite que un ejemplo sea:
+                 *
+                 * "texto"
+                 *
+                 * o:
+                 *
+                 * {
+                 *   titulo: "...",
+                 *   texto: "..."
+                 * }
+                 */
+
+                let title =
+                    "";
+
+
+                let text =
+                    "";
+
+
+                if (
+                    typeof example === "string"
+                ) {
+
+                    title =
+                        `Ejemplo empresarial ${index + 1}`;
+
+                    text =
+                        example;
+
+                } else {
+
+                    title =
+                        example.titulo ||
+                        example.title ||
+                        `Ejemplo empresarial ${index + 1}`;
+
+
+                    text =
+                        example.texto ||
+                        example.text ||
+                        example.descripcion ||
+                        "";
+
+                }
+
+
+                const article =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                article.className =
+                    "example-card";
+
+
+                article.innerHTML = `
+
+                    <span class="example-number">
+                        EJEMPLO ${String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <h3>
+                        ${escapeHTML(title)}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(text)}
+                    </p>
+
+                `;
+
+
+                container.appendChild(
+                    article
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPCIONES DE RESPUESTA
+========================================================= */
+
+function loadOptions(word) {
+
+    const container =
+        document.getElementById(
+            "options-container"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const options =
+        word.opciones ||
+        word.options ||
+        [];
+
+
+    if (
+        !Array.isArray(options) ||
+        !options.length
+    ) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    options.forEach(
+        (
+            option,
+            index
+        ) => {
+
+
+            let text =
+                "";
+
+
+            let value =
+                "";
+
+
+            /*
+             * Formato permitido:
+             *
+             * {
+             *   id: "A",
+             *   texto: "..."
+             * }
+             */
+
+            if (
+                typeof option === "string"
+            ) {
+
+                text =
+                    option;
+
+
+                value =
+                    String.fromCharCode(
+                        65 + index
+                    );
+
+            } else {
+
+                value =
+                    option.id ||
+                    option.letra ||
+                    String.fromCharCode(
+                        65 + index
+                    );
+
+
+                text =
+                    option.texto ||
+                    option.text ||
+                    option.respuesta ||
+                    "";
+
+            }
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "answer-option";
+
+
+            button.dataset.answer =
+                value;
+
+
+            button.innerHTML = `
+
+                <span class="option-letter">
+                    ${escapeHTML(value)}
+                </span>
+
+                <span>
+                    ${escapeHTML(text)}
+                </span>
+
+            `;
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SISTEMA DE RESPUESTAS
+========================================================= */
+
+function initializeAnswerSystem(word) {
+
+    const container =
+        document.getElementById(
+            "options-container"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const options =
+        container.querySelectorAll(
+            ".answer-option"
+        );
+
+
+    options.forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    evaluateAnswer(
+                        word,
+                        this.dataset.answer
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EVALUAR RESPUESTA
+========================================================= */
+
+function evaluateAnswer(
+    word,
+    selectedAnswer
+) {
+
+
+    const correctAnswer =
+        word.respuesta_correcta ||
+        word.correctAnswer ||
+        word.respuesta ||
+        word.answer;
+
+
+    const options =
+        document.querySelectorAll(
+            ".answer-option"
+        );
+
+
+    /*
+     * Desactivamos todas las opciones.
+     *
+     * Esto evita que el usuario cambie
+     * de respuesta después de conocer
+     * el resultado.
+     */
+
+    options.forEach(
+        button => {
+
+            button.disabled =
+                true;
+
+        }
+    );
+
+
+    const selectedButton =
+        document.querySelector(
+            `.answer-option[data-answer="${CSS.escape(selectedAnswer)}"]`
+        );
+
+
+    const correctButton =
+        document.querySelector(
+            `.answer-option[data-answer="${CSS.escape(String(correctAnswer))}"]`
+        );
+
+
+    const isCorrect =
+        String(selectedAnswer).toUpperCase() ===
+        String(correctAnswer).toUpperCase();
+
+
+
+    /* -----------------------------------------------
+       MARCAR RESPUESTAS
+    ------------------------------------------------ */
+
+    if (isCorrect) {
+
+        if (selectedButton) {
+
+            selectedButton.classList.add(
+                "correct"
+            );
+
+        }
+
+    } else {
+
+        if (selectedButton) {
+
+            selectedButton.classList.add(
+                "incorrect"
+            );
+
+        }
+
+
+        if (correctButton) {
+
+            correctButton.classList.add(
+                "correct"
+            );
+
+        }
+
+    }
+
+
+
+    /* -----------------------------------------------
+       MOSTRAR FEEDBACK
+    ------------------------------------------------ */
+
+    showAnswerFeedback(
+        word,
+        isCorrect
+    );
+
+
+
+    /* -----------------------------------------------
+       DESBLOQUEAR APLICACIÓN
+    ------------------------------------------------ */
+
+    const applicationSection =
+        document.getElementById(
+            "application-section"
+        );
+
+
+    if (applicationSection) {
+
+        applicationSection.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+
+    /* -----------------------------------------------
+       MOSTRAR COMPLETAR
+    ------------------------------------------------ */
+
+    const completionArea =
+        document.getElementById(
+            "completion-area"
+        );
+
+
+    if (completionArea) {
+
+        completionArea.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+
+    /*
+     * Guardamos temporalmente el resultado
+     * de la pregunta.
+     */
+
+    window.zentroxCurrentResult = {
+
+        wordId:
+            word.id,
+
+        correct:
+            isCorrect,
+
+        answered:
+            true
+
+    };
+
+}
+
+
+/* =========================================================
+   MOSTRAR RETROALIMENTACIÓN
+========================================================= */
+
+function showAnswerFeedback(
+    word,
+    isCorrect
+) {
+
+
+    const feedback =
+        document.getElementById(
+            "answer-feedback"
+        );
+
+
+    if (!feedback) {
+
+        return;
+
+    }
+
+
+    const title =
+        document.getElementById(
+            "feedback-title"
+        );
+
+
+    const message =
+        document.getElementById(
+            "feedback-message"
+        );
+
+
+    const explanation =
+        document.getElementById(
+            "feedback-explanation"
+        );
+
+
+    feedback.classList.remove(
+        "hidden"
+    );
+
+
+    if (isCorrect) {
+
+        if (title) {
+
+            title.textContent =
+                "¡Correcto!";
+
+            title.className =
+                "correct-title";
+
+        }
+
+
+        if (message) {
+
+            message.textContent =
+                "Has identificado correctamente el concepto.";
+
+        }
+
+    } else {
+
+        if (title) {
+
+            title.textContent =
+                "No exactamente.";
+
+            title.className =
+                "incorrect-title";
+
+        }
+
+
+        if (message) {
+
+            message.textContent =
+                "La respuesta correcta está marcada. Ahora revisa por qué.";
+
+        }
+
+    }
+
+
+    if (explanation) {
+
+        explanation.textContent =
+            word.explicacion ||
+            word.explanation ||
+            word.respuesta_explicada ||
+            word.answerExplanation ||
+            "";
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETAR CONCEPTO
+========================================================= */
+
+function initializeCompletionButton() {
+
+    const button =
+        document.getElementById(
+            "complete-button"
+        );
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+
+            const current =
+                window.zentroxCurrentResult;
+
+
+            if (!current) {
+
+                return;
+
+            }
+
+
+            completeWord(
+                current.wordId,
+                current.correct
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   GUARDAR CONCEPTO
+========================================================= */
+
+function completeWord(
+    wordId,
+    wasCorrect
+) {
+
+
+    const data =
+        getData();
+
+
+    /*
+     * Evita duplicar el concepto.
+     */
+
+    const alreadyCompleted =
+        data.completedWords.some(
+            item =>
+                String(item.id) ===
+                String(wordId)
+        );
+
+
+    if (!alreadyCompleted) {
+
+        data.completedWords.push({
+
+            id:
+                wordId,
+
+            date:
+                getTodayString(),
+
+            correct:
+                Boolean(wasCorrect)
+
+        });
+
+    }
+
+
+    registerActiveDay(
+        data
+    );
+
+
+    /*
+     * Guardamos información para repaso.
+     */
+
+    if (!data.reviewData) {
+
+        data.reviewData = {};
+
+    }
+
+
+    data.reviewData[wordId] = {
+
+        lastReview:
+            getTodayString(),
+
+        correct:
+            Boolean(wasCorrect),
+
+        times:
+            (
+                data.reviewData[wordId]?.times ||
+                0
+            ) + 1
+
+    };
+
+
+    saveData(
+        data
+    );
+
+
+    /*
+     * Mostrar mensaje de éxito.
+     */
+
+    const message =
+        document.getElementById(
+            "success-message"
+        );
+
+
+    if (message) {
+
+        message.classList.remove(
+            "hidden"
+        );
+
+
+        message.textContent =
+            "✓ Concepto guardado en tu progreso.";
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "complete-button"
+        );
+
+
+    if (button) {
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "Concepto completado";
+
+    }
+
+
+    updateStreakDisplay();
+
+}
+
+
+/* =========================================================
+   DÍAS ACTIVOS
+========================================================= */
+
+function registerActiveDay(data) {
+
+    const today =
+        getTodayString();
+
+
+    if (
+        !data.activeDays.includes(today)
+    ) {
+
+        data.activeDays.push(
+            today
+        );
+
+    }
+
+
+    calculateStreak(
+        data
+    );
+
+}
+
+
+/* =========================================================
+   CALCULAR RACHA
+========================================================= */
+
+function calculateStreak(data) {
+
+    const days =
+        [...data.activeDays]
+            .sort();
+
+
+    if (!days.length) {
+
+        data.currentStreak =
+            0;
+
+        data.lastStudyDate =
+            null;
+
+        return;
+
+    }
+
+
+    let streak =
+        1;
+
+
+    const today =
+        dateFromString(
+            days[days.length - 1]
+        );
 
 
     for (
-        let i = 0;
-        i < fechas.length - 1;
-        i++
+        let i = days.length - 2;
+        i >= 0;
+        i--
     ) {
 
-        const fechaActual =
-            new Date(
-                fechas[i]
+
+        const current =
+            dateFromString(
+                days[i]
             );
 
 
-        const fechaAnterior =
-            new Date(
-                fechas[i + 1]
+        const next =
+            dateFromString(
+                days[i + 1]
             );
 
 
-        const diferencia =
-            (
-                fechaActual -
-                fechaAnterior
-            ) / 86400000;
+        const difference =
+            daysBetween(
+                current,
+                next
+            );
 
 
-        if (
-            diferencia === 1
-        ) {
+        if (difference === 1) {
 
-            racha++;
+            streak++;
 
         } else {
 
@@ -272,799 +1474,110 @@ function actualizarRacha(
     }
 
 
-    estado.streak =
-        racha;
+    /*
+     * Si el último día registrado
+     * no es hoy ni ayer, la racha actual
+     * debe considerarse 0.
+     */
 
-}
+    const currentDate =
+        new Date();
 
 
-/* =========================================================
-   MARCAR COMO APRENDIDO
-========================================================= */
+    currentDate.setHours(
+        0,
+        0,
+        0,
+        0
+    );
 
-function marcarComoCompletada(
-    id
-) {
 
-    const estado =
-        obtenerEstado();
+    const differenceFromToday =
+        daysBetween(
+            today,
+            currentDate
+        );
 
 
     if (
-        !estado.completed.includes(
-            id
-        )
+        differenceFromToday > 1
     ) {
 
-        estado.completed.push(
-            id
-        );
+        streak =
+            0;
 
     }
 
 
-    registrarActividad();
+    data.currentStreak =
+        streak;
 
 
-    const nuevoEstado =
-        obtenerEstado();
-
-
-    nuevoEstado.completed =
-        estado.completed;
-
-
-    guardarEstado(
-        nuevoEstado
-    );
+    data.lastStudyDate =
+        days[days.length - 1];
 
 }
 
 
 /* =========================================================
-   APRENDIZAJE
+   MOSTRAR RACHA
 ========================================================= */
 
-function iniciarAprendizaje() {
+function updateStreakDisplay() {
 
-    const wordElement =
+    const data =
+        getData();
+
+
+    calculateStreak(
+        data
+    );
+
+
+    saveData(
+        data
+    );
+
+
+    const element =
         document.getElementById(
-            "word"
+            "streak-display"
         );
 
 
-    if (!wordElement) {
+    if (!element) {
 
         return;
 
     }
 
 
-    const palabra =
-        obtenerPalabraDelDia();
-
-
-    /* -----------------------------------------
-       INFORMACIÓN PRINCIPAL
-    ----------------------------------------- */
-
-    document.getElementById(
-        "category"
-    ).textContent =
-        palabra.categoria;
-
-
-    document.getElementById(
-        "word"
-    ).textContent =
-        palabra.palabra;
-
-
-    document.getElementById(
-        "short-definition"
-    ).textContent =
-        palabra.definicionCorta;
-
-
-    document.getElementById(
-        "definition"
-    ).textContent =
-        palabra.definicion;
-
-
-    document.getElementById(
-        "question"
-    ).textContent =
-        palabra.pregunta;
-
-
-    document.getElementById(
-        "application"
-    ).textContent =
-        palabra.aplicacion;
-
-
-    document.getElementById(
-        "day-counter"
-    ).textContent =
-        `Concepto ${
-            obtenerIndiceDia() + 1
-        } de ${
-            palabras.length
+    element.textContent =
+        `🔥 ${data.currentStreak} ${
+            data.currentStreak === 1
+                ? "día"
+                : "días"
         }`;
 
-
-    const estado =
-        obtenerEstado();
-
-
-    document.getElementById(
-        "streak"
-    ).textContent =
-        estado.streak;
-
-
-
-    /* -----------------------------------------
-       EJEMPLOS
-    ----------------------------------------- */
-
-    const examplesContainer =
-        document.getElementById(
-            "examples-container"
-        );
-
-
-    examplesContainer.innerHTML = "";
-
-
-    palabra.ejemplos.forEach(
-        (ejemplo, index) => {
-
-            const box =
-                document.createElement(
-                    "div"
-                );
-
-
-            box.className =
-                "example-card";
-
-
-            box.innerHTML = `
-
-                <span class="example-number">
-                    Ejemplo ${index + 1}
-                </span>
-
-                <h3>
-                    ${ejemplo.titulo}
-                </h3>
-
-                <p>
-                    ${ejemplo.texto}
-                </p>
-
-            `;
-
-
-            examplesContainer.appendChild(
-                box
-            );
-
-        }
-    );
-
-
-
-    /* -----------------------------------------
-       OPCIONES
-    ----------------------------------------- */
-
-    const optionsContainer =
-        document.getElementById(
-            "options-container"
-        );
-
-
-    optionsContainer.innerHTML = "";
-
-
-    palabra.opciones.forEach(
-        (opcion, index) => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "answer-option";
-
-
-            button.dataset.index =
-                index;
-
-
-            button.innerHTML = `
-
-                <span class="option-letter">
-                    ${String.fromCharCode(
-                        65 + index
-                    )}
-                </span>
-
-                <span>
-                    ${opcion}
-                </span>
-
-            `;
-
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    seleccionarRespuesta(
-                        index,
-                        palabra
-                    );
-
-                }
-            );
-
-
-            optionsContainer.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-
-    /* -----------------------------------------
-       ESTADO DE COMPLETADO
-    ----------------------------------------- */
-
-    const completeButton =
-        document.getElementById(
-            "complete-button"
-        );
-
-
-    const completionMessage =
-        document.getElementById(
-            "completion-message"
-        );
-
-
-    if (
-        estado.completed.includes(
-            palabra.id
-        )
-    ) {
-
-        completeButton.disabled =
-            true;
-
-
-        completeButton.textContent =
-            "✓ Ya aprendido";
-
-
-        completionMessage.classList.remove(
-            "hidden"
-        );
-
-    }
-
 }
 
 
 /* =========================================================
-   SELECCIONAR RESPUESTA
+   PROGRESO.HTML
 ========================================================= */
 
-function seleccionarRespuesta(
-    indiceSeleccionado,
-    palabra
-) {
-
-    const botones =
-        document.querySelectorAll(
-            ".answer-option"
-        );
-
-
-    botones.forEach(
-        boton => {
-
-            boton.disabled =
-                true;
-
-        }
-    );
-
-
-    const correcto =
-        indiceSeleccionado ===
-        palabra.respuestaCorrecta;
-
-
-    botones.forEach(
-        (boton, index) => {
-
-            if (
-                index ===
-                palabra.respuestaCorrecta
-            ) {
-
-                boton.classList.add(
-                    "correct"
-                );
-
-            }
-
-
-            if (
-                index ===
-                indiceSeleccionado &&
-                !correcto
-            ) {
-
-                boton.classList.add(
-                    "incorrect"
-                );
-
-            }
-
-        }
-    );
-
-
-    const feedback =
-        document.getElementById(
-            "answer-feedback"
-        );
-
-
-    const title =
-        document.getElementById(
-            "feedback-title"
-        );
-
-
-    const text =
-        document.getElementById(
-            "feedback-text"
-        );
-
-
-    const explanation =
-        document.getElementById(
-            "answer-explanation-text"
-        );
-
-
-    feedback.classList.remove(
-        "hidden"
-    );
-
-
-    if (correcto) {
-
-        title.textContent =
-            "✓ Correcto";
-
-
-        title.className =
-            "correct-title";
-
-
-        text.textContent =
-            "Bien. No solo elegiste la respuesta correcta: ahora revisa por qué."
-
-
-    } else {
-
-        title.textContent =
-            "✗ No exactamente";
-
-
-        title.className =
-            "incorrect-title";
-
-
-        text.textContent =
-            "La respuesta correcta está marcada. Revisa la explicación y vuelve a pensar en el concepto.";
-
-    }
-
-
-    explanation.textContent =
-        palabra.explicacion;
-
-
-    registrarActividad();
-
-
-    const completeButton =
-        document.getElementById(
-            "complete-button"
-        );
-
-
-    completeButton.disabled =
-        false;
-
-
-    completeButton.dataset.answered =
-        "true";
-
-
-    completeButton.dataset.correct =
-        correcto
-            ? "true"
-            : "false";
-
-}
-
-
-/* =========================================================
-   BOTÓN COMPLETAR
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const completeButton =
-            document.getElementById(
-                "complete-button"
-            );
-
-
-        if (completeButton) {
-
-            completeButton.addEventListener(
-                "click",
-                function () {
-
-                    const palabra =
-                        obtenerPalabraDelDia();
-
-
-                    if (
-                        completeButton.dataset.answered
-                        !==
-                        "true"
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    marcarComoCompletada(
-                        palabra.id
-                    );
-
-
-                    completeButton.disabled =
-                        true;
-
-
-                    completeButton.textContent =
-                        "✓ Aprendizaje completado";
-
-
-                    document
-                        .getElementById(
-                            "completion-message"
-                        )
-                        .classList.remove(
-                            "hidden"
-                        );
-
-                }
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   REPASO
-========================================================= */
-
-function obtenerConceptosParaRepaso() {
-
-    const estado =
-        obtenerEstado();
-
-
-    return palabras.filter(
-        palabra =>
-            estado.completed.includes(
-                palabra.id
-            )
-    );
-
-}
-
-
-function iniciarRepaso() {
-
-    const reviewCard =
-        document.getElementById(
-            "review-card"
-        );
-
-
-    if (!reviewCard) {
-
-        return;
-
-    }
-
-
-    const conceptos =
-        obtenerConceptosParaRepaso();
-
-
-    const emptyState =
-        document.getElementById(
-            "review-empty"
-        );
-
-
-    if (!conceptos.length) {
-
-        reviewCard.classList.add(
-            "hidden"
-        );
-
-
-        emptyState.classList.remove(
-            "hidden"
-        );
-
-
-        return;
-
-    }
-
-
-    const estado =
-        obtenerEstado();
-
-
-    let concepto =
-        conceptos.find(
-            palabra =>
-                estado.reviews[
-                    palabra.id
-                ] !== "easy"
-        );
-
-
-    if (!concepto) {
-
-        concepto =
-            conceptos[
-                Math.floor(
-                    Math.random() *
-                    conceptos.length
-                )
-            ];
-
-    }
-
-
-    document.getElementById(
-        "review-category"
-    ).textContent =
-        concepto.categoria;
-
-
-    document.getElementById(
-        "review-word"
-    ).textContent =
-        concepto.palabra;
-
-
-    document.getElementById(
-        "review-definition"
-    ).textContent =
-        concepto.definicion;
-
-
-    document.getElementById(
-        "review-example"
-    ).textContent =
-        concepto.ejemplos[0].texto;
-
-
-    const answerButton =
-        document.getElementById(
-            "review-answer-button"
-        );
-
-
-    const answer =
-        document.getElementById(
-            "review-answer"
-        );
-
-
-    const actions =
-        document.getElementById(
-            "review-actions"
-        );
-
-
-    answerButton.addEventListener(
-        "click",
-        function () {
-
-            answer.classList.remove(
-                "hidden"
-            );
-
-
-            actions.classList.remove(
-                "hidden"
-            );
-
-
-            answerButton.classList.add(
-                "hidden"
-            );
-
-        }
-    );
-
-
-    const reviewButtons =
-        document.querySelectorAll(
-            ".review-button"
-        );
-
-
-    reviewButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    const result =
-                        button.dataset.result;
-
-
-                    const estadoActual =
-                        obtenerEstado();
-
-
-                    estadoActual.reviews[
-                        concepto.id
-                    ] = result;
-
-
-                    registrarActividad();
-
-
-                    guardarEstado(
-                        estadoActual
-                    );
-
-
-                    answer.innerHTML = `
-
-                        <strong>
-                            Repaso registrado
-                        </strong>
-
-                        <p>
-                            Has marcado este concepto como:
-                            <strong>
-                                ${textoResultado(
-                                    result
-                                )}
-                            </strong>.
-                        </p>
-
-                    `;
-
-
-                    actions.classList.add(
-                        "hidden"
-                    );
-
-
-                    answerButton.classList.remove(
-                        "hidden"
-                    );
-
-
-                    answerButton.textContent =
-                        "Repasar otro concepto";
-
-
-                    answerButton.onclick =
-                        function () {
-
-                            window.location.reload();
-
-                        };
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   TEXTO REPASO
-========================================================= */
-
-function textoResultado(
-    resultado
-) {
-
-    if (
-        resultado ===
-        "difficult"
-    ) {
-
-        return "Necesito repasarlo";
-
-    }
-
-
-    if (
-        resultado ===
-        "good"
-    ) {
-
-        return "Lo recordé";
-
-    }
-
-
-    if (
-        resultado ===
-        "easy"
-    ) {
-
-        return "Lo domino";
-
-    }
-
-
-    return resultado;
-
-}
-
-
-/* =========================================================
-   PROGRESO
-========================================================= */
-
-function iniciarProgreso() {
+function initializeProgressPage() {
 
     const completedCount =
         document.getElementById(
             "completed-count"
         );
 
+
+    /*
+     * Si no existe, no estamos
+     * en progreso.html.
+     */
 
     if (!completedCount) {
 
@@ -1073,104 +1586,140 @@ function iniciarProgreso() {
     }
 
 
-    const estado =
-        obtenerEstado();
+    const data =
+        getData();
 
 
-    const completados =
-        estado.completed.length;
+    const words =
+        getWords();
 
 
-    const total =
-        palabras.length;
-
-
-    const porcentaje =
-        total === 0
-            ? 0
-            : Math.round(
-                (
-                    completados /
-                    total
-                ) * 100
-            );
-
-
-    completedCount.textContent =
-        completados;
-
-
-    document.getElementById(
-        "active-days"
-    ).textContent =
-        estado.activeDays.length;
-
-
-    document.getElementById(
-        "current-streak"
-    ).textContent =
-        estado.streak;
-
-
-    document.getElementById(
-        "total-words"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "progress-percentage"
-    ).textContent =
-        `${porcentaje}%`;
-
-
-    document.getElementById(
-        "progress-fill"
-    ).style.width =
-        `${porcentaje}%`;
-
-
-    mostrarListaConceptos(
-        estado
+    calculateStreak(
+        data
     );
 
 
-    const resetButton =
+    saveData(
+        data
+    );
+
+
+    /*
+     * Conceptos completados
+     */
+
+    completedCount.textContent =
+        data.completedWords.length;
+
+
+
+    /*
+     * Días activos
+     */
+
+    const activeDays =
         document.getElementById(
-            "reset-progress"
+            "active-days"
         );
 
 
-    if (resetButton) {
+    if (activeDays) {
 
-        resetButton.addEventListener(
-            "click",
-            function () {
-
-                const confirmar =
-                    confirm(
-                        "¿Seguro que quieres eliminar todo tu progreso?"
-                    );
-
-
-                if (!confirmar) {
-
-                    return;
-
-                }
-
-
-                localStorage.removeItem(
-                    STORAGE_KEY
-                );
-
-
-                window.location.reload();
-
-            }
-        );
+        activeDays.textContent =
+            data.activeDays.length;
 
     }
+
+
+
+    /*
+     * Racha
+     */
+
+    const streak =
+        document.getElementById(
+            "current-streak"
+        );
+
+
+    if (streak) {
+
+        streak.textContent =
+            data.currentStreak;
+
+    }
+
+
+
+    /*
+     * Total de conceptos
+     */
+
+    const totalWords =
+        document.getElementById(
+            "total-words"
+        );
+
+
+    if (totalWords) {
+
+        totalWords.textContent =
+            words.length;
+
+    }
+
+
+
+    /*
+     * Porcentaje
+     */
+
+    const percentage =
+        words.length
+            ? Math.round(
+                (
+                    data.completedWords.length /
+                    words.length
+                ) * 100
+            )
+            : 0;
+
+
+    const percentageElement =
+        document.getElementById(
+            "progress-percentage"
+        );
+
+
+    if (percentageElement) {
+
+        percentageElement.textContent =
+            `${percentage}%`;
+
+    }
+
+
+    const fill =
+        document.getElementById(
+            "progress-fill"
+        );
+
+
+    if (fill) {
+
+        fill.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    renderConceptList(
+        words,
+        data
+    );
+
+
+    initializeResetButton();
 
 }
 
@@ -1179,9 +1728,11 @@ function iniciarProgreso() {
    LISTA DE CONCEPTOS
 ========================================================= */
 
-function mostrarListaConceptos(
-    estado
+function renderConceptList(
+    words,
+    data
 ) {
+
 
     const container =
         document.getElementById(
@@ -1196,15 +1747,19 @@ function mostrarListaConceptos(
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
-    palabras.forEach(
-        palabra => {
+    words.forEach(
+        word => {
 
-            const aprendido =
-                estado.completed.includes(
-                    palabra.id
+
+            const completed =
+                data.completedWords.some(
+                    item =>
+                        String(item.id) ===
+                        String(word.id)
                 );
 
 
@@ -1218,29 +1773,42 @@ function mostrarListaConceptos(
                 "concept-item";
 
 
+            const category =
+                word.categoria ||
+                word.category ||
+                "NEGOCIOS";
+
+
+            const name =
+                word.palabra ||
+                word.word ||
+                "Concepto";
+
+
             article.innerHTML = `
 
                 <div>
 
                     <span class="category">
-                        ${palabra.categoria}
+                        ${escapeHTML(category)}
                     </span>
 
                     <h3>
-                        ${palabra.palabra}
+                        ${escapeHTML(name)}
                     </h3>
 
                 </div>
 
-                <div class="concept-status">
+
+                <span class="concept-status">
 
                     ${
-                        aprendido
-                            ? "✓ Aprendido"
+                        completed
+                            ? "✓ Completado"
                             : "Pendiente"
                     }
 
-                </div>
+                </span>
 
             `;
 
@@ -1256,18 +1824,530 @@ function mostrarListaConceptos(
 
 
 /* =========================================================
-   INICIO
+   REINICIAR PROGRESO
+========================================================= */
+
+function initializeResetButton() {
+
+    const button =
+        document.getElementById(
+            "reset-progress"
+        );
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+
+            const confirmed =
+                confirm(
+                    "¿Seguro que quieres eliminar todo tu progreso en ZENTROX?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                ZENTROX_STORAGE_KEY
+            );
+
+
+            location.reload();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   REPASO.HTML
+========================================================= */
+
+function initializeReviewPage() {
+
+    const reviewCard =
+        document.getElementById(
+            "review-card"
+        );
+
+
+    if (!reviewCard) {
+
+        return;
+
+    }
+
+
+    const data =
+        getData();
+
+
+    const words =
+        getWords();
+
+
+    /*
+     * Solo mostramos conceptos que
+     * el usuario ya haya completado.
+     */
+
+    const completedWords =
+        data.completedWords;
+
+
+    if (
+        !completedWords.length
+    ) {
+
+        return;
+
+    }
+
+
+    const emptyState =
+        document.getElementById(
+            "review-empty"
+        );
+
+
+    if (emptyState) {
+
+        emptyState.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    reviewCard.classList.remove(
+        "hidden"
+    );
+
+
+    /*
+     * Seleccionamos un concepto para repasar.
+     *
+     * Priorizamos el que tenga peor resultado.
+     */
+
+    let selectedRecord =
+        completedWords.find(
+            record =>
+                record.correct === false
+        );
+
+
+    if (!selectedRecord) {
+
+        selectedRecord =
+            completedWords[
+                completedWords.length - 1
+            ];
+
+    }
+
+
+    const word =
+        getWordById(
+            selectedRecord.id
+        );
+
+
+    if (!word) {
+
+        return;
+
+    }
+
+
+    loadReviewWord(
+        word
+    );
+
+
+    initializeReviewAnswer(
+        word
+    );
+
+}
+
+
+/* =========================================================
+   CARGAR REPASO
+========================================================= */
+
+function loadReviewWord(word) {
+
+
+    const category =
+        document.getElementById(
+            "review-category"
+        );
+
+
+    if (category) {
+
+        category.textContent =
+            word.categoria ||
+            word.category ||
+            "NEGOCIOS";
+
+    }
+
+
+    const title =
+        document.getElementById(
+            "review-word"
+        );
+
+
+    if (title) {
+
+        title.textContent =
+            word.palabra ||
+            word.word ||
+            "";
+
+    }
+
+
+    const definition =
+        document.getElementById(
+            "review-definition"
+        );
+
+
+    if (definition) {
+
+        definition.textContent =
+            word.significado ||
+            word.definition ||
+            "";
+
+    }
+
+
+    const example =
+        document.getElementById(
+            "review-example"
+        );
+
+
+    if (example) {
+
+        const examples =
+            word.ejemplos ||
+            word.examples ||
+            [];
+
+
+        if (
+            Array.isArray(examples) &&
+            examples.length
+        ) {
+
+            const first =
+                examples[0];
+
+
+            if (
+                typeof first === "string"
+            ) {
+
+                example.textContent =
+                    first;
+
+            } else {
+
+                example.textContent =
+                    first.texto ||
+                    first.text ||
+                    "";
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   REPASO — MOSTRAR RESPUESTA
+========================================================= */
+
+function initializeReviewAnswer(word) {
+
+    const button =
+        document.getElementById(
+            "review-answer-button"
+        );
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        function () {
+
+
+            const answer =
+                document.getElementById(
+                    "review-answer"
+                );
+
+
+            const actions =
+                document.getElementById(
+                    "review-actions"
+                );
+
+
+            if (answer) {
+
+                answer.classList.remove(
+                    "hidden"
+                );
+
+
+                const paragraph =
+                    answer.querySelector(
+                        "p"
+                    );
+
+
+                if (paragraph) {
+
+                    paragraph.textContent =
+                        word.explicacion ||
+                        word.explanation ||
+                        word.respuesta_explicada ||
+                        word.significado ||
+                        "";
+
+                }
+
+            }
+
+
+            if (actions) {
+
+                actions.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Explicación mostrada";
+
+
+            initializeReviewButtons(
+                word
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BOTONES DE REPASO
+========================================================= */
+
+function initializeReviewButtons(word) {
+
+    const buttons =
+        document.querySelectorAll(
+            ".review-button"
+        );
+
+
+    buttons.forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    const result =
+                        this.dataset.result;
+
+
+                    saveReviewResult(
+                        word,
+                        result
+                    );
+
+
+                    this.textContent =
+                        "✓ Guardado";
+
+
+                    buttons.forEach(
+                        otherButton => {
+
+                            otherButton.disabled =
+                                true;
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   GUARDAR RESULTADO DEL REPASO
+========================================================= */
+
+function saveReviewResult(
+    word,
+    result
+) {
+
+
+    const data =
+        getData();
+
+
+    if (!data.reviewData) {
+
+        data.reviewData = {};
+
+    }
+
+
+    data.reviewData[word.id] = {
+
+        lastReview:
+            getTodayString(),
+
+        result:
+            result,
+
+        times:
+            (
+                data.reviewData[word.id]?.times ||
+                0
+            ) + 1
+
+    };
+
+
+    saveData(
+        data
+    );
+
+}
+
+
+/* =========================================================
+   SEGURIDAD BÁSICA PARA TEXTO HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        iniciarAprendizaje();
 
-        iniciarRepaso();
+        /*
+         * Página aprender
+         */
 
-        iniciarProgreso();
+        initializeLearningPage();
+
+
+        /*
+         * Botón completar
+         */
+
+        initializeCompletionButton();
+
+
+        /*
+         * Página progreso
+         */
+
+        initializeProgressPage();
+
+
+        /*
+         * Página repaso
+         */
+
+        initializeReviewPage();
+
+
+        /*
+         * Actualizar racha
+         */
+
+        updateStreakDisplay();
 
     }
 );
