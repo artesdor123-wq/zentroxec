@@ -1,1 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Aprender | Empresa Diario</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+        EMPRESA<span>DIARIO</span>
+    </a>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="aprender.html" class="active">Aprender</a>
+        <a href="repaso.html">Repaso</a>
+        <a href="progreso.html">Progreso</a>
+    </nav>
+
+</header>
+
+
+<main class="learning-page">
+
+    <div class="learning-top">
+
+        <div>
+            <span class="small-label">
+                PALABRA DEL DÍA
+            </span>
+
+            <p id="day-counter" class="muted">
+                Día de aprendizaje
+            </p>
+        </div>
+
+        <div class="streak">
+            🔥 <span id="streak">0</span>
+        </div>
+
+    </div>
+
+
+    <section class="learning-card">
+
+        <div class="concept-header">
+
+            <span id="category" class="category">
+                CONTABILIDAD
+            </span>
+
+            <h1 id="word">
+                Activo
+            </h1>
+
+            <p id="short-definition" class="concept-description">
+                Algo que tiene valor económico para una empresa.
+            </p>
+
+        </div>
+
+
+        <div class="learning-section">
+
+            <div class="section-number">
+                01
+            </div>
+
+            <div>
+                <h2>Significado sencillo</h2>
+
+                <p id="definition">
+                    Cargando...
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="learning-section">
+
+            <div class="section-number">
+                02
+            </div>
+
+            <div>
+                <h2>Ejemplo empresarial</h2>
+
+                <div class="context-box">
+
+                    <p id="example">
+                        Cargando...
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="learning-section">
+
+            <div class="section-number">
+                03
+            </div>
+
+            <div>
+
+                <h2>
+                    Ahora piensa
+                </h2>
+
+                <p id="question" class="question">
+                    Cargando...
+                </p>
+
+
+                <div id="answer-area">
+
+                    <button
+                        id="show-answer"
+                        class="btn btn-primary"
+                    >
+                        Ver respuesta
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="answer-box"
+                    class="answer-box hidden"
+                >
+
+                    <strong>Respuesta</strong>
+
+                    <p id="answer">
+                        Cargando...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="learning-section">
+
+            <div class="section-number">
+                04
+            </div>
+
+            <div>
+
+                <h2>
+                    Llévalo a la práctica
+                </h2>
+
+                <p id="application">
+                    Cargando...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="completion-area">
+
+            <p>
+                ¿Terminaste de estudiar este concepto?
+            </p>
+
+            <button
+                id="complete-button"
+                class="btn btn-primary"
+            >
+                Marcar como aprendido
+            </button>
+
+            <p
+                id="completion-message"
+                class="success-message hidden"
+            >
+                ✓ Concepto completado.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>
+        EMPRESA DIARIO
+    </p>
+
+</footer>
+
+
+<script src="js/palabras.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
