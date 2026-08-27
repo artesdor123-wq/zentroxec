@@ -11,12 +11,21 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <title>ZENTROX | Aprende. Comprende. Aplica.</title>
+
     <meta
         name="description"
-        content="ZENTROX: desarrolla conocimiento y criterio empresarial mediante aprendizaje diario."
+        content="ZENTROX es una aplicación de aprendizaje empresarial basada en conceptos diarios, comprensión, práctica, aplicación y repaso."
     >
 
-    <title>ZENTROX | Aprende negocios</title>
+    <meta
+        name="theme-color"
+        content="#0b0b0b"
+    >
+
+    <!-- =====================================================
+         CSS PRINCIPAL
+    ====================================================== -->
 
     <link
         rel="stylesheet"
@@ -29,21 +38,25 @@
 <body>
 
 
-<!-- =====================================================
-     ENCABEZADO
-====================================================== -->
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header class="topbar">
 
     <a
         href="index.html"
         class="logo"
+        aria-label="ZENTROX inicio"
     >
         ZENTROX
     </a>
 
 
-    <nav class="main-nav">
+    <nav
+        class="main-nav"
+        aria-label="Navegación principal"
+    >
 
         <a
             href="index.html"
@@ -52,15 +65,21 @@
             Inicio
         </a>
 
-        <a href="aprender.html">
+        <a
+            href="aprender.html"
+        >
             Aprender
         </a>
 
-        <a href="repaso.html">
+        <a
+            href="repaso.html"
+        >
             Repaso
         </a>
 
-        <a href="progreso.html">
+        <a
+            href="progreso.html"
+        >
             Progreso
         </a>
 
@@ -70,346 +89,457 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      CONTENIDO PRINCIPAL
-====================================================== -->
+========================================================= -->
 
-<main class="home-page">
+<main class="learning-page">
 
 
-    <!-- HERO -->
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-    <section class="hero">
+    <section class="page-heading">
 
-        <div class="hero-content">
+        <span class="small-label">
+            MÉTODO ZENTROX
+        </span>
 
-            <span class="hero-label">
-                ZENTROX
+
+        <h1>
+            Aprende un concepto.
+            <span>Compréndelo.</span>
+        </h1>
+
+
+        <p>
+            Desarrolla conocimiento y criterio empresarial
+            mediante aprendizaje diario, práctica,
+            aplicación y repaso.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TARJETA PRINCIPAL
+    ====================================================== -->
+
+    <section class="learning-card">
+
+
+        <!-- =================================================
+             CABECERA
+        ================================================== -->
+
+        <div class="concept-header">
+
+            <span class="category">
+                APRENDIZAJE EMPRESARIAL
             </span>
 
 
             <h1>
-                Aprende a pensar
-                <span>como un empresario.</span>
+                Una idea al día.
             </h1>
 
 
-            <p class="hero-description">
+            <p class="concept-description">
 
-                Aprende diariamente conceptos de negocios,
-                finanzas y emprendimiento. No se trata
-                solamente de memorizar palabras:
-                aprende a comprenderlas, reconocerlas
-                y aplicarlas.
+                ZENTROX no busca que memorices cientos
+                de definiciones. Busca que entiendas
+                conceptos empresariales y aprendas
+                a utilizarlos para analizar situaciones.
 
             </p>
 
-
-            <div class="hero-buttons">
-
-                <a
-                    href="aprender.html"
-                    class="btn btn-primary"
-                >
-                    Comenzar
-                </a>
+        </div>
 
 
-                <a
-                    href="progreso.html"
-                    class="btn btn-secondary"
-                >
-                    Ver progreso
-                </a>
+
+        <!-- =================================================
+             PASO 1
+        ================================================== -->
+
+        <section class="learning-section">
+
+            <div class="section-number">
+                01
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    CONCEPTO
+                </span>
+
+                <h2>
+                    Aprende algo nuevo cada día.
+                </h2>
+
+                <p>
+
+                    Cada día ZENTROX presenta un concepto
+                    relacionado con negocios, empresas,
+                    finanzas y emprendimiento.
+
+                </p>
 
             </div>
 
-        </div>
+        </section>
 
 
-        <div class="hero-card">
 
-            <span class="hero-card-label">
-                PALABRA DEL DÍA
-            </span>
+        <!-- =================================================
+             PASO 2
+        ================================================== -->
 
+        <section class="learning-section">
 
-            <h2>
-                Activo
-            </h2>
-
-
-            <p>
-                Algo que tiene valor económico para una
-                empresa y puede utilizarse para generar
-                beneficios o realizar sus operaciones.
-            </p>
+            <div class="section-number">
+                02
+            </div>
 
 
-            <div class="hero-card-footer">
+            <div>
 
-                <span>
-                    ✓ Comprender
+                <span class="small-label">
+                    CONTEXTO
                 </span>
 
-                <span>
-                    ✓ Practicar
-                </span>
+                <h2>
+                    Aprende la palabra dentro de situaciones reales.
+                </h2>
 
-                <span>
-                    ✓ Aplicar
-                </span>
+                <p>
+
+                    No basta con conocer una definición.
+                    Verás ejemplos de cómo el concepto
+                    aparece realmente dentro de un negocio.
+
+                </p>
+
+
+                <div class="examples-container">
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 01
+                        </span>
+
+                        <h3>
+                            Una tienda
+                        </h3>
+
+                        <p>
+
+                            Compras productos para venderlos
+                            posteriormente. Para analizarlos
+                            correctamente necesitas entender
+                            conceptos como inventario, costo
+                            y activo.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 02
+                        </span>
+
+                        <h3>
+                            Una empresa tecnológica
+                        </h3>
+
+                        <p>
+
+                            Los equipos, servidores y otros
+                            recursos utilizados por la empresa
+                            pueden tener un tratamiento económico
+                            diferente dependiendo de su función.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 03
+                        </span>
+
+                        <h3>
+                            Un restaurante
+                        </h3>
+
+                        <p>
+
+                            El dinero, los equipos, el inventario,
+                            los ingresos y los costos forman parte
+                            de distintas situaciones que el
+                            empresario debe aprender a diferenciar.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <article class="example-card">
+
+                        <span class="example-number">
+                            EJEMPLO 04
+                        </span>
+
+                        <h3>
+                            Un emprendimiento
+                        </h3>
+
+                        <p>
+
+                            Comprender conceptos empresariales
+                            permite analizar mejor qué está
+                            ocurriendo dentro del negocio en lugar
+                            de tomar decisiones solamente por intuición.
+
+                        </p>
+
+                    </article>
+
+
+                </div>
 
             </div>
 
-        </div>
-
-    </section>
+        </section>
 
 
 
-    <!-- =================================================
-         METODOLOGÍA
-    ================================================== -->
+        <!-- =================================================
+             PASO 3
+        ================================================== -->
 
-    <section class="method-section">
+        <section class="learning-section">
 
-        <div class="section-heading">
-
-            <span class="small-label">
-                METODOLOGÍA
-            </span>
+            <div class="section-number">
+                03
+            </div>
 
 
-            <h2>
-                No queremos que memorices.
-                Queremos que entiendas.
-            </h2>
+            <div>
 
+                <span class="small-label">
+                    COMPRENSIÓN
+                </span>
+
+                <h2>
+                    No solo leas la respuesta.
+                </h2>
+
+                <p>
+
+                    Después de estudiar el concepto,
+                    tendrás que responder preguntas.
+                    La aplicación comprobará si realmente
+                    comprendiste la idea.
+
+                </p>
+
+
+                <div class="review-example">
+
+                    <span class="small-label">
+                        EJEMPLO
+                    </span>
+
+                    <p>
+
+                        Compraste $1.000 de productos para
+                        venderlos. ¿Son inmediatamente un
+                        gasto o forman parte del inventario?
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PASO 4
+        ================================================== -->
+
+        <section class="learning-section">
+
+            <div class="section-number">
+                04
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    APLICACIÓN
+                </span>
+
+                <h2>
+                    Lleva el concepto a una situación diferente.
+                </h2>
+
+                <p>
+
+                    Una persona puede recordar una definición
+                    y aun así no saber utilizarla.
+                    Por eso ZENTROX también presenta
+                    situaciones nuevas que requieren
+                    aplicar el conocimiento.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PASO 5
+        ================================================== -->
+
+        <section class="learning-section">
+
+            <div class="section-number">
+                05
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    RECUPERACIÓN
+                </span>
+
+                <h2>
+                    Explícalo con tus propias palabras.
+                </h2>
+
+                <p>
+
+                    Explicar un concepto sin copiar la definición
+                    ayuda a comprobar si realmente lo comprendiste
+                    y no solamente si lo reconoces al verlo.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PASO 6
+        ================================================== -->
+
+        <section class="learning-section">
+
+            <div class="section-number">
+                06
+            </div>
+
+
+            <div>
+
+                <span class="small-label">
+                    REPASO
+                </span>
+
+                <h2>
+                    Lo aprendido vuelve a aparecer.
+                </h2>
+
+                <p>
+
+                    Los conceptos estudiados no desaparecen
+                    después de un día. ZENTROX los vuelve a
+                    presentar posteriormente para ayudarte
+                    a conservar el conocimiento.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FINAL
+        ================================================== -->
+
+        <div class="completion-area">
 
             <p>
-                Cada concepto sigue un proceso diseñado
-                para convertir información en conocimiento
-                práctico.
+                Tu aprendizaje comienza con un concepto.
             </p>
 
-        </div>
 
-
-        <div class="method-grid">
-
-
-            <article class="method-card">
-
-                <span class="method-number">
-                    01
-                </span>
-
-                <h3>
-                    Comprende
-                </h3>
-
-                <p>
-                    Aprende el significado de un concepto
-                    utilizando una explicación sencilla.
-                </p>
-
-            </article>
-
-
-            <article class="method-card">
-
-                <span class="method-number">
-                    02
-                </span>
-
-                <h3>
-                    Observa
-                </h3>
-
-                <p>
-                    Mira cómo aparece el concepto en
-                    situaciones empresariales reales.
-                </p>
-
-            </article>
-
-
-            <article class="method-card">
-
-                <span class="method-number">
-                    03
-                </span>
-
-                <h3>
-                    Razona
-                </h3>
-
-                <p>
-                    Responde una pregunta y toma una
-                    decisión en lugar de limitarte a leer.
-                </p>
-
-            </article>
-
-
-            <article class="method-card">
-
-                <span class="method-number">
-                    04
-                </span>
-
-                <h3>
-                    Aplica
-                </h3>
-
-                <p>
-                    Relaciona el concepto con decisiones
-                    que puede tomar un negocio.
-                </p>
-
-            </article>
+            <a
+                href="aprender.html"
+                class="btn btn-primary"
+            >
+                Comenzar a aprender
+            </a>
 
         </div>
+
 
     </section>
 
 
 
-    <!-- =================================================
-         QUÉ APRENDERÁS
-    ================================================== -->
+    <!-- =====================================================
+         MÉTODO ZENTROX
+    ====================================================== -->
 
-    <section class="topics-section">
+    <section class="learning-tip">
 
-        <div class="section-heading">
-
-            <span class="small-label">
-                ÁREAS
-            </span>
+        <span class="small-label">
+            LA IDEA CENTRAL
+        </span>
 
 
-            <h2>
-                Construye vocabulario empresarial.
-            </h2>
-
-        </div>
+        <h2>
+            No memorices solamente.
+        </h2>
 
 
-        <div class="topic-grid">
+        <p>
 
+            Aprende el concepto, compréndelo,
+            úsalo en una situación, explícalo
+            y vuelve a repasarlo.
 
-            <article class="topic-card">
+            El objetivo es desarrollar conocimiento
+            y criterio empresarial, no prometer riqueza
+            ni convertirte automáticamente en empresario.
 
-                <div class="topic-icon">
-                    $
-                </div>
-
-                <h3>
-                    Finanzas
-                </h3>
-
-                <p>
-                    Ingresos, costos, gastos, utilidad,
-                    margen, rentabilidad y flujo de caja.
-                </p>
-
-            </article>
-
-
-            <article class="topic-card">
-
-                <div class="topic-icon">
-                    ◇
-                </div>
-
-                <h3>
-                    Contabilidad
-                </h3>
-
-                <p>
-                    Activos, pasivos, patrimonio,
-                    inventario y otros conceptos.
-                </p>
-
-            </article>
-
-
-            <article class="topic-card">
-
-                <div class="topic-icon">
-                    ↗
-                </div>
-
-                <h3>
-                    Gestión
-                </h3>
-
-                <p>
-                    Conceptos utilizados para analizar
-                    y administrar negocios.
-                </p>
-
-            </article>
-
-
-            <article class="topic-card">
-
-                <div class="topic-icon">
-                    +
-                </div>
-
-                <h3>
-                    Emprendimiento
-                </h3>
-
-                <p>
-                    Conceptos que ayudan a entender
-                    oportunidades, riesgos y decisiones.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =================================================
-         CTA
-    ================================================== -->
-
-    <section class="cta-section">
-
-        <div>
-
-            <span class="small-label">
-                EMPIEZA HOY
-            </span>
-
-
-            <h2>
-                Un concepto al día.
-                Una mejor forma de pensar.
-            </h2>
-
-
-            <p>
-                No necesitas estudiar durante horas.
-                Necesitas aprender, pensar y practicar
-                constantemente.
-            </p>
-
-        </div>
-
-
-        <a
-            href="aprender.html"
-            class="btn btn-primary"
-        >
-            Aprender hoy
-        </a>
+        </p>
 
     </section>
 
@@ -418,11 +548,12 @@
 
 
 
-<!-- =====================================================
+<!-- =========================================================
      FOOTER
-====================================================== -->
+========================================================= -->
 
 <footer class="footer">
+
 
     <div>
 
@@ -431,7 +562,7 @@
         </strong>
 
         <p>
-            Aprende. Razona. Aplica.
+            Aprendizaje y criterio empresarial.
         </p>
 
     </div>
@@ -457,7 +588,21 @@
 
     </div>
 
+
 </footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+==========================================================
+
+     La página principal no necesita ejecutar la lógica
+     de aprendizaje.
+
+     La lógica se ejecuta en aprender.html.
+
+========================================================== -->
 
 
 </body>
