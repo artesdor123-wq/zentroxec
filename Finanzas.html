@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇪🇨 Curso de Educación Financiera — Ecuador</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#fff; --text:#18202a; --muted:#65707c;
+    --primary:#0b6e4f; --primary2:#084c3a; --accent:#e9b949;
+    --danger:#b42318; --border:#dce2e8; --shadow:0 8px 25px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+  header{background:linear-gradient(135deg,var(--primary2),var(--primary));color:white;padding:28px 18px}
+  .wrap{max-width:1100px;margin:auto}
+  h1{margin:0 0 8px;font-size:clamp(28px,5vw,44px)}
+  h2{margin-top:0}
+  h3{color:var(--primary2)}
+  .subtitle{max-width:850px;color:#e9f7f2}
+  nav{position:sticky;top:0;z-index:10;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px}
+  nav a{white-space:nowrap;text-decoration:none;color:var(--primary2);font-weight:bold;padding:8px 12px;border-radius:8px}
+  nav a:hover{background:#e6f4ef}
+  main{padding:24px 14px 70px}
+  section{margin:24px 0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin:16px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .level{border-left:6px solid var(--primary);padding:16px;background:white;border-radius:12px;box-shadow:var(--shadow)}
+  .level span{font-size:28px}
+  .pill{display:inline-block;background:#e9f7f2;color:var(--primary2);padding:5px 10px;border-radius:999px;font-size:13px;font-weight:bold}
+  ul{padding-left:22px}
+  .topics{columns:2;column-gap:35px}
+  .topics li{break-inside:avoid;margin-bottom:5px}
+  @media(max-width:650px){.topics{columns:1}}
+  .exercise{border:1px solid var(--border);border-radius:14px;padding:18px;margin:15px 0;background:#fff}
+  .exercise.correct{border-color:#43a047;background:#f1fbf4}
+  .exercise.wrong{border-color:#d32f2f;background:#fff5f5}
+  label{font-weight:bold;display:block;margin-top:12px}
+  input,textarea,select{width:100%;padding:11px;margin-top:6px;border:1px solid #cbd3da;border-radius:9px;font-size:16px}
+  textarea{min-height:90px;resize:vertical}
+  button{border:0;border-radius:9px;padding:11px 15px;background:var(--primary);color:white;font-weight:bold;cursor:pointer;margin:10px 6px 0 0}
+  button:hover{background:var(--primary2)}
+  button.secondary{background:#59636e}
+  .feedback{font-weight:bold;margin-top:10px}
+  .answer{display:none;margin-top:12px;padding:12px;border-radius:9px;background:#eef4f7}
+  .formula{background:#f7f2df;border-left:4px solid var(--accent);padding:12px;border-radius:8px;font-family:monospace;overflow:auto}
+  table{width:100%;border-collapse:collapse;margin:12px 0}
+  th,td{border:1px solid var(--border);padding:9px;text-align:left}
+  th{background:#eef3f5}
+  .progressbar{height:14px;background:#dfe6e9;border-radius:20px;overflow:hidden}
+  .progressbar div{height:100%;width:0;background:var(--primary);transition:.3s}
+  .score{font-size:22px;font-weight:bold}
+  .sources a{color:var(--primary2);font-weight:bold}
+  footer{background:#172026;color:#dfe7eb;padding:25px 14px}
+  .small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="pill">🇪🇨 EDUCACIÓN FINANCIERA</div>
+    <h1>De Principiante a Experto</h1>
+    <p class="subtitle">Curso interactivo basado en todo lo trabajado en este chat: dinero, presupuesto, ahorro, crédito, sistema financiero ecuatoriano, inversión, economía, emprendimiento, impuestos y finanzas empresariales.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#inicio">Inicio</a><a href="#ruta">Ruta</a><a href="#curso">220 temas</a>
+    <a href="#ejercicios">Ejercicios</a><a href="#reto">Reto final</a><a href="#fuentes">Fuentes</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="inicio" class="card">
+  <h2>🎯 Objetivo del curso</h2>
+  <p>Al terminar podrás administrar tu dinero, elaborar presupuestos, ahorrar, comprender créditos e intereses, evaluar inversiones, administrar las finanzas de un negocio, entender conceptos tributarios básicos de Ecuador y analizar información financiera.</p>
+  <div class="grid">
+    <div class="level"><span>🟢</span><h3>Principiante</h3><p>Dinero, ingresos, gastos, presupuesto y ahorro.</p></div>
+    <div class="level"><span>🟡</span><h3>Intermedio</h3><p>Crédito, deudas, tarjetas y sistema financiero.</p></div>
+    <div class="level"><span>🟠</span><h3>Avanzado</h3><p>Inversión, economía, riesgo y rentabilidad.</p></div>
+    <div class="level"><span>🔴</span><h3>Empresarial</h3><p>Costos, ventas, margen, flujo de caja y rentabilidad.</p></div>
+    <div class="level"><span>🟣</span><h3>Experto</h3><p>Estados financieros, análisis e inversiones.</p></div>
+  </div>
+</section>
+
+<section id="ruta" class="card">
+  <h2>🧭 Ruta recomendada</h2>
+  <ol>
+    <li>Dinero → ingresos → gastos → presupuesto → ahorro.</li>
+    <li>Bancos → crédito → deudas → intereses → sistema financiero.</li>
+    <li>Inversión → economía → riesgo → rentabilidad.</li>
+    <li>Costos → ventas → margen → flujo de caja → rentabilidad empresarial.</li>
+    <li>Estados financieros → análisis financiero → inversiones → estrategia patrimonial.</li>
+  </ol>
+  <p><strong>Regla:</strong> intenta resolver los ejercicios antes de mirar las respuestas.</p>
+</section>
+
+<section id="curso">
+<h2>📚 Los 220 temas</h2>
+
+<div class="card"><span class="pill">NIVEL 1 — PRINCIPIANTE</span>
+<h3>Módulo 1 — El dinero</h3>
+<ul class="topics">
+<li>¿Qué es el dinero?</li><li>Para qué sirve el dinero.</li><li>Ingresos.</li><li>Gastos.</li><li>Necesidades vs. deseos.</li><li>Consumo.</li><li>Precio.</li><li>Valor.</li><li>Poder adquisitivo.</li><li>Inflación.</li><li>Dinero en efectivo.</li><li>Dinero electrónico.</li><li>Cuentas bancarias.</li><li>Transferencias.</li><li>Medios de pago.</li>
+</ul>
+<h3>Módulo 2 — Mentalidad financiera</h3>
+<ul class="topics">
+<li>Pensar a corto, mediano y largo plazo.</li><li>Disciplina financiera.</li><li>Hábitos de consumo.</li><li>Compras impulsivas.</li><li>Comparar precios.</li><li>Diferenciar barato de rentable.</li><li>Costo de oportunidad.</li><li>Metas financieras.</li><li>Prioridades financieras.</li><li>Errores financieros comunes.</li>
+</ul></div>
+
+<div class="card"><span class="pill">NIVEL 2 — CONTROLAR TU DINERO</span>
+<h3>Módulo 3 — Presupuesto personal</h3>
+<ul class="topics">
+<li>Qué es un presupuesto.</li><li>Cómo calcular ingresos.</li><li>Gastos fijos.</li><li>Gastos variables.</li><li>Gastos necesarios.</li><li>Gastos innecesarios.</li><li>Gastos hormiga.</li><li>Flujo de dinero.</li><li>Presupuesto semanal.</li><li>Presupuesto mensual.</li><li>Presupuesto anual.</li><li>Registro de gastos.</li><li>Balance personal.</li><li>Déficit.</li><li>Superávit.</li>
+</ul>
+<h3>Módulo 4 — Ahorro</h3>
+<ul class="topics"><li>Qué significa ahorrar.</li><li>Por qué ahorrar.</li><li>Cómo establecer una meta.</li><li>Ahorrar un porcentaje.</li><li>Ahorrar una cantidad fija.</li><li>Automatizar el ahorro.</li><li>Fondo de emergencia.</li><li>Ahorro para compras.</li><li>Ahorro para educación.</li><li>Ahorro para emprender.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 3 — CRÉDITO Y DEUDAS</span>
+<h3>Módulo 5 — Comprender el crédito</h3>
+<ul class="topics">
+<li>¿Qué es un crédito?</li><li>Préstamo vs. crédito.</li><li>Capital.</li><li>Interés.</li><li>Tasa de interés.</li><li>Plazo.</li><li>Cuota.</li><li>Amortización.</li><li>Garantía.</li><li>Historial crediticio.</li><li>Capacidad de pago.</li><li>Endeudamiento.</li><li>Sobreendeudamiento.</li><li>Crédito formal.</li><li>Crédito informal.</li>
+</ul>
+<h3>Módulo 6 — Tarjetas de crédito</h3>
+<ul class="topics"><li>Qué es una tarjeta de crédito.</li><li>Cupo.</li><li>Fecha de corte.</li><li>Fecha de pago.</li><li>Pago mínimo.</li><li>Pago total.</li><li>Intereses.</li><li>Avances en efectivo.</li><li>Compras diferidas.</li><li>Costos asociados.</li><li>Errores frecuentes.</li><li>Uso responsable.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 4 — SISTEMA FINANCIERO</span>
+<h3>Módulo 7 — Instituciones financieras</h3>
+<ul class="topics"><li>Bancos.</li><li>Cooperativas.</li><li>Mutualistas.</li><li>Instituciones financieras.</li><li>Superintendencia de Bancos.</li><li>SEPS.</li><li>Banco Central del Ecuador.</li><li>Sistema financiero nacional.</li><li>Productos financieros.</li><li>Derechos del consumidor financiero.</li><li>Obligaciones del cliente.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 5 — SEGURIDAD FINANCIERA</span>
+<h3>Módulo 8 — Fraudes y seguridad</h3>
+<ul class="topics"><li>Phishing.</li><li>Estafas digitales.</li><li>Falsos préstamos.</li><li>Falsas inversiones.</li><li>Suplantación de identidad.</li><li>Robo de información.</li><li>Seguridad de contraseñas.</li><li>Seguridad bancaria.</li><li>Transferencias sospechosas.</li><li>Cómo detectar una estafa.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 6 — INVERSIÓN</span>
+<h3>Módulo 9 — Conceptos fundamentales</h3>
+<ul class="topics"><li>Qué es invertir.</li><li>Ahorrar vs. invertir.</li><li>Rentabilidad.</li><li>Riesgo.</li><li>Liquidez.</li><li>Diversificación.</li><li>Interés simple.</li><li>Interés compuesto.</li><li>Inflación e inversión.</li><li>Horizonte temporal.</li><li>Perfil de riesgo.</li><li>Pérdidas y ganancias.</li></ul>
+<h3>Módulo 10 — Instrumentos</h3>
+<ul class="topics"><li>Depósitos.</li><li>Pólizas.</li><li>Bonos.</li><li>Acciones.</li><li>Fondos.</li><li>Mercado de valores.</li><li>Inversiones empresariales.</li><li>Bienes raíces.</li><li>Reinversión.</li><li>Diversificación.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 7 — ECONOMÍA</span>
+<h3>Módulo 11 — Economía para entender tu dinero</h3>
+<ul class="topics"><li>Oferta.</li><li>Demanda.</li><li>Precio.</li><li>Inflación.</li><li>Deflación.</li><li>PIB.</li><li>Productividad.</li><li>Empleo.</li><li>Desempleo.</li><li>Tasas de interés.</li><li>Política monetaria.</li><li>Política fiscal.</li><li>Importaciones.</li><li>Exportaciones.</li><li>Tipo de cambio.</li><li>Economía ecuatoriana.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 8 — EMPRENDIMIENTO</span>
+<h3>Módulo 12 — Crear un negocio</h3>
+<ul class="topics"><li>Idea de negocio.</li><li>Problema que resuelve.</li><li>Cliente.</li><li>Mercado.</li><li>Competencia.</li><li>Producto.</li><li>Servicio.</li><li>Precio.</li><li>Costos.</li><li>Margen.</li><li>Ganancia.</li><li>Punto de equilibrio.</li><li>Capital inicial.</li><li>Capital de trabajo.</li></ul>
+<h3>Módulo 13 — Finanzas del negocio</h3>
+<ul class="topics"><li>Ingresos empresariales.</li><li>Gastos empresariales.</li><li>Costos variables.</li><li>Costos fijos.</li><li>Margen bruto.</li><li>Margen neto.</li><li>Flujo de caja.</li><li>Utilidad.</li><li>Rentabilidad.</li><li>Inventario.</li><li>Rotación de inventario.</li><li>Cuentas por cobrar.</li><li>Cuentas por pagar.</li><li>Endeudamiento empresarial.</li><li>Reinversión.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 9 — ECUADOR Y TRIBUTACIÓN</span>
+<h3>Módulo 14 — SRI</h3>
+<ul class="topics"><li>Qué es el SRI.</li><li>RUC.</li><li>Contribuyente.</li><li>Actividad económica.</li><li>Comprobantes de venta.</li><li>Facturación.</li><li>IVA.</li><li>Impuesto a la Renta.</li><li>Gastos deducibles.</li><li>Declaraciones.</li><li>Obligaciones tributarias.</li><li>Régimen tributario.</li><li>Contabilidad.</li><li>Formalización del negocio.</li><li>Planificación tributaria legal.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 10 — FINANZAS EMPRESARIALES</span>
+<h3>Módulo 15 — Estados financieros</h3>
+<ul class="topics"><li>Balance general.</li><li>Activos.</li><li>Pasivos.</li><li>Patrimonio.</li><li>Estado de resultados.</li><li>Ingresos.</li><li>Costos.</li><li>Gastos.</li><li>Utilidad operativa.</li><li>Utilidad neta.</li></ul>
+<h3>Módulo 16 — Análisis financiero</h3>
+<ul class="topics"><li>Liquidez.</li><li>Solvencia.</li><li>Endeudamiento.</li><li>Rentabilidad.</li><li>ROA.</li><li>ROE.</li><li>Margen de utilidad.</li><li>Rotación de activos.</li><li>Flujo de caja.</li><li>Capital de trabajo.</li></ul></div>
+
+<div class="card"><span class="pill">NIVEL 11 — EXPERTO</span>
+<h3>Módulo 17 — Análisis de inversiones</h3>
+<ul class="topics"><li>Valor presente.</li><li>Valor futuro.</li><li>Valor presente neto.</li><li>Tasa interna de retorno.</li><li>Costo de capital.</li><li>Riesgo financiero.</li><li>Riesgo de mercado.</li><li>Riesgo de liquidez.</li><li>Diversificación avanzada.</li><li>Análisis de escenarios.</li></ul>
+<h3>Módulo 18 — Estrategia patrimonial</h3>
+<ul class="topics"><li>Construcción de patrimonio.</li><li>Activos productivos.</li><li>Pasivos.</li><li>Apalancamiento.</li><li>Protección patrimonial.</li><li>Diversificación.</li><li>Plan financiero de 5 años.</li><li>Plan financiero de 10 años.</li><li>Independencia financiera.</li><li>Sucesión patrimonial.</li></ul></div>
+</section>
+
+<section id="ejercicios">
+<h2>🧠 Ejercicios interactivos</h2>
+<p>Resuelve los ejercicios. Los cálculos numéricos se corrigen automáticamente. En las preguntas abiertas puedes escribir tu razonamiento y comprobar una respuesta orientativa.</p>
+<div class="progressbar"><div id="bar"></div></div>
+<p class="score">Puntuación: <span id="score">0</span> / <span id="total">14</span></p>
+
+<div class="exercise" data-answer="650">
+<h3>Ejercicio 1 — Ingresos y gastos</h3>
+<p>Ingresos: sueldo $500 + ventas $120 + otros $30. Gastos: $180 + $60 + $35 + $40 + $55.</p>
+<label>1. ¿Cuánto ingresó?</label><input type="number" id="e1a">
+<label>2. ¿Cuánto gastó?</label><input type="number" id="e1b">
+<label>3. ¿Cuánto quedó?</label><input type="number" id="e1c">
+<button onclick="check1()">Corregir</button><button class="secondary" onclick="show('a1')">Ver respuesta</button>
+<div id="f1" class="feedback"></div><div id="a1" class="answer">Ingresos = $650. Gastos = $370. Sobrante = $280. Es un superávit.</div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 2 — Necesidad o deseo</h3>
+<p>Escribe N (necesidad) o D (deseo): alimentos, videojuego, transporte para trabajar, zapatos de moda, alquiler, electricidad.</p>
+<textarea id="e2"></textarea><button onclick="checkOpen('e2','N,D,N,D,N,N','f2')">Comprobar</button><button class="secondary" onclick="show('a2')">Ver respuesta</button>
+<div id="f2" class="feedback"></div><div id="a2" class="answer">Una clasificación posible: N, D, N, D, N, N. El contexto puede cambiar la clasificación de algunos gastos.</div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 3 — Presupuesto</h3>
+<p>Ingresas $600. Gastos: $180 + $70 + $150 + $40 + $50 + $30.</p>
+<label>Gastos totales</label><input type="number" id="e3a">
+<label>Dinero sobrante</label><input type="number" id="e3b">
+<label>Ahorro acumulado en 12 meses si ahorras todo el sobrante</label><input type="number" id="e3c">
+<button onclick="checkNums('e3',[520,80,960],'f3')">Corregir</button>
+<div id="f3" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 4 — Gastos hormiga</h3>
+<p>Durante 30 días gastas $1,50 + $1 + $2 cada día.</p>
+<label>Gasto diario</label><input type="number" step="0.01" id="e4a">
+<label>Gasto en 30 días</label><input type="number" step="0.01" id="e4b">
+<label>Gasto anual aproximado usando 365 días</label><input type="number" step="0.01" id="e4c">
+<button onclick="checkNums('e4',[4.5,135,1642.5],'f4')">Corregir</button>
+<div id="f4" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 5 — Fondo de emergencia</h3>
+<p>Gastos esenciales: alimentación $180 + vivienda $150 + transporte $60 + servicios $50. Quieres 6 meses de fondo.</p>
+<label>Meta del fondo</label><input type="number" id="e5a">
+<label>Meses necesarios ahorrando $100/mes</label><input type="number" id="e5b">
+<button onclick="checkNums('e5',[2640,26.4],'f5')">Corregir</button>
+<div id="f5" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 6 — Meta de ahorro</h3>
+<p>Quieres $900. Ahorras $150 mensuales y en el mes 4 recibes $200 adicionales que también ahorras.</p>
+<label>¿Cuánto tienes al finalizar el mes 4?</label><input type="number" id="e6a">
+<label>¿En qué mes alcanzas o superas $900?</label><input type="number" id="e6b">
+<button onclick="checkNums('e6',[800,5],'f6')">Corregir</button>
+<div id="f6" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 7 — Interés simple</h3>
+<p>Capital $1.000, tasa hipotética 5% anual, 3 años. Fórmula: Interés = Capital × tasa × tiempo.</p>
+<div class="formula">I = C × i × t</div>
+<label>Interés</label><input type="number" id="e7a">
+<label>Total final</label><input type="number" id="e7b">
+<button onclick="checkNums('e7',[150,1150],'f7')">Corregir</button>
+<div id="f7" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 8 — Interés compuesto</h3>
+<p>$1.000 al 8% anual, reinvirtiendo las ganancias. Redondea a 2 decimales.</p>
+<div class="formula">VF = 1.000 × (1 + 0,08)ⁿ</div>
+<label>Después de 3 años</label><input type="number" step="0.01" id="e8a">
+<label>Después de 5 años</label><input type="number" step="0.01" id="e8b">
+<label>Después de 10 años</label><input type="number" step="0.01" id="e8c">
+<button onclick="checkNums('e8',[1259.71,1469.33,2158.92],'f8',0.02)">Corregir</button>
+<div id="f8" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 9 — Capacidad de pago</h3>
+<p>Ingresos $600. Gastos: $180 + $150 + $60 + $50 + $60. Crédito: cuota $150.</p>
+<label>Gastos actuales</label><input type="number" id="e9a">
+<label>Disponible antes del crédito</label><input type="number" id="e9b">
+<label>Disponible después del crédito</label><input type="number" id="e9c">
+<button onclick="checkNums('e9',[500,100,-50],'f9')">Corregir</button>
+<div id="f9" class="feedback"></div>
+<p><strong>Conclusión:</strong> la cuota deja un déficit mensual de $50 en este escenario, por lo que no sería prudente asumirla sin reducir gastos o aumentar ingresos.</p>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 10 — Comparar dos créditos</h3>
+<p>A: $100 × 24 meses + $500 de entrada. B: $125 × 18 meses + $500 de entrada.</p>
+<label>Total A</label><input type="number" id="e10a">
+<label>Total B</label><input type="number" id="e10b">
+<label>¿Cuál cuesta menos? Escribe A o B</label><input id="e10c">
+<button onclick="check10()">Corregir</button>
+<div id="f10" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 11 — Margen de ganancia</h3>
+<p>Compras a $20 y vendes a $30. Calcula ganancia por unidad, margen sobre precio de venta y ganancia por 200 unidades.</p>
+<label>Ganancia por unidad</label><input type="number" id="e11a">
+<label>Margen sobre venta (%)</label><input type="number" id="e11b">
+<label>Ganancia por 200 unidades</label><input type="number" id="e11c">
+<button onclick="checkNums('e11',[10,33.3333,2000],'f11',0.02)">Corregir</button>
+<div id="f11" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 12 — Negocio de motocicletas</h3>
+<p>Venta $2.500. Costos: moto $2.100 + transporte $50 + publicidad $40 + documentación/otros $60.</p>
+<label>Costo total</label><input type="number" id="e12a">
+<label>Ganancia</label><input type="number" id="e12b">
+<label>Margen sobre la venta (%)</label><input type="number" id="e12c">
+<label>¿Cuántas motos para ganar $1.000?</label><input type="number" id="e12d">
+<button onclick="checkNums('e12',[2250,250,10,4],'f12',0.02)">Corregir</button>
+<div id="f12" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 13 — Punto de equilibrio</h3>
+<p>Costos fijos $500. Precio $25. Costo variable $15.</p>
+<div class="formula">Margen de contribución = Precio − Costo variable<br>Punto de equilibrio = Costos fijos ÷ Margen de contribución</div>
+<label>Margen de contribución</label><input type="number" id="e13a">
+<label>Unidades de equilibrio</label><input type="number" id="e13b">
+<button onclick="checkNums('e13',[10,50],'f13')">Corregir</button>
+<div id="f13" class="feedback"></div>
+</div>
+
+<div class="exercise">
+<h3>Ejercicio 14 — Flujo de caja</h3>
+<p>Saldo inicial $2.000. Entradas: $3.500 + $500. Salidas: $1.800 + $700 + $400 + $200 + $150.</p>
+<label>Total de entradas</label><input type="number" id="e14a">
+<label>Total de salidas</label><input type="number" id="e14b">
+<label>Flujo neto</label><input type="number" id="e14c">
+<label>Saldo final</label><input type="number" id="e14d">
+<button onclick="checkNums('e14',[4000,3250,750,2750],'f14')">Corregir</button>
+<div id="f14" class="feedback"></div>
+</div>
+</section>
+
+<section id="reto" class="card">
+<h2>🏆 Reto final — Construye tu empresa</h2>
+<p>Diseña una empresa ficticia con un capital inicial de $5.000. Completa todos los campos y usa los cálculos aprendidos.</p>
+<label>1. ¿Qué venderás?</label><input id="r1">
+<label>2. Precio de venta por unidad ($)</label><input type="number" id="r2">
+<label>3. Costo por unidad ($)</label><input type="number" id="r3">
+<label>4. Capital que utilizarás ($)</label><input type="number" id="r4">
+<label>5. Publicidad mensual ($)</label><input type="number" id="r5">
+<label>6. Unidades que esperas vender al mes</label><input type="number" id="r6">
+<label>7. ¿Cuál es tu ganancia estimada por unidad?</label><input type="number" id="r7">
+<label>8. Explica cómo conseguirás clientes</label><textarea id="r8"></textarea>
+<label>9. ¿Qué porcentaje de ganancias reinvertirás?</label><input type="number" id="r9">
+<label>10. ¿Cuánto quieres ganar al mes?</label><input type="number" id="r10">
+<button onclick="gradeReto()">Evaluar reto</button>
+<div id="retoFeedback" class="feedback"></div>
+</section>
+
+<section id="fuentes" class="card sources">
+<h2>🇪🇨 Fuentes oficiales recomendadas</h2>
+<p>Para continuar estudiando, consulta directamente las instituciones oficiales. Los contenidos y requisitos pueden cambiar, por lo que conviene verificar siempre la información vigente.</p>
+<ul>
+<li><a href="https://educacionfinanciera.superbancos.gob.ec/" target="_blank" rel="noopener">Superintendencia de Bancos — Educación Financiera</a></li>
+<li><a href="https://campussb.superbancos.gob.ec/" target="_blank" rel="noopener">CampusSB — Superintendencia de Bancos</a></li>
+<li><a href="https://www.bce.fin.ec/economiatricolor/" target="_blank" rel="noopener">Banco Central del Ecuador — Economía Tricolor</a></li>
+<li><a href="https://www.bce.fin.ec/economiatricolor/inclusion-financiera/material-educativo/finanzas-personales/" target="_blank" rel="noopener">BCE — Finanzas personales</a></li>
+<li><a href="https://www.seps.gob.ec/inicio/capacitacion/desarrollo-de-iniciativas-y-programas-de-educacion-financiera/" target="_blank" rel="noopener">SEPS — Educación Financiera</a></li>
+<li><a href="https://www.sri.gob.ec/web/intersri/quiero-capacitarme" target="_blank" rel="noopener">SRI — Capacitación</a></li>
+</ul>
+<p class="small">Nota: este HTML es educativo y no sustituye asesoría financiera, tributaria o legal profesional.</p>
+</section>
+</main>
+
+<footer>
+<div class="wrap">🇪🇨 Curso interactivo de Educación Financiera — Ecuador · Practica, calcula, corrige y aprende.</div>
+</footer>
+
+<script>
+let score=0, attempted=new Set();
+document.getElementById('total').textContent=14;
+function mark(id,ok){
+  if(!attempted.has(id)){attempted.add(id); if(ok)score++; document.getElementById('score').textContent=score; document.getElementById('bar').style.width=(score/14*100)+'%';}
+}
+function val(id){return parseFloat(document.getElementById(id).value)}
+function closeEnough(a,b,tol=.01){return Math.abs(a-b)<=tol}
+function checkNums(prefix, answers, feedback, tol=.01){
+  let ok=true;
+  answers.forEach((a,i)=>{if(!closeEnough(val(prefix+(String.fromCharCode(97+i))),a,tol))ok=false});
+  mark(prefix,ok);
+  const el=document.getElementById(feedback); el.textContent=ok?'✅ Correcto.':'❌ Revisa tus cálculos.';
+  el.style.color=ok?'#187a36':'#b42318';
+}
+function check1(){
+  let ok=val('e1a')===650&&val('e1b')===370&&val('e1c')===280;
+  mark('e1',ok); document.getElementById('f1').textContent=ok?'✅ Correcto.':'❌ Revisa: ingresos $650, gastos $370, sobrante $280.';
+}
+function checkOpen(id,expected,feedback){
+  let got=document.getElementById(id).value.toUpperCase().replace(/\s/g,'');
+  let ok=got===expected.replace(/,/g,'');
+  mark(id,ok); document.getElementById(feedback).textContent=ok?'✅ Correcto.':'❌ Revisa la clasificación.';
+}
+function check10(){
+  let ok=val('e10a')===2900&&val('e10b')===2750&&document.getElementById('e10c').value.trim().toUpperCase()==='B';
+  mark('e10',ok); document.getElementById('f10').textContent=ok?'✅ Correcto.':'❌ A totaliza $2.900; B totaliza $2.750. B cuesta menos.';
+}
+function show(id){let e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block'}
+function gradeReto(){
+  let p=val('r2'), c=val('r3'), u=val('r6'), g=val('r7');
+  let feedback=[];
+  if(!p||!c||!u){feedback.push('Completa precio, costo y unidades.');}
+  if(p&&c&&Math.abs((p-c)-g)>.02)feedback.push('La ganancia por unidad debería ser precio − costo.');
+  if(val('r4')>5000)feedback.push('El capital utilizado no debe superar los $5.000 del reto.');
+  if(val('r9')<0||val('r9')>100)feedback.push('El porcentaje de reinversión debe estar entre 0 y 100.');
+  if(feedback.length===0)feedback.push('✅ Reto completado. Revisa que tu precio cubra costos, que el volumen sea realista y que dejes liquidez para operar.');
+  document.getElementById('retoFeedback').innerHTML=feedback.map(x=>'<div>'+x+'</div>').join('');
+}
+</script>
+</body>
+</html>
