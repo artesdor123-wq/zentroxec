@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  ================================================================
+  ARCHIVO PRINCIPAL — CUADERNOS DE VOCABULARIO
+  ================================================================
+  Este archivo funciona como menú principal de la academia.
+
+  ESTRUCTURA:
+    1. <head>       -> configuración, fuentes y estilos.
+    2. <nav>        -> botones para cambiar de sección.
+    3. #app         -> contenido principal.
+    4. <script>
+  // ================================================================
+  // DATOS Y LÓGICA DEL MENÚ DE CUADERNOS
+  // ================================================================
+  // Para agregar un nuevo cuaderno, añade otro objeto a NOTEBOOKS:
+  // { num: 5, file: 'cuaderno-5-vocabulario.html',
+  //   range: 'Grupos 361–450', totalSteps: 1445 }
+  //
+  // "file" DEBE coincidir exactamente con el nombre del archivo.
+  // "totalSteps" debe ser el total real de pasos de ese cuaderno.
+  // ================================================================     -> genera los cuadernos y lee el progreso.
+
+  PARA CRECER EL PROYECTO:
+    - Agrega nuevos botones en .topnav.
+    - Agrega nuevos cuadernos dentro de NOTEBOOKS.
+    - Mantén los nombres de archivo exactamente iguales a los href.
+  ================================================================
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Cuadernos de Vocabulario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Literata:ital,opsz,wght@0,18..144,400;0,18..144,600;1,18..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ================================================================
+     ESTILOS GLOBALES
+     Aquí se controla el aspecto de toda la pantalla.
+     ================================================================ */
+  /* Variables de diseño: cambia estos valores para cambiar el tema
+     completo sin tener que buscar color por color. */
+  :root{
+    --paper: #FAFAF7;
+    --grid: #D7E3EC;
+    --margin: #E3A6A0;
+    --ink: #202B3A;
+    --ink-soft: #64707F;
+    --ink-faint: #97A1AC;
+    --accent: #2C6E5D;
+    --accent-dark: #1E5548;
+    --accent-soft: #E1EFEA;
+    --highlight: #F6D879;
+    --card-line: #E3DFD3;
+    --radius: 3px;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0; padding:0;
+    background:
+      linear-gradient(90deg, transparent 46px, var(--margin) 46px, var(--margin) 48px, transparent 48px),
+      repeating-linear-gradient(var(--paper) 0px, var(--paper) 31px, var(--grid) 32px);
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height:100vh;
+  }
+
+  body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+  }
+
+  /* Contenedor principal. max-width limita el ancho en pantallas
+     grandes, mientras width:100% permite adaptarse al celular. */
+  #app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    padding: 28px 20px 40px 56px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .brand{ margin-bottom: 22px; }
+  .brand h1{ font-family:'Kalam', cursive; font-size:32px; font-weight:700; margin:0 0 6px; color:var(--ink); line-height:1.05; }
+  .brand p{ font-family:'Literata', serif; font-size:15px; color: var(--ink-soft); margin:0; line-height:1.5; max-width:36ch; }
+
+  /* Lista de cuadernos. Para agregar más cuadernos NO necesitas
+     tocar este CSS: se generan automáticamente desde NOTEBOOKS. */
+  .list{ display:flex; flex-direction:column; gap:12px; margin-top: 10px; }
+
+  /* Cada tarjeta/cuaderno es un enlace (<a>), por lo que toda la
+     tarjeta funciona como botón y abre el archivo indicado. */
+  .nb-card{
+    display:block;
+    background: var(--paper);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    text-decoration:none;
+    color: inherit;
+    animation: fadeIn .3s ease;
+    transition: border-color .15s ease;
+  }
+  .nb-card:active{ border-color: var(--accent); }
+  @keyframes fadeIn{ from{ opacity:0; transform: translateY(6px); } to{ opacity:1; transform: translateY(0); } }
+
+  .nb-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; }
+  .nb-title{ font-family:'Kalam', cursive; font-size:24px; font-weight:700; color: var(--ink); }
+  .nb-range{ font-size:12px; color: var(--ink-faint); font-weight:500; white-space:nowrap; }
+
+  .nb-status{
+    display:inline-block; margin-top:10px; font-size:12px; font-weight:600;
+    padding: 3px 9px; border-radius:20px;
+  }
+  .status-new{ background: var(--card-line); color: var(--ink-soft); }
+  .status-progress{ background: var(--accent-soft); color: var(--accent-dark); }
+  .status-done{ background: var(--highlight); color: var(--ink); }
+
+  .progress-bar{ height:5px; background: var(--card-line); border-radius:6px; overflow:hidden; margin-top:10px; }
+  .progress-fill{ height:100%; background: var(--accent); border-radius:6px; }
+
+  footer{ margin-top: 28px; font-size:12px; color: var(--ink-faint); font-family:'Literata', serif; }
+
+  /* ================================================================
+     NAVEGACIÓN SUPERIOR
+     Los enlaces de esta sección conectan las páginas HTML entre sí.
+     ================================================================ */
+  .topnav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    width:100%;
+    background:var(--paper);
+    border-bottom:1px solid var(--card-line);
+  }
+
+  .topnav-inner{
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+    padding:10px 20px 10px 56px;
+  }
+
+  .topnav a{
+    font-family:'Courier New',monospace;
+    font-size:13px;
+    font-weight:600;
+    text-decoration:none;
+    color:var(--ink-soft);
+    background:var(--paper);
+    border:1px solid var(--card-line);
+    border-radius:20px;
+    padding:7px 16px;
+    transition:background .15s ease,color .15s ease,border-color .15s ease;
+  }
+
+  .topnav a.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+
+  .topnav a:hover{
+    border-color:var(--accent);
+  }
+
+  @media (max-width:520px){
+    .topnav-inner{
+      padding-left:56px;
+      padding-right:20px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     NAVEGACIÓN PRINCIPAL
+     ---------------------------------------------------------------
+     Para agregar otro botón:
+       1. Copia uno de los <a> de abajo.
+       2. Cambia el texto visible.
+       3. Cambia href por el nombre exacto del archivo HTML.
+     IMPORTANTE: todos los archivos deben estar en la misma carpeta
+     si usas rutas como "archivo.html".
+     ================================================================ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="academia-index-corregido.html" class="active" title="Ir a Vocabulario">Vocabulario</a>
+    <a href="academia-python-corregido.html" title="Ir a Python y Kivy">Python</a>
+  </div>
+</nav>
+<div id="app">
+  <div class="brand">
+    <h1>Cuadernos de Vocabulario</h1>
+    <p>360 palabras nuevas repartidas en 4 cuadernos. Elige por dónde seguir.</p>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <footer>El progreso de cada cuaderno se guarda en este navegador.</footer>
+</div>
+
+<script>
+  // ================================================================
+  // CONFIGURACIÓN DE CUADERNOS
+  // ================================================================
+  const NOTEBOOKS = [
+    { num: 1, file: 'cuaderno-1-vocabulario.html', range: 'Grupos 1–90',   totalSteps: 1445 },
+    { num: 2, file: 'cuaderno-2-vocabulario.html', range: 'Grupos 91–180', totalSteps: 1445 },
+    { num: 3, file: 'cuaderno-3-vocabulario.html', range: 'Grupos 181–270', totalSteps: 1445 },
+    { num: 4, file: 'cuaderno-4-vocabulario.html', range: 'Grupos 271–360', totalSteps: 1436 }
+  ];
+
+  // Contenedor donde JavaScript insertará automáticamente las tarjetas.
+  const list = document.getElementById('list');
+
+  // Recorremos cada cuaderno y construimos su tarjeta.
+  // Así, agregar un cuaderno nuevo solo requiere añadirlo a NOTEBOOKS.
+  NOTEBOOKS.forEach(nb => {
+    let stepIndex = null;
+    try {
+      const raw = localStorage.getItem('vocab-progress-cuaderno-' + nb.num);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (typeof parsed.stepIndex === 'number') stepIndex = parsed.stepIndex;
+      }
+    } catch (e) { /* storage bloqueado o inaccesible */ }
+
+    // La tarjeta completa es un enlace. Esto mantiene la navegación
+    // simple y permite abrir cada cuaderno desde cualquier dispositivo.
+    const a = document.createElement('a');
+    a.className = 'nb-card';
+    // Conexión del botón/tarjeta con su página.
+    // Verifica que nb.file coincida con el archivo real.
+    a.href = nb.file;
+
+    // ---------------------------------------------------------------
+    // ESTADO Y PROGRESO
+    // Se recupera el progreso guardado en localStorage.
+    // ---------------------------------------------------------------
+    let statusHtml = '';
+    if (stepIndex === null) {
+      statusHtml = '<span class="nb-status status-new">Sin empezar</span>';
+    } else {
+      const pct = Math.min(100, Math.round((stepIndex / nb.totalSteps) * 100));
+      if (pct >= 99) {
+        statusHtml = '<span class="nb-status status-done">Completado</span>';
+      } else {
+        statusHtml = '<span class="nb-status status-progress">Continuar &middot; ' + pct + '%</span>' +
+          '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div>';
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // CONTENIDO VISUAL DE LA TARJETA
+    // ---------------------------------------------------------------
+    a.innerHTML =
+      '<div class="nb-top">' +
+        '<span class="nb-title">Cuaderno ' + nb.num + '</span>' +
+        '<span class="nb-range">' + nb.range + '</span>' +
+      '</div>' +
+      statusHtml;
+
+    // Insertamos la tarjeta terminada en la lista.
+    list.appendChild(a);
+  });
+  // FIN DE LA GENERACIÓN DE CUADERNOS.
+</script>
+
+<!-- ================================================================
+     GUÍA RÁPIDA PARA FUTURAS MODIFICACIONES
+     ================================================================
+     1. NUEVO BOTÓN: copia un <a> dentro de .topnav-inner y cambia href.
+     2. NUEVO CUADERNO: añade un objeto a NOTEBOOKS.
+     3. NUEVA SECCIÓN: crea el HTML y enlázalo desde la navegación.
+     4. PROGRESO: cada cuaderno usa una clave localStorage independiente.
+     5. RUTAS: los nombres de href deben coincidir exactamente con los
+        nombres de los archivos guardados en la misma carpeta.
+     ================================================================ -->
+
+</body>
+</html>

@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  ================================================================
+  ACADEMIA DE PYTHON + KIVY
+  ================================================================
+  Página de aprendizaje con niveles, temas y ejercicios.
+
+  ARCHIVOS RELACIONADOS:
+    - index.html -> menú principal / Vocabulario.
+    - python-kivy-academia-1.html -> esta sección.
+
+  REGLA PARA FUTURAS PÁGINAS:
+    Guarda los HTML en la misma carpeta y usa el nombre exacto
+    del archivo en href="...".
+  ================================================================
+-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu camino con Python &amp; Kivy</title>
+<style>
+  /* ================================================================
+     ESTILOS DE LA ACADEMIA
+     ================================================================ */
+:root{
+  --paper:#F6F3EC;
+  --paper-line: rgba(44,110,93,0.08);
+  --ink:#2B2B26;
+  --ink-soft:#6b6a5f;
+  --accent:#2C6E5D;
+  --accent-soft:#DCEAE4;
+  --term-bg:#1B2420;
+  --term-ink:#DCEFE4;
+  --term-key:#7FD9B0;
+  --term-str:#E8C878;
+  --term-com:#7C8C84;
+  --border:#DDD7C7;
+  --card:#FFFFFF;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family: 'Iowan Old Style','Palatino Linotype',Georgia,'Literata',serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:560px;margin:0 auto;padding:0 0 80px;}
+
+/* ---------- Header ---------- */
+header.hero{
+  padding:38px 22px 26px;
+  border-bottom:1px solid var(--border);
+  background:
+    repeating-linear-gradient(var(--paper-line) 0 1px, transparent 1px 28px),
+    var(--paper);
+}
+.eyebrow{
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  color:var(--accent);
+  margin:0 0 6px;
+}
+.eyebrow::before{content:'>>> ';}
+h1.title{
+  font-size:30px;
+  margin:0 0 10px;
+  letter-spacing:-0.01em;
+}
+p.sub{
+  color:var(--ink-soft);
+  font-size:15.5px;
+  margin:0;
+  max-width:46ch;
+}
+.overall{
+  margin-top:22px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.overall .bar{
+  flex:1;
+  height:8px;
+  border-radius:4px;
+  background:var(--accent-soft);
+  overflow:hidden;
+}
+.overall .fill{
+  height:100%;
+  background:var(--accent);
+  width:0%;
+  transition:width .4s ease;
+}
+.overall .count{
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+
+/* ---------- Level list ---------- */
+.levels{padding:22px 16px 0;}
+.level{
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:14px;
+  background:var(--card);
+  overflow:hidden;
+}
+.level-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px 16px;
+  cursor:pointer;
+  user-select:none;
+}
+.level-num{
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  border-radius:50%;
+  width:30px;height:30px;
+  min-width:30px;
+  display:flex;align-items:center;justify-content:center;
+}
+.level-head.done .level-num{background:var(--accent);color:#fff;}
+.level-info{flex:1;min-width:0;}
+.level-name{font-size:17px;font-weight:600;margin:0;}
+.level-meta{font-size:12.5px;color:var(--ink-soft);margin-top:2px;font-family:'Courier New',monospace;}
+.level-chevron{
+  font-size:13px;color:var(--ink-soft);
+  transition:transform .25s ease;
+}
+.level.open .level-chevron{transform:rotate(90deg);}
+.level-progress{height:4px;background:var(--accent-soft);}
+.level-progress .fill{height:100%;background:var(--accent);width:0%;transition:width .4s ease;}
+
+.level-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+}
+.level.open .level-body{max-height:6000px;}
+
+.topic{
+  padding:14px 16px 4px;
+  border-top:1px dashed var(--border);
+}
+.topic-title{
+  font-size:14px;
+  text-transform:none;
+  color:var(--ink);
+  font-weight:600;
+  margin:0 0 10px;
+  display:flex;align-items:center;gap:8px;
+}
+.topic-title::before{
+  content:'§';
+  color:var(--accent);
+  font-family:Georgia,serif;
+}
+
+.exercise{
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin-bottom:12px;
+  background:var(--paper);
+}
+.exercise-head{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px 14px;
+}
+.ex-check{
+  width:22px;height:22px;min-width:22px;
+  border-radius:5px;
+  border:1.5px solid var(--accent);
+  margin-top:2px;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  color:transparent;
+  background:#fff;
+  transition:background .15s, color .15s;
+}
+.ex-check.checked{background:var(--accent);color:#fff;}
+.ex-text{flex:1;}
+.ex-title{font-weight:600;font-size:15px;margin:0 0 3px;}
+.ex-goal{font-size:13.5px;color:var(--ink-soft);margin:0;}
+.ex-toggle{
+  font-family:'Courier New',monospace;
+  font-size:12px;
+  color:var(--accent);
+  background:none;border:none;cursor:pointer;
+  padding:0 14px 12px;
+  text-align:left;
+}
+.ex-code-wrap{
+  display:none;
+  padding:0 12px 14px;
+}
+.exercise.expanded .ex-code-wrap{display:block;}
+pre.code{
+  background:var(--term-bg);
+  color:var(--term-ink);
+  border-radius:7px;
+  padding:14px 14px;
+  overflow-x:auto;
+  font-family:'Courier New',monospace;
+  font-size:12.8px;
+  line-height:1.55;
+  margin:0 0 10px;
+  white-space:pre;
+}
+.k{color:var(--term-key);}
+.s{color:var(--term-str);}
+.c{color:var(--term-com);}
+.practice{
+  font-size:13px;
+  color:var(--ink);
+  background:var(--accent-soft);
+  border-radius:6px;
+  padding:9px 11px;
+}
+.practice b{color:var(--accent);}
+
+footer.note{
+  padding:26px 22px 10px;
+  color:var(--ink-soft);
+  font-size:12.5px;
+  border-top:1px solid var(--border);
+  margin-top:20px;
+}
+footer.note code{font-family:'Courier New',monospace;background:var(--accent-soft);padding:1px 5px;border-radius:4px;}
+
+.topnav{
+  position: sticky; top:0; z-index:10;
+  width:100%;
+  display:flex; justify-content:center;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+}
+.topnav-inner{
+  width:100%; max-width:560px;
+  display:flex; gap:8px;
+  padding: 10px 16px;
+}
+.topnav a{
+  font-family:'Courier New',monospace;
+  font-size:13px; font-weight:600;
+  text-decoration:none;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border:1px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 16px;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.topnav a.active{
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+</style>
+</head>
+<body>
+<!-- ================================================================
+     NAVEGACIÓN PRINCIPAL
+     ---------------------------------------------------------------
+     BOTÓN "Vocabulario" -> index.html
+     BOTÓN "Python"      -> esta misma página.
+     Para agregar una sección nueva, copia un <a> y cambia href.
+     ================================================================ -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="academia-index-corregido.html" title="Volver al menú principal">Vocabulario</a>
+    <a href="academia-python-corregido.html" class="active" title="Ir a Python y Kivy">Python</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">python_basico.py — hasta kivy_avanzado.py</p>
+  <h1 class="title">Tu camino con Python &amp; Kivy</h1>
+  <p class="sub">Todos los ejercicios que ya escribiste, ordenados de lo más simple a lo más avanzado. Márcalos según los vayas resolviendo — tu progreso se guarda solo.</p>
+  <div class="overall">
+    <div class="bar"><div class="fill" id="overallFill"></div></div>
+    <div class="count" id="overallCount">0 / 0</div>
+  </div>
+</header>
+
+<div class="levels" id="levels"></div>
+
+<footer class="note">
+  Contenido reunido y ordenado a partir de tus documentos en Drive (carpeta <code>proyecto paython</code>). Marca ✓ un ejercicio para registrar que ya lo resolviste — no verifica tu código, solo lleva la cuenta.
+</footer>
+
+</div>
+
+<script>
+  // ================================================================
+  // MOTOR DE LA PÁGINA: progreso, renderizado y eventos
+  // ================================================================
+
+// ================================================================
+  // CONTENIDO DE LOS NIVELES Y EJERCICIOS
+  // ================================================================
+  // Para agregar contenido:
+  //   Nivel -> topics -> exercises
+  //
+  // Cada ejercicio puede tener:
+  //   title    = nombre
+  //   goal     = objetivo
+  //   code     = ejemplo
+  //   practice = práctica propuesta
+  //
+  // No es necesario modificar la función render() para añadir
+  // ejercicios siguiendo esta misma estructura.
+  // ================================================================
+  const DATA = [
+  {
+    name: "Nivel 1 · Fundamentos",
+    meta: "variables, condicionales, bucles, funciones",
+    topics: [
+      {
+        title: "Variables y operadores",
+        exercises: [
+          {
+            title: "Comparar dos valores",
+            goal: "Practicar los seis operadores de comparación.",
+            code:
+`<span class="k">num</span> = <span class="s">2</span>
+<span class="k">num2</span> = <span class="s">4</span>
+<span class="k">print</span>(num == num2)   <span class="c"># False</span>
+<span class="k">print</span>(num != num2)   <span class="c"># True</span>
+<span class="k">print</span>(num < num2)    <span class="c"># True</span>`,
+            practice: "Compara tu edad con la edad de un amigo usando los seis operadores (==, !=, &gt;, &lt;, &gt;=, &lt;=)."
+          },
+          {
+            title: "Combinar condiciones con and / or / not",
+            goal: "Entender la precedencia: primero not, luego and, luego or.",
+            code:
+`<span class="k">var</span> = <span class="k">not</span> (<span class="s">2</span> + <span class="s">2</span> == <span class="s">5</span> <span class="k">or</span> <span class="s">8</span> > <span class="s">3</span>)
+<span class="k">print</span>(var)  <span class="c"># False</span>
+
+<span class="k">var2</span> = <span class="s">5</span> * <span class="s">2</span> > <span class="s">9</span> <span class="k">and</span> <span class="k">not</span> <span class="s">3</span> > <span class="s">4</span>
+<span class="k">print</span>(var2) <span class="c"># True</span>`,
+            practice: "Escribe una condición con and, otra con or y una tercera combinando ambas con paréntesis."
+          },
+          {
+            title: "Ahorros y gastos",
+            goal: "Encadenar operaciones sobre una misma variable.",
+            code:
+`<span class="c"># Tenemos 15$ de ahorros, el abuelo da 10$,</span>
+<span class="c"># gastamos 2$ en un helado, la tía da 5$...</span>
+<span class="k">ahorros</span> = <span class="s">15</span>
+<span class="k">ahorros</span> = ahorros + <span class="s">10</span>
+<span class="k">ahorros</span> = ahorros - <span class="s">2</span>
+<span class="k">print</span>(ahorros)`,
+            practice: "Termina el ejercicio: suma los 5$ de la tía y resta los 7$ del juego. ¿Cuánto queda?"
+          }
+        ]
+      },
+      {
+        title: "Funciones (def, parámetros, return)",
+        exercises: [
+          {
+            title: "Función simple",
+            goal: "Tu primera función sin parámetros.",
+            code:
+`<span class="k">def</span> saludo():
+    <span class="k">print</span>(<span class="s">"Bienvenido al programa"</span>)
+
+saludo()`,
+            practice: "Haz una función que imprima tu frase motivadora favorita."
+          },
+          {
+            title: "Función con parámetro",
+            goal: "Pasar un dato a la función.",
+            code:
+`<span class="k">def</span> saludar(nombre):
+    <span class="k">print</span>(<span class="s">"Hola"</span>, nombre)
+
+saludar(<span class="s">"Jostin"</span>)`,
+            practice: "Haz una función que reciba un número y lo imprima."
+          },
+          {
+            title: "Función con return",
+            goal: "Diferencia entre print() dentro de la función y return.",
+            code:
+`<span class="k">def</span> sumar(a, b):
+    <span class="k">return</span> a + b
+
+resultado = sumar(<span class="s">4</span>, <span class="s">6</span>)
+<span class="k">print</span>(resultado)`,
+            practice: "Haz una función que reste dos números usando return."
+          },
+          {
+            title: "Función que decide (par o impar)",
+            goal: "Combinar función + condicional.",
+            code:
+`<span class="k">def</span> es_par(num):
+    <span class="k">if</span> num % <span class="s">2</span> == <span class="s">0</span>:
+        <span class="k">print</span>(<span class="s">"Es par"</span>)
+    <span class="k">else</span>:
+        <span class="k">print</span>(<span class="s">"Es impar"</span>)
+
+es_par(<span class="s">4</span>)`,
+            practice: "Haz una función que diga si un número es mayor que 10."
+          },
+          {
+            title: "Función con lista",
+            goal: "Recorrer una lista dentro de una función.",
+            code:
+`<span class="k">def</span> mostrar_lista(lista):
+    <span class="k">for</span> i <span class="k">in</span> lista:
+        <span class="k">print</span>(i)
+
+mostrar_lista([<span class="s">1</span>,<span class="s">2</span>,<span class="s">3</span>])`,
+            practice: "Haz una función que reciba una lista y muestre el doble de cada número."
+          },
+          {
+            title: "Función área (nivel básico-alto)",
+            goal: "El ejercicio que tú mismo marcaste como 'más importante'.",
+            code:
+`<span class="k">def</span> calcular_area(base, altura):
+    <span class="k">return</span> base * altura
+
+<span class="k">print</span>(calcular_area(<span class="s">5</span>, <span class="s">2</span>))`,
+            practice: "Haz una función que calcule el cuadrado de un número."
+          }
+        ]
+      },
+      {
+        title: "Bucles: for, while, enumerate",
+        exercises: [
+          {
+            title: "Repetir una palabra",
+            goal: "Tu primer ejercicio completado, tal cual lo resolviste.",
+            code:
+`usuario = <span class="k">input</span>(<span class="s">"Digite una palabra: "</span>)
+<span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="s">1</span>, <span class="s">11</span>):
+    <span class="k">print</span>(i, <span class="s">"."</span>, usuario)`,
+            practice: "Cambia el rango para que se repita 20 veces en lugar de 10."
+          },
+          {
+            title: "Lista numerada con enumerate",
+            goal: "enumerate() te da índice + valor a la vez.",
+            code:
+`tareas = [<span class="s">"Comprar leche"</span>, <span class="s">"Llamar al médico"</span>, <span class="s">"Hacer ejercicio"</span>]
+<span class="k">for</span> index, tarea <span class="k">in</span> <span class="k">enumerate</span>(tareas, start=<span class="s">1</span>):
+    <span class="k">print</span>(<span class="k">f</span><span class="s">"{index}. {tarea}"</span>)`,
+            practice: "Haz lo mismo con una lista de tus propias tareas de hoy."
+          },
+          {
+            title: "Bucles anidados: combinaciones",
+            goal: "Un bucle dentro de otro para generar todas las combinaciones posibles.",
+            code:
+`tallas = [<span class="s">"S"</span>, <span class="s">"M"</span>, <span class="s">"L"</span>, <span class="s">"XL"</span>]
+colores = [<span class="s">"Rojo"</span>, <span class="s">"Azul"</span>, <span class="s">"Negro"</span>]
+combinaciones = []
+<span class="k">for</span> talla <span class="k">in</span> tallas:
+    <span class="k">for</span> color <span class="k">in</span> colores:
+        combinaciones.append(<span class="k">f</span><span class="s">"{color} - Talla {talla}"</span>)
+<span class="k">print</span>(<span class="k">f</span><span class="s">"Total: {len(combinaciones)}"</span>)`,
+            practice: "Genera combinaciones de 3 tipos de archivo con 3 carpetas destino distintas."
+          },
+          {
+            title: "List comprehension: filtrar pares",
+            goal: "La forma corta de escribir un for + if dentro de una lista.",
+            code:
+`numeros = [<span class="s">1</span>,<span class="s">2</span>,<span class="s">3</span>,<span class="s">4</span>,<span class="s">5</span>,<span class="s">6</span>,<span class="s">7</span>,<span class="s">8</span>,<span class="s">9</span>,<span class="s">10</span>]
+pares = [n <span class="k">for</span> n <span class="k">in</span> numeros <span class="k">if</span> n % <span class="s">2</span> == <span class="s">0</span>]
+<span class="k">print</span>(<span class="s">"Pares:"</span>, pares)`,
+            practice: "Genera una lista del 1 al 100 y saca solo los múltiplos de 5."
+          }
+        ]
+      },
+      {
+        title: "*args y desempaquetado",
+        exercises: [
+          {
+            title: "Función que acepta varios nombres",
+            goal: "El asterisco permite recibir cualquier cantidad de argumentos.",
+            code:
+`<span class="k">def</span> saludar(*nombres):
+    <span class="k">for</span> nombre <span class="k">in</span> nombres:
+        <span class="k">print</span>(<span class="s">"Hola, "</span> + nombre)
+
+saludar(<span class="s">"Juan"</span>, <span class="s">"María"</span>, <span class="s">"Pedro"</span>)
+
+<span class="c"># también puedes desempaquetar una lista:</span>
+nombres = [<span class="s">"Juan"</span>, <span class="s">"María"</span>, <span class="s">"Pedro"</span>]
+saludar(*nombres)`,
+            practice: "Crea una función *args que sume todos los números que le pases, sin importar cuántos sean."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Nivel 2 · Estructuras y archivos",
+    meta: "diccionarios, sets, manejo de archivos",
+    topics: [
+      {
+        title: "Diccionarios y tipos mixtos",
+        exercises: [
+          {
+            title: "Analizador de tipos mixtos",
+            goal: "Contar cuántos int, float, bool y str hay en una lista.",
+            code:
+`datos = [<span class="s">"34"</span>, <span class="s">12.78</span>, <span class="k">True</span>, <span class="s">"88.12"</span>, <span class="s">99</span>]
+enteros = decimales = boleanos = strings = <span class="s">0</span>
+suma = <span class="s">0</span>
+<span class="k">for</span> i <span class="k">in</span> datos:
+    <span class="k">if</span> <span class="k">type</span>(i) == <span class="k">int</span>:
+        enteros += <span class="s">1</span>; suma += i
+    <span class="k">elif</span> <span class="k">type</span>(i) == <span class="k">float</span>:
+        decimales += <span class="s">1</span>; suma += i
+    <span class="k">elif</span> <span class="k">type</span>(i) == <span class="k">bool</span>:
+        boleanos += <span class="s">1</span>; suma += i
+    <span class="k">elif</span> <span class="k">type</span>(i) == <span class="k">str</span>:
+        strings += <span class="s">1</span>
+<span class="k">print</span>(<span class="s">"Int:"</span>, enteros, <span class="s">"Float:"</span>, decimales)`,
+            practice: "Añade la conversión de las cadenas numéricas (\"34\", \"88.12\") a números reales antes de sumarlas."
+          },
+          {
+            title: "Diccionario de bases numéricas",
+            goal: "Combinar tipos de datos y estructuras.",
+            code:
+`numero = <span class="s">100</span>
+diccionario = {
+    <span class="s">"binario"</span>: <span class="k">bin</span>(numero)[<span class="s">2</span>:],
+    <span class="s">"hexadecimal"</span>: <span class="k">hex</span>(numero)[<span class="s">2</span>:],
+    <span class="s">"decimal"</span>: <span class="k">str</span>(numero)
+}
+<span class="k">print</span>(diccionario)`,
+            practice: "Haz lo mismo pero con el número de tu año de nacimiento."
+          }
+        ]
+      },
+      {
+        title: "Sets: eliminar duplicados",
+        exercises: [
+          {
+            title: "Nombres únicos",
+            goal: "set() elimina automáticamente los valores repetidos.",
+            code:
+`nombres = [<span class="s">"ana"</span>, <span class="s">"juan"</span>, <span class="s">"ana"</span>, <span class="s">"pedro"</span>, <span class="s">"pedro"</span>]
+<span class="k">for</span> nombre <span class="k">in</span> <span class="k">set</span>(nombres):
+    <span class="k">print</span>(nombre)`,
+            practice: "Usa set() para sacar las extensiones únicas de una lista de nombres de archivo."
+          },
+          {
+            title: "Crear carpetas sin repetir",
+            goal: "Aplicación real de set() combinada con la librería os.",
+            code:
+`<span class="k">import</span> os
+carpetas = [<span class="s">"imagenes"</span>, <span class="s">"videos"</span>, <span class="s">"imagenes"</span>, <span class="s">"docs"</span>]
+ruta = <span class="s">"C:/Users/tu_usuario/Downloads/prueba"</span>
+<span class="k">for</span> carpeta <span class="k">in</span> <span class="k">set</span>(carpetas):
+    os.makedirs(os.path.join(ruta, carpeta), exist_ok=<span class="k">True</span>)`,
+            practice: "Cambia la ruta por una carpeta real de tu PC y ejecútalo para verlo crear las carpetas."
+          }
+        ]
+      },
+      {
+        title: "Manejo de archivos (open, with)",
+        exercises: [
+          {
+            title: "Escribir un archivo con with",
+            goal: "with cierra el archivo automáticamente, sin que lo olvides.",
+            code:
+`<span class="k">with</span> <span class="k">open</span>(<span class="s">"ejemplo.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f:
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="s">5</span>):
+        f.write(<span class="k">f</span><span class="s">"Linea {i+1}\\n"</span>)`,
+            practice: "Escribe una función que guarde 10 líneas con tus tareas del día en un archivo tareas.txt."
+          },
+          {
+            title: "Leer un archivo línea por línea",
+            goal: ".strip() quita saltos de línea y espacios sobrantes.",
+            code:
+`<span class="k">with</span> <span class="k">open</span>(<span class="s">"ejemplo.txt"</span>, <span class="s">"r"</span>) <span class="k">as</span> archivo:
+    <span class="k">for</span> linea <span class="k">in</span> archivo:
+        <span class="k">print</span>(linea.strip())`,
+            practice: "Lee tu archivo tareas.txt y muestra cada línea numerada con enumerate()."
+          },
+          {
+            title: "Copiar un archivo en mayúsculas",
+            goal: "Puedes abrir dos archivos a la vez en la misma línea with.",
+            code:
+`<span class="k">with</span> <span class="k">open</span>(<span class="s">"entrada.txt"</span>, <span class="s">"r"</span>) <span class="k">as</span> f1, <span class="k">open</span>(<span class="s">"copia.txt"</span>, <span class="s">"w"</span>) <span class="k">as</span> f2:
+    <span class="k">for</span> linea <span class="k">in</span> f1:
+        f2.write(linea.upper())`,
+            practice: "Modifícalo para que en vez de MAYÚSCULAS, guarde el texto en minúsculas."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Nivel 3 · Programación Orientada a Objetos",
+    meta: "clases, herencia, polimorfismo, __str__",
+    topics: [
+      {
+        title: "Clases y objetos básicos",
+        exercises: [
+          {
+            title: "Clase Estudiante",
+            goal: "__init__ guarda los datos, otro método decide el resultado.",
+            code:
+`<span class="k">class</span> Estudiante():
+    <span class="k">def</span> __init__(self, nombre, nota):
+        self.nombre = nombre
+        self.nota = nota
+
+    <span class="k">def</span> resultado(self):
+        <span class="k">if</span> self.nota >= <span class="s">7</span>:
+            <span class="k">print</span>(<span class="s">"APROBADO"</span>)
+        <span class="k">else</span>:
+            <span class="k">print</span>(<span class="s">"REPROBADO"</span>)
+
+estudiante1 = Estudiante(<span class="s">"Paul"</span>, <span class="s">10</span>)
+estudiante1.resultado()`,
+            practice: "Agrega un método promedio() a una clase que reciba 3 notas."
+          },
+          {
+            title: "Clase con método que modifica su propio estado",
+            goal: "cumpleaños() cambia self.edad del propio objeto.",
+            code:
+`<span class="k">class</span> Persona():
+    <span class="k">def</span> __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    <span class="k">def</span> cumpleaños(self):
+        self.edad += <span class="s">1</span>
+
+persona1 = Persona(<span class="s">"Paul"</span>, <span class="s">20</span>)
+persona1.cumpleaños()
+<span class="k">print</span>(<span class="k">f</span><span class="s">"{persona1.nombre} cumple {persona1.edad} años"</span>)`,
+            practice: "Crea una clase Cuenta con saldo, y un método depositar() que aumente self.saldo."
+          },
+          {
+            title: "Clase Calculadora",
+            goal: "Cada operación es un método separado.",
+            code:
+`<span class="k">class</span> Calculadora():
+    <span class="k">def</span> __init__(self):
+        self.num1 = <span class="s">0</span>
+        self.num2 = <span class="s">0</span>
+
+    <span class="k">def</span> suma(self):
+        <span class="k">print</span>(<span class="s">"Suma:"</span>, self.num1 + self.num2)
+
+    <span class="k">def</span> resta(self):
+        <span class="k">print</span>(<span class="s">"Resta:"</span>, self.num1 - self.num2)
+
+operacion = Calculadora()
+operacion.num1, operacion.num2 = <span class="s">8</span>, <span class="s">3</span>
+operacion.suma()
+operacion.resta()`,
+            practice: "Añade multi() y div() (y valida que no se divida entre cero)."
+          }
+        ]
+      },
+      {
+        title: "Herencia y polimorfismo",
+        exercises: [
+          {
+            title: "Clase padre e hija con super()",
+            goal: "Estudiante hereda de Persona y reutiliza su __init__.",
+            code:
+`<span class="k">class</span> Persona():
+    <span class="k">def</span> __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
+
+    <span class="k">def</span> mostrar_nombre_completo(self):
+        <span class="k">print</span>(<span class="s">"Nombre completo:"</span>, self.nombre, self.apellido)
+
+<span class="k">class</span> Estudiante(Persona):
+    <span class="k">def</span> __init__(self, nombre, apellido, carrera):
+        super().__init__(nombre, apellido)
+        self.carrera = carrera
+
+estudiante1 = Estudiante(<span class="s">"Jostin"</span>, <span class="s">"Indacochea"</span>, <span class="s">"Ing. en sistemas"</span>)
+estudiante1.mostrar_nombre_completo()`,
+            practice: "Crea una clase Vehiculo y una clase Moto(Vehiculo) que herede y agregue cilindraje."
+          },
+          {
+            title: "Sobreescritura de métodos con super()",
+            goal: "El hijo puede extender lo que hace el padre, no solo reemplazarlo.",
+            code:
+`<span class="k">class</span> Personaje():
+    <span class="k">def</span> __init__(self, nombre, poder):
+        self.nombre = nombre
+        self.poder = poder
+
+    <span class="k">def</span> datos(self):
+        <span class="k">print</span>(self.nombre, <span class="s">"-"</span>, self.poder)
+
+<span class="k">class</span> Minecraft(Personaje):
+    <span class="k">def</span> __init__(self, nombre, poder, fuerza):
+        super().__init__(nombre, poder)
+        self.fuerza = fuerza
+
+    <span class="k">def</span> datos(self):
+        super().datos()
+        <span class="k">print</span>(<span class="k">f</span><span class="s">"Fuerza: {self.fuerza}"</span>)
+
+Minecraft(<span class="s">"Steven"</span>, <span class="s">"velocidad"</span>, <span class="s">"Sobrehumana"</span>).datos()`,
+            practice: "Haz tu propia jerarquía de 2 niveles con un método que el hijo extienda con super()."
+          },
+          {
+            title: "Polimorfismo",
+            goal: "Distintas clases responden distinto al mismo método.",
+            code:
+`<span class="k">class</span> Docente():
+    <span class="k">def</span> describir(self):
+        <span class="k">print</span>(<span class="s">"Me dedico a enseñar cursos"</span>)
+
+<span class="k">class</span> Trabajador():
+    <span class="k">def</span> describir(self):
+        <span class="k">print</span>(<span class="s">"Trabajo en una gran empresa"</span>)
+
+<span class="k">def</span> describirPersona(persona):
+    persona.describir()
+
+describirPersona(Docente())
+describirPersona(Trabajador())`,
+            practice: "Agrega una tercera clase Estudiante con su propio describir() y pruébala."
+          },
+          {
+            title: "__str__: cómo se imprime tu objeto",
+            goal: "Sin __str__, print(objeto) muestra algo feo como <__main__.X object>.",
+            code:
+`<span class="k">class</span> Producto:
+    <span class="k">def</span> __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+    <span class="k">def</span> __str__(self):
+        <span class="k">return</span> <span class="k">f</span><span class="s">"{self.nombre} cuesta ${self.precio}"</span>
+
+p = Producto(<span class="s">"Telefono"</span>, <span class="s">800</span>)
+<span class="k">print</span>(p)  <span class="c"># Telefono cuesta $800</span>`,
+            practice: "Agrégale __str__ a tu clase Estudiante para que se imprima bonito."
+          }
+        ]
+      },
+      {
+        title: "POO + archivos combinados",
+        exercises: [
+          {
+            title: "Clase que se guarda a sí misma en un archivo",
+            goal: "Combina POO, with y bucles: la clase Estudiante escribe y lee su propio archivo.",
+            code:
+`<span class="k">class</span> Estudiante:
+    <span class="k">def</span> __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    <span class="k">def</span> guardar(self, archivo=<span class="s">"estudiantes.txt"</span>):
+        <span class="k">with</span> <span class="k">open</span>(archivo, <span class="s">"a"</span>) <span class="k">as</span> f:
+            f.write(<span class="k">f</span><span class="s">"{self.nombre},{self.edad}\\n"</span>)
+
+    @staticmethod
+    <span class="k">def</span> mostrar_todos(archivo=<span class="s">"estudiantes.txt"</span>):
+        <span class="k">with</span> <span class="k">open</span>(archivo, <span class="s">"r"</span>) <span class="k">as</span> f:
+            <span class="k">for</span> linea <span class="k">in</span> f:
+                nombre, edad = linea.strip().split(<span class="s">","</span>)
+                <span class="k">print</span>(<span class="k">f</span><span class="s">"Nombre: {nombre}, Edad: {edad}"</span>)
+
+Estudiante(<span class="s">"Ana"</span>, <span class="s">20</span>).guardar()
+Estudiante.mostrar_todos()`,
+            practice: "Adapta el patrón a una clase Tarea que guarde y lea 'pendiente'/'completada'."
+          },
+          {
+            title: "Context manager propio (__enter__ / __exit__)",
+            goal: "Así es como with sabe qué hacer al entrar y al salir de un bloque.",
+            code:
+`<span class="k">class</span> Temporizador:
+    <span class="k">def</span> __enter__(self):
+        <span class="k">import</span> time
+        self.inicio = time.time()
+        <span class="k">return</span> self
+
+    <span class="k">def</span> __exit__(self, tipo, valor, traza):
+        <span class="k">import</span> time
+        <span class="k">print</span>(<span class="k">f</span><span class="s">"Tiempo: {time.time() - self.inicio:.2f}s"</span>)
+
+<span class="k">with</span> Temporizador():
+    <span class="k">for</span> i <span class="k">in</span> <span class="k">range</span>(<span class="s">1000000</span>):
+        <span class="k">pass</span>`,
+            practice: "Crea un context manager GestorErrores que capture excepciones y no detenga el programa."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Nivel 4 · Bases de datos (SQLite)",
+    meta: "sqlite3, tablas, insertar y consultar",
+    topics: [
+      {
+        title: "SQLite desde cero",
+        exercises: [
+          {
+            title: "Crear tabla e insertar un registro",
+            goal: "El flujo mínimo: conectar → cursor → execute → commit → close.",
+            code:
+`<span class="k">import</span> sqlite3
+conexion = sqlite3.connect(<span class="s">"primeraBase"</span>)
+cursor = conexion.cursor()
+cursor.execute(<span class="s">"CREATE TABLE PRODUCTOS (NOMBRE VARCHAR(50), PRECIO INTEGER)"</span>)
+cursor.execute(<span class="s">"INSERT INTO PRODUCTOS VALUES('BALON', 15)"</span>)
+conexion.commit()
+conexion.close()`,
+            practice: "Agrega una columna SECCION y consulta con SELECT * FROM PRODUCTOS."
+          },
+          {
+            title: "Programa que guarda lo que escribe el usuario",
+            goal: "Manejar el error de tabla duplicada con try/except.",
+            code:
+`<span class="k">import</span> sqlite3
+conn = sqlite3.connect(<span class="s">"empresa.sqlite"</span>)
+cursor = conn.cursor()
+<span class="k">try</span>:
+    cursor.execute(<span class="s">"CREATE TABLE empleados(nombre TEXT, edad NUMERIC)"</span>)
+<span class="k">except</span> sqlite3.OperationalError:
+    <span class="k">print</span>(<span class="s">"La tabla ya existe"</span>)
+
+nombre = <span class="k">input</span>(<span class="s">"Nombre: "</span>)
+edad = <span class="k">int</span>(<span class="k">input</span>(<span class="s">"Edad: "</span>))
+cursor.execute(<span class="k">f</span><span class="s">"INSERT INTO empleados VALUES ('{nombre}', {edad})"</span>)
+conn.commit()
+conn.close()`,
+            practice: "Añade una consulta que muestre todos los empleados mayores de 18 años."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Nivel 5 · Kivy: interfaces gráficas",
+    meta: "ventanas, botones, layouts, mini-apps",
+    topics: [
+      {
+        title: "Lo esencial: ventana, texto, botón",
+        exercises: [
+          {
+            title: "Ventana con texto",
+            goal: "La app de Kivy más simple posible.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.label <span class="k">import</span> Label
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        <span class="k">return</span> Label(text=<span class="s">"Hola mundo"</span>)
+
+MiApp().run()`,
+            practice: "Cambia el texto, el tamaño de letra (font_size) y el color."
+          },
+          {
+            title: "Botón que cambia el texto",
+            goal: "bind() conecta un evento con una función tuya.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.button <span class="k">import</span> Button
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        boton = Button(text=<span class="s">"Presiona"</span>)
+        boton.bind(on_press=self.cambiar)
+        <span class="k">return</span> boton
+
+    <span class="k">def</span> cambiar(self, instance):
+        instance.text = <span class="s">"Presionado"</span>
+
+MiApp().run()`,
+            practice: "Haz que el botón alterne entre 3 textos distintos usando un contador y el operador %."
+          },
+          {
+            title: "Caja con varios botones (BoxLayout)",
+            goal: "Un layout organiza varios widgets en vertical u horizontal.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.boxlayout <span class="k">import</span> BoxLayout
+<span class="k">from</span> kivy.uix.button <span class="k">import</span> Button
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        caja = BoxLayout(orientation=<span class="s">"vertical"</span>)
+        caja.add_widget(Button(text=<span class="s">"Boton 1"</span>))
+        caja.add_widget(Button(text=<span class="s">"Boton 2"</span>))
+        <span class="k">return</span> caja
+
+MiApp().run()`,
+            practice: "Cambia orientation a 'horizontal' y agrega un Label arriba de los botones."
+          },
+          {
+            title: "Leer texto del usuario (TextInput)",
+            goal: "bind(text=...) reacciona cada vez que el usuario escribe.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.boxlayout <span class="k">import</span> BoxLayout
+<span class="k">from</span> kivy.uix.textinput <span class="k">import</span> TextInput
+<span class="k">from</span> kivy.uix.label <span class="k">import</span> Label
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        caja = BoxLayout(orientation=<span class="s">"vertical"</span>)
+        entrada = TextInput()
+        self.label = Label(text=<span class="s">"Escribe algo"</span>)
+        entrada.bind(text=self.cambiar)
+        caja.add_widget(entrada)
+        caja.add_widget(self.label)
+        <span class="k">return</span> caja
+
+    <span class="k">def</span> cambiar(self, instance, value):
+        self.label.text = value
+
+MiApp().run()`,
+            practice: "Haz que el Label muestre el texto en mayúsculas mientras escribes."
+          }
+        ]
+      },
+      {
+        title: "Mini-proyectos con Kivy",
+        exercises: [
+          {
+            title: "Mini calculadora (sumar)",
+            goal: "Combina dos TextInput + un botón + lógica.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.boxlayout <span class="k">import</span> BoxLayout
+<span class="k">from</span> kivy.uix.textinput <span class="k">import</span> TextInput
+<span class="k">from</span> kivy.uix.button <span class="k">import</span> Button
+<span class="k">from</span> kivy.uix.label <span class="k">import</span> Label
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        self.caja = BoxLayout(orientation=<span class="s">"vertical"</span>)
+        self.n1 = TextInput()
+        self.n2 = TextInput()
+        boton = Button(text=<span class="s">"Sumar"</span>)
+        self.resultado = Label(text=<span class="s">"Resultado"</span>)
+        boton.bind(on_press=self.sumar)
+        <span class="k">for</span> w <span class="k">in</span> (self.n1, self.n2, boton, self.resultado):
+            self.caja.add_widget(w)
+        <span class="k">return</span> self.caja
+
+    <span class="k">def</span> sumar(self, instance):
+        a = <span class="k">int</span>(self.n1.text)
+        b = <span class="k">int</span>(self.n2.text)
+        self.resultado.text = <span class="k">str</span>(a + b)
+
+MiApp().run()`,
+            practice: "Agrega botones para restar, multiplicar y dividir (valida la división entre cero)."
+          },
+          {
+            title: "Botones que cambian texto, tamaño y color de un Label",
+            goal: "El mini-proyecto que tú mismo construiste, con funciones separadas.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.button <span class="k">import</span> Button
+<span class="k">from</span> kivy.uix.label <span class="k">import</span> Label
+<span class="k">from</span> kivy.uix.boxlayout <span class="k">import</span> BoxLayout
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        ventana = BoxLayout(orientation=<span class="s">"vertical"</span>)
+        self.label = Label(text=<span class="s">"Hola mundo"</span>)
+        b1 = Button(text=<span class="s">"Cambiar texto"</span>); b1.bind(on_press=self.texto)
+        b2 = Button(text=<span class="s">"Cambiar tamaño"</span>); b2.bind(on_press=self.tamano)
+        b3 = Button(text=<span class="s">"Cambiar color"</span>); b3.bind(on_press=self.color)
+        <span class="k">for</span> w <span class="k">in</span> (self.label, b1, b2, b3):
+            ventana.add_widget(w)
+        <span class="k">return</span> ventana
+
+    <span class="k">def</span> texto(self, instance):
+        self.label.text = <span class="s">"Bienvenido a Kivy"</span>
+
+    <span class="k">def</span> tamano(self, instance):
+        self.label.font_size = <span class="s">60</span>
+
+    <span class="k">def</span> color(self, instance):
+        self.label.color = (<span class="s">1</span>, <span class="s">0</span>, <span class="s">0</span>, <span class="s">1</span>)
+
+MiApp().run()`,
+            practice: "Añade un cuarto botón 'Reiniciar' que devuelva el label a su estado original."
+          },
+          {
+            title: "Proyecto: pantalla de login (FloatLayout)",
+            goal: "FloatLayout te deja posicionar cada widget con pos=(x, y) — así se hacen pantallas 'de verdad'.",
+            code:
+`<span class="k">from</span> kivy.app <span class="k">import</span> App
+<span class="k">from</span> kivy.uix.label <span class="k">import</span> Label
+<span class="k">from</span> kivy.uix.floatlayout <span class="k">import</span> FloatLayout
+<span class="k">from</span> kivy.uix.button <span class="k">import</span> Button
+
+<span class="k">class</span> MiApp(App):
+    <span class="k">def</span> build(self):
+        layout = FloatLayout()
+        titulo = Label(text=<span class="s">"REGISTRO"</span>, font_size=<span class="s">30</span>,
+                        pos=(<span class="s">355</span>, <span class="s">500</span>), size_hint=(<span class="k">None</span>, <span class="k">None</span>))
+        usuario = Label(text=<span class="s">"Usuario:"</span>, pos=(<span class="s">82</span>, <span class="s">350</span>), size_hint=(<span class="k">None</span>, <span class="k">None</span>))
+        boton = Button(text=<span class="s">"Iniciar sesion"</span>, size_hint=(<span class="k">None</span>, <span class="k">None</span>),
+                        size=(<span class="s">350</span>, <span class="s">50</span>), pos=(<span class="s">245</span>, <span class="s">240</span>))
+        <span class="k">for</span> w <span class="k">in</span> (titulo, usuario, boton):
+            layout.add_widget(w)
+        <span class="k">return</span> layout
+
+MiApp().run()`,
+            practice: "Agrega el campo Contraseña y conecta el botón a una función iniciar_sesion() que valide ambos campos."
+          }
+        ]
+      }
+    ]
+  }
+];
+
+const STORAGE_KEY = "pyacademia-progress-v1";
+
+// Lee el progreso guardado. Si no existe, empieza vacío.
+  function loadProgress(){
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  }catch(e){ return {}; }
+}
+// Guarda el progreso para que no se pierda al cerrar el navegador.
+  function saveProgress(p){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }catch(e){}
+}
+let progress = loadProgress();
+
+// Crea un identificador único para cada ejercicio.
+  // Si en el futuro agregas ejercicios, mantén estable esta estructura.
+  function exId(li, ti, ei){ return `${li}-${ti}-${ei}`; }
+
+// Dibuja todos los niveles, temas y ejercicios en la pantalla.
+  // Los botones se conectan aquí mediante event listeners.
+  function render(){
+  const container = document.getElementById('levels');
+  container.innerHTML = '';
+  let totalAll = 0, doneAll = 0;
+
+  DATA.forEach((level, li) => {
+    let levelTotal = 0, levelDone = 0;
+    level.topics.forEach(t => t.exercises.forEach(() => levelTotal++));
+
+    const levelEl = document.createElement('div');
+    levelEl.className = 'level';
+
+    const head = document.createElement('div');
+    head.className = 'level-head';
+    head.innerHTML = `
+      <div class="level-num">${li+1}</div>
+      <div class="level-info">
+        <p class="level-name">${level.name}</p>
+        <p class="level-meta">${level.meta} · <span class="lvl-count"></span></p>
+      </div>
+      <div class="level-chevron">▶</div>
+    `;
+    // Al tocar el encabezado de un nivel, se abre/cierra su contenido.
+    head.addEventListener('click', () => {
+      levelEl.classList.toggle('open');
+    });
+
+    const bar = document.createElement('div');
+    bar.className = 'level-progress';
+    const barFill = document.createElement('div');
+    barFill.className = 'fill';
+    bar.appendChild(barFill);
+
+    const body = document.createElement('div');
+    body.className = 'level-body';
+
+    level.topics.forEach((topic, ti) => {
+      const topicEl = document.createElement('div');
+      topicEl.className = 'topic';
+      const topicTitle = document.createElement('p');
+      topicTitle.className = 'topic-title';
+      topicTitle.textContent = topic.title;
+      topicEl.appendChild(topicTitle);
+
+      topic.exercises.forEach((ex, ei) => {
+        const id = exId(li, ti, ei);
+        const exEl = document.createElement('div');
+        exEl.className = 'exercise';
+
+        const exHead = document.createElement('div');
+        exHead.className = 'exercise-head';
+
+        const check = document.createElement('div');
+        check.className = 'ex-check';
+        check.textContent = '✓';
+        if(progress[id]){ check.classList.add('checked'); }
+        // Este botón marca/desmarca un ejercicio como completado.
+      check.addEventListener('click', (e) => {
+          e.stopPropagation();
+          progress[id] = !progress[id];
+          saveProgress(progress);
+          render();
+        });
+
+        const textWrap = document.createElement('div');
+        textWrap.className = 'ex-text';
+        textWrap.innerHTML = `<p class="ex-title">${ex.title}</p><p class="ex-goal">${ex.goal}</p>`;
+
+        exHead.appendChild(check);
+        exHead.appendChild(textWrap);
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'ex-toggle';
+        toggleBtn.textContent = 'ver código →';
+        // Este botón muestra u oculta el código y la práctica del ejercicio.
+      toggleBtn.addEventListener('click', () => {
+          exEl.classList.toggle('expanded');
+          toggleBtn.textContent = exEl.classList.contains('expanded') ? 'ocultar código ↑' : 'ver código →';
+        });
+
+        const codeWrap = document.createElement('div');
+        codeWrap.className = 'ex-code-wrap';
+        codeWrap.innerHTML = `<pre class="code">${ex.code}</pre><div class="practice"><b>Tu turno:</b> ${ex.practice}</div>`;
+
+        exEl.appendChild(exHead);
+        exEl.appendChild(toggleBtn);
+        exEl.appendChild(codeWrap);
+        topicEl.appendChild(exEl);
+
+        totalAll++;
+        if(progress[id]){ doneAll++; levelDone++; }
+      });
+
+      body.appendChild(topicEl);
+    });
+
+    levelEl.appendChild(head);
+    levelEl.appendChild(bar);
+    levelEl.appendChild(body);
+    container.appendChild(levelEl);
+
+    const pct = levelTotal ? Math.round((levelDone/levelTotal)*100) : 0;
+    barFill.style.width = pct + '%';
+    head.querySelector('.lvl-count').textContent = `${levelDone}/${levelTotal}`;
+    if(levelDone === levelTotal && levelTotal > 0){ head.classList.add('done'); }
+  });
+
+  const overallPct = totalAll ? Math.round((doneAll/totalAll)*100) : 0;
+  document.getElementById('overallFill').style.width = overallPct + '%';
+  document.getElementById('overallCount').textContent = `${doneAll} / ${totalAll}`;
+}
+
+render();
+// abrir el primer nivel por defecto
+document.querySelector('.level').classList.add('open');
+</script>
+
+<!-- ================================================================
+     GUÍA RÁPIDA PARA FUTURAS MODIFICACIONES
+     ================================================================
+     1. NUEVO BOTÓN:
+        Añade un <a href="nuevo.html">Nuevo</a> dentro de .topnav-inner.
+
+     2. NUEVA PÁGINA:
+        Crea nuevo.html en la misma carpeta y enlázala con href="nuevo.html".
+
+     3. NUEVO EJERCICIO:
+        Añádelo dentro de DATA siguiendo la estructura de los ejercicios
+        existentes. No necesitas cambiar el motor de renderizado.
+
+     4. NUEVO NIVEL:
+        Añade otro objeto dentro de DATA con name, meta y topics.
+
+     5. PROGRESO:
+        El sistema utiliza localStorage. No borres STORAGE_KEY ni cambies
+        los identificadores existentes si quieres conservar el progreso.
+
+     6. NAVEGACIÓN:
+        Todos los archivos que deban comunicarse entre sí deben usar nombres
+        exactos y rutas correctas en href="...".
+     ================================================================ -->
+
+</body>
+</html>
