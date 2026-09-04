@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende a Contar en Patrones y Practica</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333333;
+            --highlight: #e74c3c;
+            --correct: #2ecc71;
+            --incorrect: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .controls {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            max-width: 900px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section-card h2 {
+            margin-top: 0;
+            color: var(--accent-color);
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .grid-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 25px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 8px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .number-box {
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 45px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .number-box.active {
+            background-color: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .number-box.highlight-current {
+            background-color: var(--highlight);
+            color: white;
+            transform: scale(1.15);
+        }
+
+        .stats {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Estilos para los Ejercicios Interactivos */
+        .exercise-group {
+            margin-bottom: 20px;
+        }
+
+        .exercise-group h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            background: #eef2f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .exercise-item input[type="number"] {
+            width: 60px;
+            height: 35px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .exercise-item input[type="number"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        .exercise-item input.correct {
+            border-color: var(--correct);
+            background-color: #e8f8f0;
+            color: #27ae60;
+        }
+
+        .exercise-item input.incorrect {
+            border-color: var(--incorrect);
+            background-color: #fdeaea;
+            color: #c0392b;
+        }
+
+        .pattern-input {
+            width: 120px !important;
+        }
+
+        .feedback-btn {
+            margin-top: 15px;
+            background-color: #27ae60;
+        }
+
+        .feedback-btn:hover {
+            background-color: #219150;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Aprende a Contar en Patrones</h1>
+        <p>Aprende las secuencias numéricas hasta el 1000 y pon a prueba tus conocimientos con ejercicios interactivos.</p>
+    </header>
+
+    <div class="controls">
+        <label for="step-select">Selecciona el patrón:</label>
+        <select id="step-select">
+            <option value="2">De 2 en 2</option>
+            <option value="4">De 4 en 4</option>
+            <option value="6">De 6 en 6</option>
+            <option value="7">De 7 en 7</option>
+            <option value="8">De 8 en 8</option>
+            <option value="9">De 9 en 9</option>
+        </select>
+        <button id="btn-generate">Generar Lista</button>
+        <button id="btn-animate">Animar Conteo</button>
+    </div>
+
+    <div class="section-card" id="method-card">
+        </div>
+
+    <div class="grid-container">
+        <div class="stats" id="stats-info">Mostrando números hasta 1000</div>
+        <div class="grid" id="number-grid"></div>
+    </div>
+
+    <div class="section-card">
+        <h2>Ejercicios de Completar Series</h2>
+        <p>Escribe el número correspondiente en cada espacio en blanco. ¡La casilla se pondrá verde si aciertas o roja si te equivocas!</p>
+
+        <div id="exercises-container"></div>
+
+        <button class="feedback-btn" id="btn-check-all">Verificar Todas las Respuestas</button>
+    </div>
+
+    <script>
+        // MÉTODOS DE APRENDIZAJE
+        const methods = {
+            2: {
+                title: "Método para contar de 2 en 2",
+                description: "Este es el patrón de los **números pares**. La regla clave es que siempre terminan en **0, 2, 4, 6 u 8**.",
+                tip: "Visualiza pares de objetos (como botas o guantes). Solo tienes que ir saltando un número intermedio cada vez (1, **2**, 3, **4**, 5, **6**...)."
+            },
+            4: {
+                title: "Método para contar de 4 en 4",
+                description: "Contar de 4 en 4 es equivalente a **aplicar el patrón del 2 dos veces seguidas**.",
+                tip: "Piensa en las ruedas de un carro o las patas de una mesa. Si sabes contar de 2 en 2, solo toma un número sí y uno no de esa lista: (2, **4**, 6, **8**, 10, **12**...)."
+            },
+            6: {
+                title: "Método para contar de 6 en 6",
+                description: "Los números al contar de 6 en 6 siempre son **pares** y la suma de sus dígitos siempre es un múltiplo de 3.",
+                tip: "Combina el conteo de 5 en 5 (que es muy fácil) y súmale 1 a cada paso: (5+1=**6**), (10+2=**12**), (15+3=**18**), (20+4=**24**)."
+            },
+            7: {
+                title: "Método para contar de 7 en 7",
+                description: "El 7 es un número primo, por lo que las terminaciones no se repiten rápidamente. Es la secuencia de los **días de la semana**.",
+                tip: "Asócialo con semanas completas (1 semana = 7 días, 2 semanas = 14 días). Para calcular rápido mentalmente: suma 10 y resta 3. Ejemplo: 14 + 10 = 24, 24 - 3 = **21**."
+            },
+            8: {
+                title: "Método para contar de 8 en 8",
+                description: "Todos los números son **pares**. Observa el patrón de la última cifra: disminuye de 2 en 2 (8, 6, 4, 2, 0).",
+                tip: "Usa el truco mental de **sumar 10 y restar 2**. Ejemplo: si estás en 24 -> 24 + 10 = 34, 34 - 2 = **32**."
+            },
+            9: {
+                title: "Método para contar de 9 en 9",
+                description: "¡Tiene un patrón fascinante! En cada paso, las **decenas suben de 1 en 1** y las **unidades bajan de 1 en 1** (09, 18, 27, 36, 45...).",
+                tip: "Usa el truco mental de **sumar 10 y restar 1**. Ejemplo: si estás en 45 -> 45 + 10 = 55, 55 - 1 = **54**. Además, la suma de las cifras de los primeros múltiplos siempre da 9 (2+7=9, 3+6=9)."
+            }
+        };
+
+        // DATOS DE LOS EJERCICIOS INTERACTIVOS
+        const exercisesData = [
+            {
+                category: "De 2 en 2",
+                items: [
+                    { id: 1, sequence: [2, null, 6, null, 10, null, 14, null, 18, null], step: 2 },
+                    { id: 2, sequence: [null, 4, null, 8, null, 12, null, 16, null, 20], step: 2 },
+                    { id: 3, sequence: [10, null, 14, null, 18, null, 22, null, 26, null], step: 2 },
+                    { id: 4, sequence: [null, 24, null, 28, null, 32, null, 36, null, 40], step: 2 }
+                ]
+            },
+            {
+                category: "De 3 en 3",
+                items: [
+                    { id: 5, sequence: [3, null, 9, null, 15, null, 21, null, 27, null], step: 3 },
+                    { id: 6, sequence: [null, 6, null, 12, null, 18, null, 24, null, 30], step: 3 },
+                    { id: 7, sequence: [9, null, 15, null, 21, null, 27, null, 33, null], step: 3 },
+                    { id: 8, sequence: [null, 30, null, 36, null, 42, null, 48, null, 54], step: 3 }
+                ]
+            },
+            {
+                category: "De 4 en 4",
+                items: [
+                    { id: 9, sequence: [4, null, 12, null, 20, null, 28, null, 36, null], step: 4 },
+                    { id: 10, sequence: [null, 8, null, 16, null, 24, null, 32, null, 40], step: 4 },
+                    { id: 11, sequence: [12, null, 20, null, 28, null, 36, null, 44, null], step: 4 },
+                    { id: 12, sequence: [null, 40, null, 48, null, 56, null, 64, null, 72], step: 4 }
+                ]
+            },
+            {
+                category: "De 5 en 5",
+                items: [
+                    { id: 13, sequence: [5, null, 15, null, 25, null, 35, null, 45, null], step: 5 },
+                    { id: 14, sequence: [null, 10, null, 20, null, 30, null, 40, null, 50], step: 5 },
+                    { id: 15, sequence: [25, null, 35, null, 45, null, 55, null, 65, null], step: 5 }
+                ]
+            },
+            {
+                category: "De 6 en 6",
+                items: [
+                    { id: 16, sequence: [6, null, 18, null, 30, null, 42, null, 54, null], step: 6 },
+                    { id: 17, sequence: [null, 12, null, 24, null, 36, null, 48, null, 60], step: 6 }
+                ]
+            },
+            {
+                category: "De 7 en 7",
+                items: [
+                    { id: 18, sequence: [7, null, 21, null, 35, null, 49, null, 63, null], step: 7 },
+                    { id: 19, sequence: [null, 14, null, 28, null, 42, null, 56, null, 70], step: 7 }
+                ]
+            },
+            {
+                category: "De 8 en 8",
+                items: [
+                    { id: 20, sequence: [8, null, 24, null, 40, null, 56, null, 72, null], step: 8 },
+                    { id: 21, sequence: [null, 16, null, 32, null, 48, null, 64, null, 80], step: 8 }
+                ]
+            },
+            {
+                category: "De 9 en 9",
+                items: [
+                    { id: 22, sequence: [9, null, 27, null, 45, null, 63, null, 81, null], step: 9 },
+                    { id: 23, sequence: [null, 18, null, 36, null, 54, null, 72, null, 90], step: 9 }
+                ]
+            },
+            {
+                category: "De 10 en 10",
+                items: [
+                    { id: 24, sequence: [10, null, 30, null, 50, null, 70, null, 90, null], step: 10 },
+                    { id: 25, sequence: [null, 20, null, 40, null, 60, null, 80, null, 100], step: 10 }
+                ]
+            },
+            {
+                category: "Ejercicios con saltos más difíciles (Indica el salto)",
+                items: [
+                    { id: 26, sequence: [5, 10, null, 20, null, 30, null, 40], step: 5, askPattern: true },
+                    { id: 27, sequence: [6, 12, null, 24, null, 36, null, 48], step: 6, askPattern: true },
+                    { id: 28, sequence: [8, 16, null, 32, null, 48, null, 64], step: 8, askPattern: true }
+                ]
+            },
+            {
+                category: "Descubre el patrón y continúa",
+                items: [
+                    { id: 29, sequence: [3, 6, 9, null, null, null, null, null], step: 3 },
+                    { id: 30, sequence: [4, 8, 12, null, null, null, null, null], step: 4 },
+                    { id: 31, sequence: [7, 14, 21, null, null, null, null, null], step: 7 },
+                    { id: 32, sequence: [10, 20, 30, null, null, null, null, null], step: 10 }
+                ]
+            },
+            {
+                category: "Series con inicio diferente",
+                items: [
+                    { id: 33, sequence: [15, null, 25, null, 35, null, 45, null], step: 5 },
+                    { id: 34, sequence: [18, null, 30, null, 42, null, 54, null], step: 6 },
+                    { id: 35, sequence: [21, null, 35, null, 49, null, 63, null], step: 7 },
+                    { id: 36, sequence: [24, null, 40, null, 56, null, 72, null], step: 8 }
+                ]
+            }
+        ];
+
+        // LÓGICA DE INTERFAZ PRIMARIA
+        const selectStep = document.getElementById('step-select');
+        const btnGenerate = document.getElementById('btn-generate');
+        const btnAnimate = document.getElementById('btn-animate');
+        const methodCard = document.getElementById('method-card');
+        const grid = document.getElementById('number-grid');
+        const statsInfo = document.getElementById('stats-info');
+
+        let animationInterval = null;
+
+        function updateContent() {
+            clearInterval(animationInterval);
+            const step = parseInt(selectStep.value);
+            
+            const info = methods[step];
+            methodCard.innerHTML = `
+                <h2>${info.title}</h2>
+                <p>${info.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
+                <p>💡 <strong>Truco práctico:</strong> ${info.tip.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
+            `;
+
+            grid.innerHTML = '';
+            let count = 0;
+            for (let i = step; i <= 1000; i += step) {
+                const box = document.createElement('div');
+                box.classList.add('number-box');
+                box.textContent = i;
+                box.id = `num-${i}`;
+                grid.appendChild(box);
+                count++;
+            }
+
+            statsInfo.textContent = `Se encontraron ${count} números en el patrón del ${step} hasta el 1000.`;
+        }
+
+        function startAnimation() {
+            clearInterval(animationInterval);
+            const boxes = grid.querySelectorAll('.number-box');
+            
+            boxes.forEach(box => box.classList.remove('active', 'highlight-current'));
+
+            let index = 0;
+            animationInterval = setInterval(() => {
+                if (index > 0) {
+                    boxes[index - 1].classList.remove('highlight-current');
+                    boxes[index - 1].classList.add('active');
+                }
+
+                if (index < boxes.length) {
+                    const currentBox = boxes[index];
+                    currentBox.classList.add('highlight-current');
+                    currentBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    index++;
+                } else {
+                    clearInterval(animationInterval);
+                }
+            }, 150);
+        }
+
+        // GENERACIÓN DE EJERCICIOS INTERACTIVOS
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            container.innerHTML = '';
+
+            exercisesData.forEach(group => {
+                const groupEl = document.createElement('div');
+                groupEl.classList.add('exercise-group');
+                
+                const title = document.createElement('h3');
+                title.textContent = group.category;
+                groupEl.appendChild(title);
+
+                group.items.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.classList.add('exercise-item');
+
+                    const label = document.createElement('span');
+                    label.textContent = `${item.id}) `;
+                    itemEl.appendChild(label);
+
+                    // Calcular la secuencia completa para obtener la respuesta correcta
+                    let firstKnownVal = item.sequence.find(x => x !== null);
+                    let firstKnownIdx = item.sequence.findIndex(x => x !== null);
+                    let startVal = firstKnownVal - (firstKnownIdx * item.step);
+
+                    item.sequence.forEach((val, idx) => {
+                        const correctVal = startVal + (idx * item.step);
+
+                        if (val !== null) {
+                            const span = document.createElement('span');
+                            span.textContent = val + (idx < item.sequence.length - 1 ? ', ' : '');
+                            itemEl.appendChild(span);
+                        } else {
+                            const input = document.createElement('input');
+                            input.type = 'number';
+                            input.dataset.correct = correctVal;
+                            
+                            input.addEventListener('input', () => validateInput(input));
+
+                            itemEl.appendChild(input);
+
+                            const sep = document.createElement('span');
+                            sep.textContent = idx < item.sequence.length - 1 ? ', ' : '';
+                            itemEl.appendChild(sep);
+                        }
+                    });
+
+                    // Si el ejercicio pregunta "¿de cuánto en cuánto?"
+                    if (item.askPattern) {
+                        const patternSpan = document.createElement('span');
+                        patternSpan.textContent = ' (¿de cuánto en cuánto? ';
+                        itemEl.appendChild(patternSpan);
+
+                        const patternInput = document.createElement('input');
+                        patternInput.type = 'text';
+                        patternInput.classList.add('pattern-input');
+                        patternInput.placeholder = 'ej. 5 en 5';
+                        patternInput.dataset.step = item.step;
+
+                        patternInput.addEventListener('input', () => validatePatternInput(patternInput));
+
+                        itemEl.appendChild(patternInput);
+
+                        const closeSpan = document.createElement('span');
+                        closeSpan.textContent = ')';
+                        itemEl.appendChild(closeSpan);
+                    }
+
+                    groupEl.appendChild(itemEl);
+                });
+
+                container.appendChild(groupEl);
+            });
+        }
+
+        // VALIDACIÓN EN TIEMPO REAL
+        function validateInput(input) {
+            const val = parseInt(input.value);
+            const expected = parseInt(input.dataset.correct);
+
+            if (input.value.trim() === '') {
+                input.classList.remove('correct', 'incorrect');
+            } else if (val === expected) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function validatePatternInput(input) {
+            const val = input.value.toLowerCase().trim();
+            const expectedStep = input.dataset.step;
+
+            if (val === '') {
+                input.classList.remove('correct', 'incorrect');
+            } else if (val.includes(expectedStep) || val.includes(numberToWords(expectedStep))) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+        }
+
+        function numberToWords(num) {
+            const words = { "5": "cinco", "6": "seis", "8": "ocho" };
+            return words[num] || num;
+        }
+
+        function checkAllAnswers() {
+            const inputs = document.querySelectorAll('#exercises-container input');
+            inputs.forEach(input => {
+                if (input.classList.contains('pattern-input')) {
+                    validatePatternInput(input);
+                } else {
+                    validateInput(input);
+                }
+            });
+        }
+
+        // EVENT LISTENERS
+        btnGenerate.addEventListener('click', updateContent);
+        btnAnimate.addEventListener('click', startAnimation);
+        selectStep.addEventListener('change', updateContent);
+        document.getElementById('btn-check-all').addEventListener('click', checkAllAnswers);
+
+        // INICIALIZACIÓN
+        updateContent();
+        renderExercises();
+    </script>
+</body>
+</html>
