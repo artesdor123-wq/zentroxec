@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Atención al Cliente y Ventas</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --success: #16a34a;
+            --success-bg: #f0fdf4;
+            --error: #dc2626;
+            --error-bg: #fef2f2;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .block-tag {
+            display: inline-block;
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .chat-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            max-width: 85%;
+        }
+
+        .message.vendedor {
+            background: #e0f2fe;
+            color: #0369a1;
+            align-self: flex-start;
+        }
+
+        .message.cliente {
+            background: #f1f5f9;
+            color: #334155;
+            align-self: flex-end;
+            border: 1px solid var(--border);
+        }
+
+        .question {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-top: 10px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background-color: #f0f7ff;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .feedback {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #bbf7d0;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: var(--error-bg);
+            color: var(--error);
+            border: 1px solid #fecaca;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .results h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .btn-restart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Simulador de Ventas y Atención al Cliente</h1>
+        <p id="question-tracker" style="color: var(--text-secondary); font-size: 0.9rem;">Caso 1 de 13</p>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <div id="quiz-screen">
+        <span class="block-tag" id="block-tag">Bloque 1</span>
+        
+        <div class="chat-box" id="chat-box">
+            </div>
+
+        <p class="question" id="question-text">¿Cuál debe ser el siguiente paso o respuesta lógica adecuada?</p>
+
+        <div class="options" id="options-container">
+            </div>
+
+        <div class="feedback" id="feedback-box">
+            <div class="feedback-title" id="feedback-title"></div>
+            <div id="feedback-text"></div>
+        </div>
+
+        <div class="actions">
+            <button class="btn-next" id="btn-next" onclick="nextQuestion()">Siguiente Caso</button>
+        </div>
+    </div>
+
+    <div class="results" id="results-screen">
+        <h2>Entrenamiento Finalizado</h2>
+        <p style="color: var(--text-secondary);">Has completado la evaluación de casos de atención al cliente y ventas.</p>
+        <div class="score-display" id="score-display">0 / 13</div>
+        <p id="score-comment" style="margin-bottom: 20px; color: var(--text);"></p>
+        <button class="btn-restart" onclick="restartQuiz()">Reiniciar Simulador</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        block: "Bloque 1: Manejo de Objeciones de Precio y Comparación",
+        title: "Caso 1: Lo vi más barato en la competencia",
+        dialogue: [
+            { sender: "vendedor", text: "Puedes realizar una transferencia directa o pagar con tarjeta mediante nuestro enlace seguro. ¿Cuál método te resulta más cómodo?" },
+            { sender: "cliente", text: "Prefiero transferencia. Pásame los datos bancarios por favor." },
+            { sender: "vendedor", text: "Te envío de inmediato los datos de la cuenta corriente. En cuanto nos compartas el comprobante, procesamos la orden para despacho hoy mismo." },
+            { sender: "cliente", text: "Listo, ya te adjunto el comprobante del pago. Muchas gracias." }
+        ],
+        question: "¿Cuál es la respuesta y el estado final correcto para esta interacción?",
+        options: [
+            {
+                text: "Confirmar la recepción del pago, indicar que el pedido está en preparación y dar un cierre formal (Venta Cerrada).",
+                correct: true
+            },
+            {
+                text: "Preguntarle si desea agregar otro producto adicional antes de enviarlo.",
+                correct: false
+            },
+            {
+                text: "Pedirle que espere a la otra semana para que el despacho sea más económico.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Sigue el principio de reducción del riesgo. Una vez verificado el pago, dar confirmación inmediata y canalizar el envío genera certidumbre en el cliente y concluye el proceso de forma limpia (Venta Cerrada)."
+    },
+    {
+        block: "Bloque 1: Manejo de Objeciones de Precio y Comparación",
+        title: "Caso 2: No tengo todo el presupuesto ahora",
+        dialogue: [
+            { sender: "vendedor", text: "Hecho. Cómpralo hoy con el 50% de inicial y el saldo lo cancelas al recibirlo el próximo mes. ¿A qué correo te envío la orden?" },
+            { sender: "cliente", text: "Envíala a cliente@email.com. Pero antes, déjame revisar si llego con el 50% este fin de semana." },
+            { sender: "vendedor", text: "Quedo atento a tu confirmación. Ten en cuenta que la reserva con la inicial aplica únicamente durante los próximos tres días." },
+            { sender: "cliente", text: "Entendido. Estuve haciendo cuentas y por ahora no puedo hacer el gasto inicial tampoco. Prefiero esperar a fin de mes." }
+        ],
+        question: "¿Cómo debe reaccionar el vendedor ante la falta de presupuesto del cliente?",
+        options: [
+            {
+                text: "Presionarlo para que pida prestado o intente hacer el esfuerzo hoy mismo.",
+                correct: false
+            },
+            {
+                text: "Comprender la restricción presupuestaria, agendar un seguimiento para fin de mes y cerrar amablemente sin venta inmediata.",
+                correct: true
+            },
+            {
+                text: "Ofrecerle un descuento del 80% rompiendo el margen del producto.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Respeta la restricción presupuestaria real del cliente. Forzar la venta cuando existe un dolor financiero inmediato causa rechazo. Mantener el contacto programado deja la puerta abierta para cerrar la venta cuando exista la liquidez requerida."
+    },
+    {
+        block: "Bloque 1: Manejo de Objeciones de Precio y Comparación",
+        title: "Caso 3: Quiero un descuento adicional",
+        dialogue: [
+            { sender: "vendedor", text: "Entiendo. Si te mantienes en dos unidades, no puedo bajarte el precio base, pero te puedo regalar el costo de envío prioritario. ¿Te parece bien para cerrar la orden ahora?" },
+            { sender: "cliente", text: "No, la verdad en otros sitios por dos unidades sí me dan al menos un 10% directo al total. Si no me bajas el precio, prefiero no comprar." },
+            { sender: "vendedor", text: "Lamento no poder ajustar más el margen en dos unidades. Mantenemos el estándar de calidad y soporte directo que justifica el precio base." },
+            { sender: "cliente", text: "Entiendo tu postura, pero por ahora paso. Buscaré la opción con descuento directo." }
+        ],
+        question: "¿Cuál es el cierre profesional cuando no hay acuerdo comercial por precio?",
+        options: [
+            {
+                text: "Discutir con el cliente argumentando que la competencia ofrece productos de mala calidad.",
+                correct: false
+            },
+            {
+                text: "Aceptar respetuosamente la decisión, mantener la postura del valor sobre el precio y dejar el canal abierto.",
+                correct: true
+            },
+            {
+                text: "Ignorar el mensaje del cliente y no responder más.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Cubre la firmeza en el valor del producto. Si el costo sacrificara el margen o la calidad del servicio, sostener el valor con respeto mantendrá la reputación intacta aunque no se ejecute la transacción inmediata."
+    },
+    {
+        block: "Bloque 2: Clientes Indecisos y Comparación de Productos",
+        title: "Caso 4: No sé cuál de las dos opciones elegir",
+        dialogue: [
+            { sender: "vendedor", text: "En ese caso el modelo básico te va a quedar corto muy rápido. La inversión en el Pro se paga sola por la durabilidad. ¿Qué color prefieres en el modelo Pro?" },
+            { sender: "cliente", text: "Me gusta en color negro. Me convenciste con el tema del uso intensivo." },
+            { sender: "vendedor", text: "Excelente elección. Lo tenemos disponible en negro para entrega inmediata. ¿Te lo enviamos a tu dirección de domicilio o trabajo?" },
+            { sender: "cliente", text: "Al domicilio, por favor." }
+        ],
+        question: "¿Cómo debe actuar el vendedor para concretar la venta tras la decisión del cliente?",
+        options: [
+            {
+                text: "Confirmar los datos de envío, enviar el enlace de pago seguro e informar la fecha de entrega (Venta Cerrada).",
+                correct: true
+            },
+            {
+                text: "Volver a explicarle las diferencias de modelos para asegurarse de que no cambió de opinión.",
+                correct: false
+            },
+            {
+                text: "Decirle que pase por la tienda a retirarlo sin ofrecer opciones de pago digital.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Aplica la reducción de la 'parálisis por análisis'. Una vez que el rol consultivo guía al cliente hacia la mejor opción según su necesidad, el paso correcto es simplificar el cierre de la transacción."
+    },
+    {
+        block: "Bloque 2: Clientes Indecisos y Comparación de Productos",
+        title: "Caso 5: Déjame pensarlo y te aviso",
+        dialogue: [
+            { sender: "vendedor", text: "Te entiendo. Te comparto de una vez la ficha técnica con las medidas exactas por PDF. Si toman la decisión hoy, ¿te aseguro el stock para entrega mañana?" },
+            { sender: "cliente", text: "Gracias por la ficha. Prefiero revisarlo esta noche con calma y no tomar la decisión apresurado. No te preocupes por el stock de mañana." },
+            { sender: "vendedor", text: "Me parece prudente. Te escribo mañana a primera hora a ver qué opinaron sobre las dimensiones." },
+            { sender: "cliente", text: "Vale, me parece bien. Te respondo por la mañana." }
+        ],
+        question: "¿Qué refleja la resolución de esta conversación?",
+        options: [
+            {
+                text: "Una venta fallida por falta de insistencia del vendedor.",
+                correct: false
+            },
+            {
+                text: "Un proceso en pausa razonable donde se respeta la autonomía del cliente fijando un seguimiento acordado.",
+                correct: true
+            },
+            {
+                text: "Un cierre exitoso con pago inmediato.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Respeta los tiempos de deliberación del cliente. Acordar una hora específica para retomar el contacto evita parecer invasivo a la vez que mantiene el hilo comercial abierto."
+    },
+    {
+        block: "Bloque 2: Clientes Indecisos y Comparación de Productos",
+        title: "Caso 6: Miedo a comprar por primera vez en línea",
+        dialogue: [
+            { sender: "vendedor", text: "Perfecto. Pásame tu dirección exacta y coordinamos la entrega bajo esa modalidad." },
+            { sender: "cliente", text: "Mi dirección es Av. Central 456. ¿Puedo pagarle en efectivo al repartidor cuando lo revise?" },
+            { sender: "vendedor", text: "Correcto. El repartidor te entrega la caja, verificas que venga sellada y le entregas el dinero en efectivo." },
+            { sender: "cliente", text: "Perfecto, me da mucha seguridad eso. Ya envié los datos." }
+        ],
+        question: "¿Cuál es el cierre adecuado una vez superado el temor a la compra en línea?",
+        options: [
+            {
+                text: "Cancelar la orden porque el pago en efectivo genera molestias logísticas.",
+                correct: false
+            },
+            {
+                text: "Confirmar el registro de la orden e indicar la ventana horaria de entrega (Venta Cerrada).",
+                correct: true
+            },
+            {
+                text: "Pedirle que pague por adelantado la mitad antes de enviar al motorizado.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Neutraliza la aversión al riesgo mediante el pago contra entrega. Confirmar los detalles finales consolida la confianza construida durante el proceso."
+    },
+    {
+        block: "Bloque 3: Reclamos, Devoluciones y Clientes Molestos",
+        title: "Caso 7: El producto llegó dañado o defectuoso",
+        dialogue: [
+            { sender: "vendedor", text: "Confirmado. Puedo gestionar el reembolso completo en 24 horas o enviarte un repuesto nuevo hoy mismo con un regalo por las molestias. ¿Qué alternativa prefieres?" },
+            { sender: "cliente", text: "Prefiero que me envíen el repuesto nuevo, pero asegúrense de embalarlo bien esta vez." },
+            { sender: "vendedor", text: "Descuida, saldrá con doble empaque de protección de burbuja. Además, incluimos un cupón de 20% de descuento para tu próxima compra." },
+            { sender: "cliente", text: "De acuerdo, espero el nuevo paquete entonces." }
+        ],
+        question: "¿Cómo se califica el resultado de esta interacción post-venta?",
+        options: [
+            {
+                text: "Venta retenida y problema solucionado mediante resolución rápida y compensación.",
+                correct: true
+            },
+            {
+                text: "Pérdida de cliente por falla insalvable del empaque.",
+                correct: false
+            },
+            {
+                text: "Devolución monetaria obligatoria por insatisfacción.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Sigue la lógica del desescalamiento del conflicto: validar el problema, tomar acción inmediata y agregar valor compensatorio retiene la venta y transforma una mala experiencia en lealtad a la marca."
+    },
+    {
+        block: "Bloque 3: Reclamos, Devoluciones y Clientes Molestos",
+        title: "Caso 8: El servicio no cumplió con las expectativas",
+        dialogue: [
+            { sender: "vendedor", text: "Tienes razón, eso no debe ocurrir. Voy a reasignar tu cuenta a un servidor de alta velocidad sin costo adicional ahora mismo. ¿Podemos probar el rendimiento juntos en 10 minutos para verificar la mejora?" },
+            { sender: "cliente", text: "De acuerdo, hagamos la prueba en 10 minutos." },
+            { sender: "vendedor", text: "Listo, ya se aplicó la migración. Por favor actualiza la página y realiza una búsqueda de prueba." },
+            { sender: "cliente", text: "Vaya, la diferencia es abismal, cargó en menos de un segundo. Así sí me sirve la plataforma." }
+        ],
+        question: "¿Cuál es el cierre que debe dar el vendedor al verificar la satisfacción del usuario?",
+        options: [
+            {
+                text: "Cobrar un adicional por la migración al nuevo servidor de alta velocidad.",
+                correct: false
+            },
+            {
+                text: "Mostrar alegría por la resolución y ponerse a disposición para futuros requerimientos (Cliente Retenido).",
+                correct: true
+            },
+            {
+                text: "Dar por terminada la relación contractual inmediatamente.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Demuestra empatía y agilidad técnica. Validar que la solución surtió efecto frente al cliente evita la cancelación del servicio y asegura la permanencia del cliente."
+    },
+    {
+        block: "Bloque 3: Reclamos, Devoluciones y Clientes Molestos",
+        title: "Caso 9: Cobro incorrecto o duplicado",
+        dialogue: [
+            { sender: "vendedor", text: "Confirmado el duplicado. Acabo de procesar la reversión del cobro extra hacia tu tarjeta, tarda de 24 a 48 horas en verse reflejado. Te envié el comprobante a tu correo, ¿te llegó?" },
+            { sender: "cliente", text: "Sí, ya me llegó el correo de cancelación de la transacción extra." },
+            { sender: "vendedor", text: "Excelente. Lamento nuevamente la molestia técnica y quedo atento a cualquier otra duda." },
+            { sender: "cliente", text: "Gracias por resolverlo sin ponerme trabas. Mantengo la suscripción activa." }
+        ],
+        question: "¿Qué efecto tuvo el proceso de atención en este cliente?",
+        options: [
+            {
+                text: "El cliente canceló la cuenta por temor a nuevos cobros.",
+                correct: false
+            },
+            {
+                text: "Fidelización del cliente tras una resolución transparente, ágil y sin fricciones.",
+                correct: true
+            },
+            {
+                text: "El cliente exigió una indemnización legal adicional.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Eliminar las fricciones en momentos de error operativo genera seguridad. El cliente comprueba que la empresa actúa de forma honesta, lo que refuerza su permanencia."
+    },
+    {
+        block: "Bloque 4: Ventas Cruzadas y Sugerencias de Valor",
+        title: "Caso 10: Ofrecer un complemento útil (Cross-selling)",
+        dialogue: [
+            { sender: "vendedor", text: "Subiría únicamente $15 sobre el valor total. Te ahorras los $25 que cuesta por separado. ¿Lo sumamos a la factura?" },
+            { sender: "cliente", text: "No, gracias, por ahora solo llevaré la laptop. Ya tengo una mochila donde la puedo transportar." },
+            { sender: "vendedor", text: "Entendido totalmente. Facturamos únicamente la laptop entonces." },
+            { sender: "cliente", text: "Sí, perfecto, procedamos con el pago de la laptop." }
+        ],
+        question: "¿Cómo concluye la venta tras la negativa del cliente a la venta cruzada?",
+        options: [
+            {
+                text: "Venta principal cerrada adecuadamente aceptando el rechazo de la oferta complementaria.",
+                correct: true
+            },
+            {
+                text: "Venta cancelada en su totalidad por no aceptar el combo completo.",
+                correct: false
+            },
+            {
+                text: "El vendedor regala el estuche con tal de realizar la venta cruzada.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Diferencia el objetivo principal de la venta cruzada. Un rechazo al producto complementario no debe comprometer la compra de la oferta base."
+    },
+    {
+        block: "Bloque 4: Ventas Cruzadas y Sugerencias de Valor",
+        title: "Caso 11: Subir de categoría de producto (Up-selling)",
+        dialogue: [
+            { sender: "vendedor", text: "Te aseguro que la diferencia se nota desde el primer momento. Procedemos con la instalación del plan de 100 Megas entonces." },
+            { sender: "cliente", text: "Sí, me convence la idea del Wi-Fi Mesh para que llegue buena señal hasta el patio." },
+            { sender: "vendedor", text: "Perfecto. Agendamos a nuestro técnico para mañana en el turno de la mañana." },
+            { sender: "cliente", text: "Excelente, los espero entre 9:00 y 11:00 AM." }
+        ],
+        question: "¿Cuál es el resultado de la aplicación del Up-selling en este caso?",
+        options: [
+            {
+                text: "Cierre exitoso del servicio de mayor categoría al conectar el precio con el beneficio directo (cobertura total).",
+                correct: true
+            },
+            {
+                text: "Pérdida del contrato por intentar cobrar un costo mensual mayor.",
+                correct: false
+            },
+            {
+                text: "El cliente exige volver al plan básico antes de probar la instalación.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Reduce la resistencia del costo al reencuadrar el incremento ($5 extras) con un beneficio directo y percibido de alto valor (Wi-Fi en toda la vivienda)."
+    },
+    {
+        block: "Bloque 5: Cierre de Ventas y Seguimiento Post-Venta",
+        title: "Caso 12: El cliente solicita información pero se queda callado",
+        dialogue: [
+            { sender: "vendedor", text: "Tiene un costo de $45 con entrega a domicilio gratis en tu zona hoy mismo antes de las 6 PM. ¿A qué sector deberíamos enviarlo?" },
+            { sender: "cliente", text: "Sería al sector Norte, cerca del centro comercial." },
+            { sender: "vendedor", text: "Perfecto, en esa zona la entrega es súper rápida. ¿Te gustaría pagar en efectivo contra entrega o por transferencia previa?" },
+            { sender: "cliente", text: "Transferencia previa. Envíame el código QR o el número de cuenta." }
+        ],
+        question: "¿Cuál debe ser la acción inmediata del vendedor tras la solicitud del medio de pago?",
+        options: [
+            {
+                text: "Enviar el QR y establecer la indicación clara para el envío una vez recibido el comprobante (Venta Cerrada).",
+                correct: true
+            },
+            {
+                text: "Solicitarle más datos personales de los necesarios antes de proveer la cuenta.",
+                correct: false
+            },
+            {
+                text: "Decirle que la oferta venció y que debe pagar una tarifa diferente.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Mantiene el flujo de la venta ágil. La pregunta de control encauza la conversación directo al cierre resolviendo la duda inicial del cliente."
+    },
+    {
+        block: "Bloque 5: Cierre de Ventas y Seguimiento Post-Venta",
+        title: "Caso 13: Cierre por escasez de inventario",
+        dialogue: [
+            { sender: "vendedor", text: "Entiendo perfectamente. Solo te comento que de esta edición especial solo nos quedan 2 unidades disponibles en bodega y el precio promocional vence hoy a medianoche. Si deseas, te separo la unidad con una reserva mínima para que no pierdas la oferta. ¿Te gustaría asegurarlo?" },
+            { sender: "cliente", text: "Mmm, la verdad prefiero asumir el riesgo de que se agote. No me gusta tomar decisiones presionado por el tiempo." },
+            { sender: "vendedor", text: "Lo comprendo y respeto completamente tu proceso. Te dejaré el catálogo guardado por si te decides a hacer la compra en otro momento." },
+            { sender: "cliente", text: "Vale, muchas gracias por entenderlo." }
+        ],
+        question: "¿Cómo reacciona adecuadamente el vendedor cuando el cliente rechaza la presión de escasez?",
+        options: [
+            {
+                text: "Insistir amenazando con subir el precio de inmediato para obligarlo a pagar.",
+                correct: false
+            },
+            {
+                text: "Aceptar la postura del cliente, evitar la confrontación y ofrecer apoyo continuo para oportunidades futuras.",
+                correct: true
+            },
+            {
+                text: "Borrar el historial de conversación e ignorar posteriores solicitudes.",
+                correct: false
+            }
+        ],
+        explanation: "<b>¿Por qué es la opción correcta?</b><br>Reconoce la resistencia a la presión de los clientes analíticos. Forzar la urgencia cuando el cliente muestra cautela genera rechazo; respetar su ritmo mantiene abierta la vía de contacto."
+    }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+const questionTracker = document.getElementById('question-tracker');
+const progressFill = document.getElementById('progress-fill');
+const blockTag = document.getElementById('block-tag');
+const chatBox = document.getElementById('chat-box');
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const feedbackBox = document.getElementById('feedback-box');
+const feedbackTitle = document.getElementById('feedback-title');
+const feedbackText = document.getElementById('feedback-text');
+const btnNext = document.getElementById('btn-next');
+const quizScreen = document.getElementById('quiz-screen');
+const resultsScreen = document.getElementById('results-screen');
+const scoreDisplay = document.getElementById('score-display');
+const scoreComment = document.getElementById('score-comment');
+
+function loadQuestion() {
+    const data = quizData[currentQuestion];
+
+    // Resetear UI
+    feedbackBox.className = 'feedback';
+    feedbackBox.style.display = 'none';
+    btnNext.style.display = 'none';
+    optionsContainer.innerHTML = '';
+    chatBox.innerHTML = '';
+
+    // Actualizar progreso
+    questionTracker.innerText = `Caso ${currentQuestion + 1} de ${quizData.length}`;
+    progressFill.style.width = `${((currentQuestion + 1) / quizData.length) * 100}%`;
+    blockTag.innerText = data.block;
+
+    // Cargar Diálogo
+    data.dialogue.forEach(msg => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${msg.sender}`;
+        msgDiv.innerText = `${msg.sender === 'vendedor' ? 'Vendedor' : 'Cliente'}: ${msg.text}`;
+        chatBox.appendChild(msgDiv);
+    });
+
+    questionText.innerText = data.question;
+
+    // Cargar Opciones
+    data.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(index);
+        optionsContainer.appendChild(btn);
+    });
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function selectOption(index) {
+    const data = quizData[currentQuestion];
+    const selectedOption = data.options[index];
+    const buttons = optionsContainer.getElementsByClassName('option-btn');
+
+    // Deshabilitar todos los botones
+    for (let btn of buttons) {
+        btn.disabled = true;
+    }
+
+    if (selectedOption.correct) {
+        score++;
+        buttons[index].style.borderColor = 'var(--success)';
+        buttons[index].style.backgroundColor = 'var(--success-bg)';
+        feedbackBox.className = 'feedback correct';
+        feedbackTitle.innerText = '¡Respuesta Correcta!';
+    } else {
+        buttons[index].style.borderColor = 'var(--error)';
+        buttons[index].style.backgroundColor = 'var(--error-bg)';
+        feedbackBox.className = 'feedback incorrect';
+        feedbackTitle.innerText = 'Respuesta Incorrecta';
+
+        // Resaltar la respuesta correcta
+        data.options.forEach((opt, idx) => {
+            if (opt.correct) {
+                buttons[idx].style.borderColor = 'var(--success)';
+                buttons[idx].style.backgroundColor = 'var(--success-bg)';
+            }
+        });
+    }
+
+    feedbackText.innerHTML = data.explanation;
+    btnNext.style.display = 'block';
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+        loadQuestion();
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    quizScreen.style.display = 'none';
+    resultsScreen.style.display = 'block';
+    scoreDisplay.innerText = `${score} / ${quizData.length}`;
+
+    let percentage = (score / quizData.length) * 100;
+    if (percentage >= 80) {
+        scoreComment.innerText = '¡Excelente nivel! Dominas la psicología del cliente, el manejo de objeciones y la estructura de conversación.';
+    } else if (percentage >= 50) {
+        scoreComment.innerText = 'Buen trabajo. Tienes bases sólidas, pero conviene revisar el manejo de la presión y la empatía en casos complejos.';
+    } else {
+        scoreComment.innerText = 'Se sugiere revisar nuevamente los principios de validación, reencuadre y reducción del riesgo para mejorar los resultados.';
+    }
+}
+
+function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    resultsScreen.style.display = 'none';
+    quizScreen.style.display = 'block';
+    loadQuestion();
+}
+
+// Inicializar el simulador al cargar la página
+loadQuestion();
+</script>
+
+</body>
+</html>
