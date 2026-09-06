@@ -134,6 +134,15 @@
             <button onclick="judge.evaluateCurrentPosition()">Evaluar Posición</button>
         </div>
 
+        <!-- TARJETA AÑADIDA PARA PIEZAS COLGADAS -->
+        <div class="card">
+            <h3>🚨 Piezas Colgadas</h3>
+            <div id="colgadas-status" class="status-box" style="margin-bottom: 8px; font-size:0.9em; color:#20bf6b;">Escaneando...</div>
+            <ul id="lista-colgadas-interna" style="list-style:none; padding:0; margin:0; font-size:0.9em;">
+                <li>Sin piezas colgadas.</li>
+            </ul>
+        </div>
+
         <div class="card">
             <h3>Piezas Capturadas</h3>
             <div class="captured-container">
@@ -1128,5 +1137,85 @@ chess.makeMove = function(move) {
 
     inicializarEjercicios();
 </script>
+
+<!-- LIBRERÍA Y SCRIPT PARA DETECCIÓN DE PIEZAS COLGADAS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script>
+    const nombresPiezasEspanol = {
+        'p': 'Peón', 'n': 'Caballo', 'b': 'Alfil',
+        'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
+    };
+
+    function detectarPiezasColgadasInterno() {
+        if (typeof chess === 'undefined' || typeof Chess === 'undefined') return;
+
+        const rawFen = chess.generateFEN();
+        const colgadas = [];
+
+        ['w', 'b'].forEach(colorEvaluar => {
+            const partes = rawFen.split(' ');
+            partes[1] = colorEvaluar;
+            const fenProcesar = partes.join(' ');
+
+            let gameAnalysis;
+            try {
+                gameAnalysis = new Chess(fenProcesar);
+            } catch (err) {
+                return;
+            }
+
+            gameAnalysis.SQUARES.forEach(casilla => {
+                const pieza = gameAnalysis.get(casilla);
+                if (pieza && pieza.color === colorEvaluar) {
+                    const colorRival = pieza.color === 'w' ? 'b' : 'w';
+
+                    const atacadaPorRival = gameAnalysis.isAttacked(casilla, colorRival);
+                    const defendidaPorAliados = gameAnalysis.isAttacked(casilla, pieza.color);
+
+                    if (atacadaPorRival && !defendidaPorAliados) {
+                        const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
+                        const alerta = `${nombresPiezasEspanol[pieza.type]} ${colorTxt} en ${casilla.toUpperCase()}`;
+                        if (!colgadas.includes(alerta)) {
+                            colgadas.push(alerta);
+                        }
+                    }
+                }
+            });
+        });
+
+        const statusDiv = document.getElementById('colgadas-status');
+        const listaUI = document.getElementById('lista-colgadas-interna');
+
+        if (!listaUI || !statusDiv) return;
+
+        if (colgadas.length === 0) {
+            statusDiv.textContent = "Estado: Posición segura";
+            statusDiv.style.color = "#20bf6b";
+            listaUI.innerHTML = '<li style="color:#d2dae2;">✅ Ninguna pieza está colgada.</li>';
+        } else {
+            statusDiv.textContent = "⚠️ ¡Atención! Piezas indefensas:";
+            statusDiv.style.color = "#eb3b5a";
+            listaUI.innerHTML = colgadas.map(item => `<li style="color:#ffdae0; background:#3d1e22; padding:6px; margin-bottom:4px; border-radius:4px; font-weight:bold;">🚨 ${item}</li>`).join('');
+        }
+    }
+
+    // Vincular la detección cada vez que se realiza un movimiento en el tablero
+    const makeMoveOriginalConDetector = chess.makeMove.bind(chess);
+    chess.makeMove = function(move) {
+        makeMoveOriginalConDetector(move);
+        detectarPiezasColgadasInterno();
+    };
+
+    // Vincular la detección cada vez que se carga un FEN o un Ejercicio
+    const loadFENOriginalConDetector = chess.loadFEN.bind(chess);
+    chess.loadFEN = function(fen, resetHistory) {
+        loadFENOriginalConDetector(fen, resetHistory);
+        detectarPiezasColgadasInterno();
+    };
+
+    // Primera ejecución al cargar la página
+    setTimeout(detectarPiezasColgadasInterno, 500);
+</script>
+
 </body>
 </html>
