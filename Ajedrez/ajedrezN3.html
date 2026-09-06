@@ -174,18 +174,13 @@
         </div>
 
         <div class="card">
-            <h3>Configuración</h3>
-            <label><input type="checkbox" id="cfg-coords" checked onchange="chess.render()"> Mostrar Coordenadas</label><br>
-            <label><input type="checkbox" id="cfg-hints" checked onchange="chess.render()"> Mostrar Movimientos Legales</label><br>
-            <label><input type="checkbox" id="cfg-anim" checked onchange="chess.toggleAnimations()"> Activar Animaciones</label><br>
-            <div style="margin-top:10px;">
-                <label>Estilo de Tablero:</label>
-                <select onchange="chess.setTheme(this.value)">
-                    <option value="classic">Clásico (Madera)</option>
-                    <option value="ocean">Océano (Azul/Gris)</option>
-                    <option value="forest">Bosque (Verde/Crema)</option>
-                </select>
+            <h3>🚨 Piezas Colgadas</h3>
+            <div id="colgadas-status" style="margin-bottom: 8px; font-size: 0.9em; font-weight: bold; color: #20bf6b;">
+                Cargando análisis...
             </div>
+            <ul id="lista-colgadas-interna" style="list-style: none; padding: 0; margin: 0; font-size: 0.9em;">
+                <li>Esperando inicio del juego...</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -949,7 +944,15 @@ class ChessEngine {
     }
 }
 
-const chess = new ChessEngine();
+<script>
+    // Esperar a que el HTML termine de cargar completamente los divs
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof chess === 'undefined') {
+            window.chess = new ChessEngine();
+        }
+    });
+</script>
+    
 class StockfishJudge {
     constructor(engine) {
         this.engine = engine;
@@ -1307,14 +1310,153 @@ chess.makeMove = function(move) {
     }
 
     setInterval(escanearPiezasDOM, 600);
-</script>
 <script>
-    window.addEventListener('load', function() {
-        console.log("1. Objeto chess:", window.chess);
-        console.log("2. FEN:", typeof chess !== 'undefined' && (chess.fen ? chess.fen() : chess.board));
+    const nombresPiezasEspanol = {
+        'p': 'Peón', 'n': 'Caballo', 'b': 'Alfil',
+        'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
+    };
+
+    function obtenerTableroDesdeFEN() {
+        if (!window.chess) return null;
         
-        // También muestra el resultado directo en una alerta en pantalla
-        alert("Comprobación lista. Revisa si en la pantalla o consola aparece el objeto.");
+        let fen = '';
+        if (typeof chess.fen === 'function') fen = chess.fen();
+        else if (typeof chess.getFEN === 'function') fen = chess.getFEN();
+        else if (chess.fen) fen = chess.fen;
+
+        if (!fen || typeof fen !== 'string') return null;
+
+        const partes = fen.split(' ');
+        const posicion = partes[0];
+        const filas = posicion.split('/');
+        const board = [];
+
+        for (let r = 0; r < 8; r++) {
+            const fila = [];
+            const charFila = filas[r];
+            for (let i = 0; i < charFila.length; i++) {
+                const char = charFila[i];
+                if (!isNaN(char)) {
+                    const numVacias = parseInt(char, 10);
+                    for (let v = 0; v < numVacias; v++) fila.push(null);
+                } else {
+                    const color = (char === char.toUpperCase()) ? 'w' : 'b';
+                    fila.push({ type: char.toLowerCase(), color: color });
+                }
+            }
+            board.push(fila);
+        }
+        return board;
+    }
+
+    function estaAtacadaOProtegidaFEN(board, targetR, targetC, colorBuscado) {
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                const p = board[r][c];
+                if (!p || p.color !== colorBuscado) continue;
+
+                const dr = targetR - r;
+                const dc = targetC - c;
+                if (dr === 0 && dc === 0) continue;
+
+                switch (p.type) {
+                    case 'p': {
+                        const dirPawn = p.color === 'w' ? -1 : 1;
+                        if (r + dirPawn === targetR && (c - 1 === targetC || c + 1 === targetC)) return true;
+                        break;
+                    }
+                    case 'n': {
+                        if ((Math.abs(dr) === 2 && Math.abs(dc) === 1) || (Math.abs(dr) === 1 && Math.abs(dc) === 2)) return true;
+                        break;
+                    }
+                    case 'k': {
+                        if (Math.abs(dr) <= 1 && Math.abs(dc) <= 1) return true;
+                        break;
+                    }
+                    case 'b':
+                    case 'r':
+                    case 'q': {
+                        const isDiagonal = Math.abs(dr) === Math.abs(dc);
+                        const isStraight = dr === 0 || dc === 0;
+
+                        if ((p.type === 'b' && isDiagonal) || 
+                            (p.type === 'r' && isStraight) || 
+                            (p.type === 'q' && (isDiagonal || isStraight))) {
+                            
+                            const stepR = dr === 0 ? 0 : dr / Math.abs(dr);
+                            const stepC = dc === 0 ? 0 : dc / Math.abs(dc);
+
+                            let currR = r + stepR;
+                            let currC = c + stepC;
+                            let blocked = false;
+
+                            while (currR !== targetR || currC !== targetC) {
+                                if (board[currR][currC]) {
+                                    blocked = true;
+                                    break;
+                                }
+                                currR += stepR;
+                                currC += stepC;
+                            }
+
+                            if (!blocked) return true;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    function escanearPiezasColgadas() {
+        const statusDiv = document.getElementById('colgadas-status');
+        const listaUI = document.getElementById('lista-colgadas-interna');
+
+        if (!statusDiv || !listaUI) return;
+
+        const board = obtenerTableroDesdeFEN();
+        if (!board) return;
+
+        const colgadas = [];
+
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                const pieza = board[r][c];
+                if (pieza) {
+                    const colorRival = pieza.color === 'w' ? 'b' : 'w';
+
+                    const atacadaPorRival = estaAtacadaOProtegidaFEN(board, r, c, colorRival);
+                    const defendidaPorAliados = estaAtacadaOProtegidaFEN(board, r, c, pieza.color);
+
+                    if (atacadaPorRival && !defendidaPorAliados) {
+                        const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
+                        const casillaAlgebraica = String.fromCharCode(97 + c) + (8 - r);
+                        const nombrePieza = nombresPiezasEspanol[pieza.type] || 'Pieza';
+                        const alerta = `${nombrePieza} ${colorTxt} en ${casillaAlgebraica.toUpperCase()}`;
+                        
+                        if (!colgadas.includes(alerta)) colgadas.push(alerta);
+                    }
+                }
+            }
+        }
+
+        if (colgadas.length === 0) {
+            statusDiv.textContent = "Estado: Posición segura";
+            statusDiv.style.color = "#20bf6b";
+            listaUI.innerHTML = '<li style="color:#d2dae2;">✅ Ninguna pieza está colgada.</li>';
+        } else {
+            statusDiv.textContent = "⚠️ ¡Atención! Piezas indefensas:";
+            statusDiv.style.color = "#eb3b5a";
+            listaUI.innerHTML = colgadas.map(item => 
+                `<li style="color:#ffdae0; background:#3d1e22; padding:6px; margin-bottom:4px; border-radius:4px; font-weight:bold;">🚨 ${item}</li>`
+            ).join('');
+        }
+    }
+
+    // Iniciar escaneo periódico tras la carga de la página
+    document.addEventListener('DOMContentLoaded', () => {
+        setInterval(escanearPiezasColgadas, 500);
     });
 </script>
 </body>
