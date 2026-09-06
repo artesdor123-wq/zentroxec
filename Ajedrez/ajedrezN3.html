@@ -1139,14 +1139,15 @@ chess.makeMove = function(move) {
 </script>
 
 <!-- SCRIPT CORREGIDO DE DETECCIÓN DE PIEZAS COLGADAS -->
+<!-- SCRIPT DE DETECCIÓN DE PIEZAS COLGADAS (Sin errores de carga) -->
 <script>
     const nombresPiezasEspanol = {
         'p': 'Peón', 'n': 'Caballo', 'b': 'Alfil',
         'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
     };
 
-    // Función independiente para comprobar si una casilla recibe cobertura de un color específico
     function estaCasillaAtacadaOProtegida(targetR, targetC, colorBuscado) {
+        if (!window.chess || !chess.board) return false;
         const board = chess.board;
 
         for (let r = 0; r < 8; r++) {
@@ -1157,7 +1158,6 @@ chess.makeMove = function(move) {
                 const dr = targetR - r;
                 const dc = targetC - c;
 
-                // Ignorar la propia casilla de la pieza analizada
                 if (dr === 0 && dc === 0) continue;
 
                 switch (p.type) {
@@ -1222,7 +1222,7 @@ chess.makeMove = function(move) {
 
         if (!statusDiv || !listaUI) return;
 
-        if (!window.chess || !chess.board) {
+        if (typeof chess === 'undefined' || !chess || !chess.board) {
             statusDiv.textContent = "Cargando motor...";
             return;
         }
@@ -1238,7 +1238,6 @@ chess.makeMove = function(move) {
                     const atacadaPorRival = estaCasillaAtacadaOProtegida(r, c, colorRival);
                     const defendidaPorAliados = estaCasillaAtacadaOProtegida(r, c, pieza.color);
 
-                    // Una pieza se considera colgada si la ataca el rival y no tiene defensores propios
                     if (atacadaPorRival && !defendidaPorAliados) {
                         const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
                         const casillaAlgebraica = String.fromCharCode(97 + c) + (8 - r);
@@ -1265,23 +1264,31 @@ chess.makeMove = function(move) {
         }
     }
 
-    // Vínculo con las funciones de movimiento del tablero
-    if (window.chess) {
-        const makeMoveOriginalConDetector = chess.makeMove.bind(chess);
-        chess.makeMove = function(move) {
-            makeMoveOriginalConDetector(move);
-            detectarPiezasColgadasInterno();
-        };
+    // Inicializador seguro que espera a que exista la variable 'chess'
+    function vincularDetector() {
+        if (typeof chess !== 'undefined' && chess.makeMove) {
+            const makeMoveOriginal = chess.makeMove.bind(chess);
+            chess.makeMove = function(move) {
+                makeMoveOriginal(move);
+                detectarPiezasColgadasInterno();
+            };
 
-        const loadFENOriginalConDetector = chess.loadFEN.bind(chess);
-        chess.loadFEN = function(fen, resetHistory) {
-            loadFENOriginalConDetector(fen, resetHistory);
+            const loadFENOriginal = chess.loadFEN.bind(chess);
+            chess.loadFEN = function(fen, resetHistory) {
+                loadFENOriginal(fen, resetHistory);
+                detectarPiezasColgadasInterno();
+            };
+
+            // Ejecutar el primer escaneo inmediatamente
             detectarPiezasColgadasInterno();
-        };
+        } else {
+            // Reintentar en 100ms si el motor aún no ha terminado de cargar
+            setTimeout(vincularDetector, 100);
+        }
     }
 
-    // Ejecución inicial rápida
-    setTimeout(detectarPiezasColgadasInterno, 100);
+    // Iniciar intento de vinculación
+    vincularDetector();
 </script>
 </body>
 </html>
