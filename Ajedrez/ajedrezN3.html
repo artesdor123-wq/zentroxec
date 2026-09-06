@@ -152,8 +152,12 @@
         </div>
 
         <div class="card">
-            <h3>Historial de Movimientos</h3>
-            <div class="history-box" id="move-history"></div>
+            <h3>🚨 Piezas Colgadas</h3>
+            <div id="colgadas-status" style="margin-bottom: 8px; font-size:0.9em; color:#20bf6b;">Escaneando...</div>
+            <ul id="lista-colgadas-interna" style="list-style:none; padding:0; margin:0; font-size:0.9em; margin-bottom: 8px;">
+                <li>Cargando análisis...</li>
+            </ul>
+            <button onclick="detectarPiezasColgadasInterno()">Escanear Ahora</button>
         </div>
 
         <div class="card">
