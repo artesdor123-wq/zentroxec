@@ -1142,48 +1142,68 @@ chess.makeMove = function(move) {
     inicializarEjercicios();
 </script>
 
-<!-- DETECTOR DE PIEZAS COLGADAS BASADO EN FEN DIRECTO -->
+<!-- DETECTOR BASADO EN EL DOM DEL TABLERO VISUAL -->
 <script>
     const nombresPiezasEspanol = {
         'p': 'Peón', 'n': 'Caballo', 'b': 'Alfil',
         'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
     };
 
-    // Parsea la cadena FEN y genera una matriz limpia de 8x8
-    function obtenerTableroDesdeFEN() {
-        if (typeof chess === 'undefined') return null;
+    function obtenerMatrizDesdeDOM() {
+        const board = Array(8).fill(null).map(() => Array(8).fill(null));
         
-        let fen = '';
-        if (typeof chess.fen === 'function') fen = chess.fen();
-        else if (typeof chess.getFEN === 'function') fen = chess.getFEN();
-        else if (chess.fen) fen = chess.fen;
+        // Buscar casillas por clases CSS comunes (.square-a1, .square-11, etc.) o por elementos de pieza
+        const piezasDOM = document.querySelectorAll('[class*="piece-"], img[src*="piece"], .piece');
 
-        if (!fen || typeof fen !== 'string') return null;
+        piezasDOM.forEach(el => {
+            const className = el.className || '';
+            const src = el.src || '';
+            
+            let color = null;
+            let type = null;
+            let col = -1;
+            let row = -1;
 
-        const partes = fen.split(' ');
-        const posicion = partes[0];
-        const filas = posicion.split('/');
-        const board = [];
+            // Detectar color y tipo desde clases o desde la ruta de la imagen (src)
+            const attr = (className + ' ' + src).toLowerCase();
+            if (attr.includes('w') || attr.includes('white') || attr.includes('blanca')) color = 'w';
+            else if (attr.includes('b') || attr.includes('black') || attr.includes('negra')) color = 'b';
 
-        for (let r = 0; r < 8; r++) {
-            const fila = [];
-            const charFila = filas[r];
-            for (let i = 0; i < charFila.length; i++) {
-                const char = charFila[i];
-                if (!isNaN(char)) {
-                    const numVacias = parseInt(char, 10);
-                    for (let v = 0; v < numVacias; v++) fila.push(null);
-                } else {
-                    const color = (char === char.toUpperCase()) ? 'w' : 'b';
-                    fila.push({ type: char.toLowerCase(), color: color });
+            if (attr.includes('pawn') || attr.includes('-p')) type = 'p';
+            else if (attr.includes('knight') || attr.includes('-n')) type = 'n';
+            else if (attr.includes('bishop') || attr.includes('-b')) type = 'b';
+            else if (attr.includes('rook') || attr.includes('-r')) type = 'r';
+            else if (attr.includes('queen') || attr.includes('-q')) type = 'q';
+            else if (attr.includes('king') || attr.includes('-k')) type = 'k';
+
+            // Detectar posición (casilla)
+            const matchSquare = className.match(/square-([a-h][1-8])/);
+            const matchCoords = className.match(/square-(\d)(\d)/);
+
+            if (matchSquare) {
+                const alg = matchSquare[1];
+                col = alg.charCodeAt(0) - 97;
+                row = 8 - parseInt(alg[1], 10);
+            } else if (matchCoords) {
+                col = parseInt(matchCoords[1], 10) - 1;
+                row = parseInt(matchCoords[2], 10) - 1;
+            } else if (el.parentElement && el.parentElement.dataset) {
+                if (el.parentElement.dataset.square) {
+                    const alg = el.parentElement.dataset.square;
+                    col = alg.charCodeAt(0) - 97;
+                    row = 8 - parseInt(alg[1], 10);
                 }
             }
-            board.push(fila);
-        }
+
+            if (row >= 0 && row < 8 && col >= 0 && col < 8 && type && color) {
+                board[row][col] = { type, color };
+            }
+        });
+
         return board;
     }
 
-    function estaAtacadaOProtegidaFEN(board, targetR, targetC, colorBuscado) {
+    function estaAtacadaOProtegida(board, targetR, targetC, colorBuscado) {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 const p = board[r][c];
@@ -1196,21 +1216,15 @@ chess.makeMove = function(move) {
                 switch (p.type) {
                     case 'p': {
                         const dirPawn = p.color === 'w' ? -1 : 1;
-                        if (r + dirPawn === targetR && (c - 1 === targetC || c + 1 === targetC)) {
-                            return true;
-                        }
+                        if (r + dirPawn === targetR && (c - 1 === targetC || c + 1 === targetC)) return true;
                         break;
                     }
                     case 'n': {
-                        if ((Math.abs(dr) === 2 && Math.abs(dc) === 1) || (Math.abs(dr) === 1 && Math.abs(dc) === 2)) {
-                            return true;
-                        }
+                        if ((Math.abs(dr) === 2 && Math.abs(dc) === 1) || (Math.abs(dr) === 1 && Math.abs(dc) === 2)) return true;
                         break;
                     }
                     case 'k': {
-                        if (Math.abs(dr) <= 1 && Math.abs(dc) <= 1) {
-                            return true;
-                        }
+                        if (Math.abs(dr) <= 1 && Math.abs(dc) <= 1) return true;
                         break;
                     }
                     case 'b':
@@ -1249,18 +1263,13 @@ chess.makeMove = function(move) {
         return false;
     }
 
-    function detectarPiezasColgadasInterno() {
+    function escanearPiezasDOM() {
         const statusDiv = document.getElementById('colgadas-status');
         const listaUI = document.getElementById('lista-colgadas-interna');
 
         if (!statusDiv || !listaUI) return;
 
-        const board = obtenerTableroDesdeFEN();
-        if (!board) {
-            statusDiv.textContent = "Esperando posición...";
-            return;
-        }
-
+        const board = obtenerMatrizDesdeDOM();
         const colgadas = [];
 
         for (let r = 0; r < 8; r++) {
@@ -1269,8 +1278,8 @@ chess.makeMove = function(move) {
                 if (pieza) {
                     const colorRival = pieza.color === 'w' ? 'b' : 'w';
 
-                    const atacadaPorRival = estaAtacadaOProtegidaFEN(board, r, c, colorRival);
-                    const defendidaPorAliados = estaAtacadaOProtegidaFEN(board, r, c, pieza.color);
+                    const atacadaPorRival = estaAtacadaOProtegida(board, r, c, colorRival);
+                    const defendidaPorAliados = estaAtacadaOProtegida(board, r, c, pieza.color);
 
                     if (atacadaPorRival && !defendidaPorAliados) {
                         const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
@@ -1278,9 +1287,7 @@ chess.makeMove = function(move) {
                         const nombrePieza = nombresPiezasEspanol[pieza.type] || 'Pieza';
                         const alerta = `${nombrePieza} ${colorTxt} en ${casillaAlgebraica.toUpperCase()}`;
                         
-                        if (!colgadas.includes(alerta)) {
-                            colgadas.push(alerta);
-                        }
+                        if (!colgadas.includes(alerta)) colgadas.push(alerta);
                     }
                 }
             }
@@ -1299,8 +1306,7 @@ chess.makeMove = function(move) {
         }
     }
 
-    // Iniciar escaneo periódico automático cada 500ms para asegurar sincronización
-    setInterval(detectarPiezasColgadasInterno, 500);
+    setInterval(escanearPiezasDOM, 600);
 </script>
 </body>
 </html>
