@@ -15,7 +15,6 @@
       margin: 0;
     }
     
-    /* Contenedor del juego original */
     .game-container {
       flex: 2;
       height: 90vh;
@@ -30,7 +29,6 @@
       border: none;
     }
 
-    /* Panel lateral de análisis */
     .panel {
       flex: 1;
       background-color: #2b2d42;
@@ -90,28 +88,21 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 10px;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background-color: #d62828;
     }
   </style>
 
-  <!-- Carga de Chess.js para procesar la lógica del ajedrez -->
+  <!-- Carga de Chess.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 </head>
 <body>
 
-  <!-- Marco donde se muestra tu juego ajedrezN3.html enlazado -->
   <div class="game-container">
     <iframe id="game-frame" src="ajedrezN3.html"></iframe>
   </div>
 
-  <!-- Panel que muestra las piezas colgadas detectadas -->
   <div class="panel">
     <h2>Piezas Colgadas</h2>
-    <div class="status-box" id="status">Enlazado con ajedrezN3.html...</div>
+    <div class="status-box" id="status">Buscando enlace con ajedrezN3.html...</div>
     
     <ul id="lista-colgadas">
       <li>Iniciando escaneo...</li>
@@ -126,26 +117,21 @@
       'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
     };
 
-    // Función para obtener la posición FEN directamente de ajedrezN3.html
     function obtenerFEN() {
       const iframe = document.getElementById('game-frame');
       
       try {
         const iframeWindow = iframe.contentWindow;
 
-        // 1. Si ajedrezN3.html tiene una variable de objeto 'game' (ej: Chess.js)
+        // Intentar obtener el FEN desde las estructuras habituales de ajedrezN3.html
         if (iframeWindow.game && typeof iframeWindow.game.fen === 'function') {
           return iframeWindow.game.fen();
         }
-        
-        // 2. Si ajedrezN3.html tiene una variable global llamada 'fen'
-        if (iframeWindow.fen && typeof iframeWindow.fen === 'string') {
-          return iframeWindow.fen;
-        }
-
-        // 3. Si ajedrezN3.html usa Chessboard.js y tiene un objeto 'board'
         if (iframeWindow.board && typeof iframeWindow.board.fen === 'function') {
           return iframeWindow.board.fen();
+        }
+        if (iframeWindow.fen) {
+          return typeof iframeWindow.fen === 'function' ? iframeWindow.fen() : iframeWindow.fen;
         }
       } catch (e) {
         console.error("Error al acceder al iframe:", e);
@@ -154,42 +140,62 @@
       return null;
     }
 
-    // Función principal de análisis
     function escanearTablero() {
-      const fen = obtenerFEN();
+      let rawFen = obtenerFEN();
       const statusDiv = document.getElementById('status');
       const listaUI = document.getElementById('lista-colgadas');
 
-      if (!fen) {
-        statusDiv.innerText = "Esperando que se cargue la partida en ajedrezN3.html...";
-        listaUI.innerHTML = '<li>Buscando estado del tablero...</li>';
+      if (!rawFen) {
+        statusDiv.innerText = "Error: No se pudo leer la posición de ajedrezN3.html";
+        listaUI.innerHTML = '<li>Esperando lectura del tablero...</li>';
         return;
       }
 
-      statusDiv.innerText = "Conectado. Leyendo posición actual.";
+      // Normalizar el FEN: si no contiene datos de turno/enroque, añadírselos.
+      let fenCompleto = rawFen;
+      if (rawFen.split(' ').length === 1) {
+        fenCompleto = rawFen + ' w - - 0 1';
+      }
 
-      // Crear instancia de chess.js para calcular ataques/defensas
-      const game = new Chess(fen);
+      statusDiv.innerText = "Conectado. Analizando casillas...";
+
       const colgadas = [];
 
-      game.SQUARES.forEach(casilla => {
-        const pieza = game.get(casilla);
-        if (pieza) {
-          const colorPieza = pieza.color;
-          const colorRival = colorPieza === 'w' ? 'b' : 'w';
+      // Probar analisis para Blancas y Negras de forma explícita
+      ['w', 'b'].forEach(turnoForzado => {
+        const partes = fenCompleto.split(' ');
+        partes[1] = turnoForzado; // Forzamos el turno para verificar amenazas de ambos bandos
+        const fenProcesar = partes.join(' ');
 
-          const atacadaPorRival = game.isAttacked(casilla, colorRival);
-          const defendidaPorAliados = game.isAttacked(casilla, colorPieza);
-
-          // Si el enemigo la ataca y ningún aliado la defiende = Colgada
-          if (atacadaPorRival && !defendidaPorAliados) {
-            const colorTxt = colorPieza === 'w' ? 'Blanca' : 'Negra';
-            colgadas.push(`${nombresPiezas[pieza.type]} ${colorTxt} en **${casilla.toUpperCase()}**`);
-          }
+        let game;
+        try {
+          game = new Chess(fenProcesar);
+        } catch (err) {
+          return;
         }
+
+        game.SQUARES.forEach(casilla => {
+          const pieza = game.get(casilla);
+          if (pieza && pieza.color === turnoForzado) {
+            const colorRival = pieza.color === 'w' ? 'b' : 'w';
+
+            // Evaluar si la casilla está atacada por el enemigo y sin defensa aliada
+            const atacadaPorRival = game.isAttacked(casilla, colorRival);
+            const defendidaPorAliados = game.isAttacked(casilla, pieza.color);
+
+            if (atacadaPorRival && !defendidaPorAliados) {
+              const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
+              const textoDetectado = `${nombresPiezas[pieza.type]} ${colorTxt} en ${casilla.toUpperCase()}`;
+              
+              if (!colgadas.includes(textoDetectado)) {
+                colgadas.push(textoDetectado);
+              }
+            }
+          }
+        });
       });
 
-      // Renderizar resultado
+      // Renderizar resultado final
       if (colgadas.length === 0) {
         listaUI.innerHTML = '<li>✅ No hay ninguna pieza colgada en el tablero.</li>';
       } else {
@@ -197,10 +203,8 @@
       }
     }
 
-    // Escanear automáticamente cada 1 segundo para detectar movimientos en tiempo real
+    // Escaneo continuo cada 1 segundo
     setInterval(escanearTablero, 1000);
-
-    // Escaneo inicial tras cargar el iframe
     document.getElementById('game-frame').onload = escanearTablero;
   </script>
 
