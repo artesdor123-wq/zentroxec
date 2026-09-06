@@ -1308,5 +1308,14 @@ chess.makeMove = function(move) {
 
     setInterval(escanearPiezasDOM, 600);
 </script>
+<script>
+    window.addEventListener('load', function() {
+        console.log("1. Objeto chess:", window.chess);
+        console.log("2. FEN:", typeof chess !== 'undefined' && (chess.fen ? chess.fen() : chess.board));
+        
+        // También muestra el resultado directo en una alerta en pantalla
+        alert("Comprobación lista. Revisa si en la pantalla o consola aparece el objeto.");
+    });
+</script>
 </body>
 </html>
