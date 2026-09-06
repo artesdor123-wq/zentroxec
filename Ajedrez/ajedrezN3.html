@@ -1142,47 +1142,60 @@ chess.makeMove = function(move) {
     inicializarEjercicios();
 </script>
 
-<!-- SCRIPT CORREGIDO DE DETECCIÓN DE PIEZAS COLGADAS -->
-    
-<!-- SCRIPT DE DETECCIÓN DE PIEZAS COLGADAS (Sin errores de carga) -->
-<!-- SCRIPT DEFINITIVO DE DETECCIÓN DE PIEZAS COLGADAS -->
+<!-- DETECTOR DE PIEZAS COLGADAS BASADO EN FEN DIRECTO -->
 <script>
     const nombresPiezasEspanol = {
         'p': 'Peón', 'n': 'Caballo', 'b': 'Alfil',
         'r': 'Torre', 'q': 'Dama', 'k': 'Rey'
     };
 
-    function obtenerTipoYColor(pieza) {
-        if (!pieza) return null;
-        let type = pieza.type || pieza.piece || pieza;
-        let color = pieza.color;
+    // Parsea la cadena FEN y genera una matriz limpia de 8x8
+    function obtenerTableroDesdeFEN() {
+        if (typeof chess === 'undefined') return null;
+        
+        let fen = '';
+        if (typeof chess.fen === 'function') fen = chess.fen();
+        else if (typeof chess.getFEN === 'function') fen = chess.getFEN();
+        else if (chess.fen) fen = chess.fen;
 
-        if (typeof type === 'string') {
-            if (!color) {
-                color = (type === type.toUpperCase()) ? 'w' : 'b';
-            }
-            type = type.toLowerCase();
-        }
-        return { type, color };
-    }
+        if (!fen || typeof fen !== 'string') return null;
 
-    function estaCasillaAtacadaOProtegida(targetR, targetC, colorBuscado) {
-        if (!window.chess || !chess.board) return false;
-        const board = chess.board;
+        const partes = fen.split(' ');
+        const posicion = partes[0];
+        const filas = posicion.split('/');
+        const board = [];
 
         for (let r = 0; r < 8; r++) {
+            const fila = [];
+            const charFila = filas[r];
+            for (let i = 0; i < charFila.length; i++) {
+                const char = charFila[i];
+                if (!isNaN(char)) {
+                    const numVacias = parseInt(char, 10);
+                    for (let v = 0; v < numVacias; v++) fila.push(null);
+                } else {
+                    const color = (char === char.toUpperCase()) ? 'w' : 'b';
+                    fila.push({ type: char.toLowerCase(), color: color });
+                }
+            }
+            board.push(fila);
+        }
+        return board;
+    }
+
+    function estaAtacadaOProtegidaFEN(board, targetR, targetC, colorBuscado) {
+        for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-                const info = obtenerTipoYColor(board[r][c]);
-                if (!info || info.color !== colorBuscado) continue;
+                const p = board[r][c];
+                if (!p || p.color !== colorBuscado) continue;
 
                 const dr = targetR - r;
                 const dc = targetC - c;
-
                 if (dr === 0 && dc === 0) continue;
 
-                switch (info.type) {
+                switch (p.type) {
                     case 'p': {
-                        const dirPawn = info.color === 'w' ? -1 : 1;
+                        const dirPawn = p.color === 'w' ? -1 : 1;
                         if (r + dirPawn === targetR && (c - 1 === targetC || c + 1 === targetC)) {
                             return true;
                         }
@@ -1206,9 +1219,9 @@ chess.makeMove = function(move) {
                         const isDiagonal = Math.abs(dr) === Math.abs(dc);
                         const isStraight = dr === 0 || dc === 0;
 
-                        if ((info.type === 'b' && isDiagonal) || 
-                            (info.type === 'r' && isStraight) || 
-                            (info.type === 'q' && (isDiagonal || isStraight))) {
+                        if ((p.type === 'b' && isDiagonal) || 
+                            (p.type === 'r' && isStraight) || 
+                            (p.type === 'q' && (isDiagonal || isStraight))) {
                             
                             const stepR = dr === 0 ? 0 : dr / Math.abs(dr);
                             const stepC = dc === 0 ? 0 : dc / Math.abs(dc);
@@ -1237,14 +1250,14 @@ chess.makeMove = function(move) {
     }
 
     function detectarPiezasColgadasInterno() {
-        // Seleccionar elementos de la tarjeta (compatible con múltiples selectores)
-        const statusDiv = document.getElementById('colgadas-status') || document.querySelector('.card #colgadas-status');
-        const listaUI = document.getElementById('lista-colgadas-interna') || document.querySelector('.card ul');
+        const statusDiv = document.getElementById('colgadas-status');
+        const listaUI = document.getElementById('lista-colgadas-interna');
 
         if (!statusDiv || !listaUI) return;
 
-        if (typeof chess === 'undefined' || !chess || !chess.board) {
-            statusDiv.textContent = "Cargando motor...";
+        const board = obtenerTableroDesdeFEN();
+        if (!board) {
+            statusDiv.textContent = "Esperando posición...";
             return;
         }
 
@@ -1252,17 +1265,17 @@ chess.makeMove = function(move) {
 
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
-                const piezaInfo = obtenerTipoYColor(chess.board[r][c]);
-                if (piezaInfo && piezaInfo.type) {
-                    const colorRival = piezaInfo.color === 'w' ? 'b' : 'w';
+                const pieza = board[r][c];
+                if (pieza) {
+                    const colorRival = pieza.color === 'w' ? 'b' : 'w';
 
-                    const atacadaPorRival = estaCasillaAtacadaOProtegida(r, c, colorRival);
-                    const defendidaPorAliados = estaCasillaAtacadaOProtegida(r, c, piezaInfo.color);
+                    const atacadaPorRival = estaAtacadaOProtegidaFEN(board, r, c, colorRival);
+                    const defendidaPorAliados = estaAtacadaOProtegidaFEN(board, r, c, pieza.color);
 
                     if (atacadaPorRival && !defendidaPorAliados) {
-                        const colorTxt = piezaInfo.color === 'w' ? 'Blanca' : 'Negra';
+                        const colorTxt = pieza.color === 'w' ? 'Blanca' : 'Negra';
                         const casillaAlgebraica = String.fromCharCode(97 + c) + (8 - r);
-                        const nombrePieza = nombresPiezasEspanol[piezaInfo.type] || 'Pieza';
+                        const nombrePieza = nombresPiezasEspanol[pieza.type] || 'Pieza';
                         const alerta = `${nombrePieza} ${colorTxt} en ${casillaAlgebraica.toUpperCase()}`;
                         
                         if (!colgadas.includes(alerta)) {
@@ -1286,34 +1299,8 @@ chess.makeMove = function(move) {
         }
     }
 
-    // Vinculación automática con la renderización del tablero
-    function vincularDetector() {
-        if (typeof chess !== 'undefined' && chess.board) {
-            if (chess.makeMove) {
-                const makeMoveOriginal = chess.makeMove.bind(chess);
-                chess.makeMove = function(move) {
-                    const res = makeMoveOriginal(move);
-                    detectarPiezasColgadasInterno();
-                    return res;
-                };
-            }
-
-            if (chess.loadFEN) {
-                const loadFENOriginal = chess.loadFEN.bind(chess);
-                chess.loadFEN = function(fen, resetHistory) {
-                    const res = loadFENOriginal(fen, resetHistory);
-                    detectarPiezasColgadasInterno();
-                    return res;
-                };
-            }
-
-            detectarPiezasColgadasInterno();
-        } else {
-            setTimeout(vincularDetector, 150);
-        }
-    }
-
-    vincularDetector();
+    // Iniciar escaneo periódico automático cada 500ms para asegurar sincronización
+    setInterval(detectarPiezasColgadasInterno, 500);
 </script>
 </body>
 </html>
