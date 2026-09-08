@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apweb — Curso Práctico de HTML + CSS + JavaScript</title>
+<style>
+:root{--bg:#07111f;--panel:#0f1d30;--panel2:#13243a;--text:#edf6ff;--muted:#a8b8ca;--accent:#38bdf8;--accent2:#2563eb;--border:#263a53;--code:#08121e}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(135deg,#07111f,#0b1728 45%,#08111f);color:var(--text);font-family:Arial,sans-serif;line-height:1.65}
+header{position:sticky;top:0;z-index:10;background:rgba(7,17,31,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav{max-width:1200px;margin:auto;padding:14px 20px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.logo{font-weight:800;color:var(--accent);font-size:20px}.menu{display:flex;gap:8px;flex-wrap:wrap}
+.menu a{color:var(--text);text-decoration:none;padding:7px 11px;border-radius:8px}.menu a:hover{background:var(--panel2)}
+.hero{max-width:1200px;margin:auto;padding:70px 20px 35px}.hero h1{font-size:clamp(32px,6vw,62px);margin:0 0 12px;color:var(--accent)}.hero p{color:var(--muted);font-size:18px}
+.container{max-width:1200px;margin:auto;padding:0 20px 70px}
+.lesson{background:rgba(15,29,48,.88);border:1px solid var(--border);border-radius:18px;margin:22px 0;overflow:hidden;box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.lesson>summary{cursor:pointer;list-style:none;padding:22px 24px;font-size:24px;font-weight:800;background:linear-gradient(90deg,rgba(56,189,248,.1),transparent)}
+.lesson>summary::-webkit-details-marker{display:none}.content{padding:0 24px 28px}
+h2{color:var(--accent);margin-top:30px}h3{color:#60a5fa}h4{color:#d8edff}
+pre{background:var(--code);border:1px solid var(--border);border-radius:12px;padding:16px;overflow:auto;color:#dcecff;font-family:Consolas,monospace;font-size:14px;white-space:pre-wrap}
+code{font-family:Consolas,monospace;color:#bfeaff}.note{border-left:4px solid var(--accent);background:#0a1828;padding:12px 16px;border-radius:8px;margin:14px 0}.diagram{background:#0a1625;border:1px dashed #35516f;padding:18px;border-radius:12px;white-space:pre-wrap;font-family:Consolas,monospace;overflow:auto}
+button,.top{background:var(--accent2);color:white;border:0;padding:11px 16px;border-radius:9px;cursor:pointer;font-size:15px}button:hover,.top:hover{background:#1d4ed8}
+footer{text-align:center;padding:30px;color:#9ca3af}
+.progress{height:4px;background:var(--border)}#bar{height:4px;background:var(--accent);width:0}
+.exercise{background:#0b1b2c;border:1px solid #29445f;border-radius:12px;padding:18px;margin:16px 0}
+ul{padding-left:25px}.tag{display:inline-block;padding:4px 9px;border-radius:999px;background:#12334a;color:#9fe3ff;margin:3px}
+@media(max-width:700px){.nav{align-items:flex-start}.menu{display:none}.content{padding:0 16px 22px}.lesson>summary{font-size:20px;padding:18px}.hero{padding-top:45px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">Apweb</div><nav class="menu"><a href="#l1">Lección 1</a><a href="#l2">Lección 2</a><a href="#l3">Lección 3</a></nav></div><div class="progress"><div id="bar"></div></div></header>
+
+<section class="hero">
+<h1>🚀 CURSO PRÁCTICO DE HTML + CSS + JAVASCRIPT</h1>
+<p>Vamos a empezar desde cero absoluto. No necesitas saber programación.</p>
+<div class="note">La regla del curso será:<br><blockquote>Cada cosa nueva que aprendamos la vamos a poner inmediatamente en práctica en una página web.</blockquote></div>
+</section>
+
+<main class="container">
+<details class="lesson" id="l1" open><summary>🟢 LECCIÓN 1 — Nuestra primera página web</summary><div class="content">
+<h2>🎯 Objetivo</h2>
+<p>En esta primera lección aprenderás:</p>
+<ul><li>Qué es HTML.</li><li>Qué es CSS.</li><li>Qué es JavaScript.</li><li>Cómo conectar los tres.</li><li>Cómo crear y abrir una página web.</li><li>Cómo hacer que un botón responda.</li></ul>
+<p>Todavía no vamos a complicarnos. Lo importante es entender cómo trabajan juntos.</p>
+<hr>
+<h2>📁 Paso 1: Crea tu primera carpeta</h2>
+<p>En tu computadora crea una carpeta llamada:</p><pre>MiPagina</pre><p>Dentro crea estos 3 archivos:</p><pre>MiPagina/
+│
+├── index.html
+├── style.css
+└── script.js</pre>
+<p>Tu estructura debe quedar así:</p><div class="diagram">📁 MiPagina
+   📄 index.html
+   🎨 style.css
+   ⚡ script.js</div>
+<div class="note">⚠️ Importante si utilizas Bloc de notas<br><br>Cuando guardes los archivos, asegúrate de que realmente terminen en:<br><br>.html<br>.css<br>.js<br><br>y no en:<br><br>.html.txt<br>.css.txt<br>.js.txt<br><br>Si utilizas Guardar como, puedes seleccionar "Todos los archivos" y escribir:<br>index.html</div>
+
+<h2>📝 Paso 2: HTML</h2><p>Abre:</p><pre>index.html</pre><p>con Bloc de notas y escribe:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi primera página&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mi primera página web&lt;/h1&gt;
+    &lt;p id="mensaje"&gt;
+        Hola, estoy aprendiendo HTML, CSS y JavaScript.
+    &lt;/p&gt;
+    &lt;button id="boton"&gt;
+        Haz clic
+    &lt;/button&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>Guarda el archivo.</p>
+
+<h2>🧠 ¿Qué acabamos de hacer?</h2>
+<h3>&lt;!DOCTYPE html&gt;</h3><p>Le indica al navegador que estamos utilizando HTML moderno.</p>
+<h3>&lt;html&gt;</h3><p>Es el elemento que contiene toda nuestra página.</p><pre>&lt;html&gt;
+    Todo nuestro contenido
+&lt;/html&gt;</pre>
+<h3>&lt;head&gt;</h3><p>Contiene información de la página que normalmente no aparece directamente en la pantalla.</p><pre>&lt;head&gt;
+&lt;/head&gt;</pre><p>Por ejemplo:</p><pre>&lt;title&gt;Mi primera página&lt;/title&gt;</pre><p>Es el texto que aparece en la pestaña del navegador.</p>
+<h3>&lt;body&gt;</h3><p>Aquí colocamos lo que queremos mostrar en la página.</p><pre>&lt;body&gt;
+    Contenido visible
+&lt;/body&gt;</pre>
+<h3>&lt;h1&gt;</h3><p>Es un título.</p><pre>&lt;h1&gt;Mi primera página web&lt;/h1&gt;</pre>
+<h3>&lt;p&gt;</h3><p>Es un párrafo.</p><pre>&lt;p&gt;Hola, estoy aprendiendo.&lt;/p&gt;</pre>
+<h3>&lt;button&gt;</h3><p>Crea un botón.</p><pre>&lt;button&gt;Haz clic&lt;/button&gt;</pre>
+
+<h2>🔗 Ahora viene algo MUY importante</h2><p>Tenemos:</p><pre>&lt;link rel="stylesheet" href="style.css"&gt;</pre><p>Esto significa:</p><div class="note">"HTML, utiliza el archivo style.css para darle diseño a esta página."</div><p>Estamos conectando:</p><div class="diagram">HTML ──────────→ CSS</div><p>Y tenemos:</p><pre>&lt;script src="script.js"&gt;&lt;/script&gt;</pre><p>Esto significa:</p><div class="note">"HTML, utiliza el archivo script.js para ejecutar JavaScript."</div><p>Estamos conectando:</p><div class="diagram">HTML ──────────→ JavaScript</div><p>Por eso nuestra estructura es:</p><div class="diagram">index.html
+                 │
+        ┌────────┴────────┐
+        ↓                 ↓
+   style.css         script.js
+      🎨                  ⚡
+    Diseño           Interacción</div>
+
+<h2>🎨 Paso 3: CSS</h2><p>Ahora abre:</p><pre>style.css</pre><p>Escribe:</p>
+<pre>body {
+    background: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+h1 {
+    color: #38bdf8;
+}
+p {
+    font-size: 20px;
+}
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+button:hover {
+    background: #1d4ed8;
+}</pre><p>Guarda.</p>
+<h2>🧠 Entendamos CSS</h2><p>CSS utiliza esta estructura:</p><pre>selector {
+    propiedad: valor;
+}</pre><p>Por ejemplo:</p><pre>h1 {
+    color: blue;
+}</pre><p>Significa:</p><pre>h1       → ¿A quién quiero modificar?
+color    → ¿Qué quiero modificar?
+blue     → ¿Qué valor quiero poner?</pre>
+<h3>body</h3><pre>body {
+    background: #111827;
+    color: white;
+}</pre><p>Estamos modificando toda la página.</p><h4>background</h4><p>Cambia el fondo.</p><pre>background: #111827;</pre><h4>color</h4><p>Cambia el color del texto.</p><pre>color: white;</pre><h4>font-family</h4><pre>font-family: Arial, sans-serif;</pre><p>Indica qué tipo de letra utilizaremos.</p><h4>text-align</h4><pre>text-align: center;</pre><p>Centra el texto.</p><h4>padding</h4><pre>padding: 50px;</pre><p>Crea espacio alrededor del contenido dentro del elemento.</p><p>Todavía no necesitas memorizar exactamente cómo funciona. Lo estudiaremos más adelante con detalle.</p>
+<h3>Diseño del botón</h3><pre>button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}</pre><div class="note">Haz que todos los botones tengan este aspecto.</div>
+<h3>:hover</h3><pre>button:hover {
+    background: #1d4ed8;
+}</pre><p>hover significa aproximadamente:</p><div class="note">"Cuando el mouse esté encima del botón..."</div><p>Entonces el color cambia.</p>
+
+<h2>⚡ Paso 4: JavaScript</h2><p>Ahora abre:</p><pre>script.js</pre><p>Escribe:</p><pre>const boton = document.getElementById("boton");
+const mensaje = document.getElementById("mensaje");
+boton.addEventListener("click", function () {
+    mensaje.textContent = "¡El botón funciona!";
+});</pre><p>Guarda.</p>
+<h2>🧠 Entendamos JavaScript</h2><p>Aquí empieza la programación.</p><p>Primero:</p><pre>const boton = document.getElementById("boton");</pre><p>Estamos buscando en HTML:</p><pre>&lt;button id="boton"&gt;</pre><p>JavaScript encuentra ese elemento gracias a:</p><pre>document.getElementById("boton")</pre><p>Por eso HTML tenía:</p><pre>id="boton"</pre><p>Después:</p><pre>const mensaje = document.getElementById("mensaje");</pre><p>Busca:</p><pre>&lt;p id="mensaje"&gt;</pre><p>Ahora JavaScript tiene acceso al párrafo.</p><h3>👆 Detectar un clic</h3><pre>boton.addEventListener("click", function () {
+});</pre><div class="note">"Cuando alguien haga clic en el botón, ejecuta lo que está dentro."</div><p>Y dentro tenemos:</p><pre>mensaje.textContent = "¡El botón funciona!";</pre><p>Esto cambia el texto del párrafo.</p><p>Antes:</p><pre>Hola, estoy aprendiendo HTML, CSS y JavaScript.</pre><p>Después:</p><pre>¡El botón funciona!</pre>
+
+<h2>🚀 Paso 5: Ejecuta tu página</h2><p>Ahora debes tener:</p><div class="diagram">📁 MiPagina
+   │
+   ├── 📄 index.html
+   ├── 🎨 style.css
+   └── ⚡ script.js</div><p>Guarda los tres archivos.<br>Después haz doble clic en:</p><pre>index.html</pre><p>Se abrirá en tu navegador.</p><p>Deberías ver algo parecido a:</p><div class="diagram">Mi primera página web
+   Hola, estoy aprendiendo HTML,
+          CSS y JavaScript.
+             ┌─────────────┐
+             │  Haz clic   │
+             └─────────────┘</div><p>Ahora haz clic en el botón.<br>El texto debería cambiar a:</p><pre>¡El botón funciona!</pre><p>🎉 Acabas de crear tu primera página utilizando HTML + CSS + JavaScript.</p>
+<h2>🧠 Conceptos que aprendiste</h2><h3>HTML</h3><p><span class="tag">html → página</span><span class="tag">head → información</span><span class="tag">body → contenido visible</span><span class="tag">h1 → título</span><span class="tag">p → párrafo</span><span class="tag">button → botón</span><span class="tag">id → identificador</span></p><h3>CSS</h3><p><span class="tag">background → fondo</span><span class="tag">color → color</span><span class="tag">font-family → tipo de letra</span><span class="tag">font-size → tamaño</span><span class="tag">padding → espacio interior</span><span class="tag">border → borde</span><span class="tag">border-radius → esquinas redondeadas</span><span class="tag">:hover → cuando pasas el mouse</span></p><h3>JavaScript</h3><p><span class="tag">const</span><span class="tag">document.getElementById()</span><span class="tag">addEventListener()</span><span class="tag">click</span><span class="tag">textContent</span></p><p>No intentes memorizar todo todavía.<br>Lo importante es entender la relación:</p><div class="diagram">HTML
+ ↓
+Crea el botón
+ ↓
+CSS
+ ↓
+Diseña el botón
+ ↓
+JavaScript
+ ↓
+Hace que el botón haga algo</div>
+<div class="exercise"><h2>✏️ EJERCICIO 1 — Ahora hazlo tú</h2><p>No copies una solución. Modifica tu página.</p><h3>Objetivo</h3><p>Haz que el botón diga:</p><pre>Cambiar mensaje</pre><p>Y cuando lo presiones, el mensaje debe convertirse en:</p><pre>Estoy aprendiendo a crear páginas web.</pre><p>Tendrás que modificar HTML y JavaScript.</p></div>
+<div class="exercise"><h2>🔥 MINI RETO</h2><p>Ahora intenta conseguir esto:</p><pre>Mi primera página web
+Estoy aprendiendo desarrollo web.
+[ Cambiar mensaje ]
+[ Otro botón ]</pre><p>El segundo botón debe mostrar:</p><pre>¡Bienvenido a mi página!</pre><p>Pista<br>Necesitarás:</p><pre>&lt;button&gt;
+y en JavaScript:
+addEventListener("click", function () {
+
+});</pre><p>No te preocupes si no puedes hacerlo a la primera. Ese intento es precisamente el ejercicio.</p></div>
+<h2>📌 Lo que viene después</h2><p>En la Lección 2 vamos a continuar con la misma carpeta y la misma página.<br>Aprenderás:</p><p>HTML: títulos, párrafos, enlaces, imágenes, listas y contenedores.<br>CSS: colores, tamaños, márgenes, espacios y bordes.<br>JavaScript: variables y cómo modificar diferentes elementos de la página.</p><p>Y terminaremos creando una primera página personal sencilla, no solamente haciendo ejemplos aislados.</p>
+</div></details>
+
+<details class="lesson" id="l2"><summary># 🟢 LECCIÓN 2 — HTML: construir el contenido de nuestra web</summary><div class="content">
+<p>En esta lección vamos a continuar con la misma carpeta y los mismos 3 archivos.</p>
+<h2>🎯 Objetivo de hoy</h2><p>Vamos a aprender:</p><ul><li>Títulos HTML.</li><li>Párrafos.</li><li>Enlaces.</li><li>Imágenes.</li><li>Listas.</li><li>div.</li><li>class.</li><li>CSS para diseñar esos elementos.</li><li>JavaScript para modificar contenido.</li></ul>
+<p>Al terminar tendremos una página más completa:</p><div class="diagram">┌─────────────────────────────────┐
+│       MI PRIMERA PÁGINA         │
+│                                 │
+│  Hola, soy ________.            │
+│  Estoy aprendiendo desarrollo   │
+│  web.                           │
+│                                 │
+│  Mis tecnologías:               │
+│  • HTML                         │
+│  • CSS                          │
+│  • JavaScript                   │
+│                                 │
+│  [ Visitar página ]             │
+│                                 │
+│       [ Cambiar presentación ]  │
+└─────────────────────────────────┘</div>
+<h2>📁 Paso 1: Utiliza tu carpeta</h2><p>Seguimos trabajando con:</p><pre>MiPagina/
+│
+├── index.html
+├── style.css
+└── script.js</pre><p>No crees otra carpeta.<br>Vamos a continuar construyendo nuestra primera página.</p>
+<h2>📝 Paso 2: HTML</h2><p>Abre index.html con Bloc de notas.<br>Reemplaza el contenido anterior por este:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi página personal&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Mi página personal&lt;/h1&gt;
+        &lt;p&gt;Estoy aprendiendo desarrollo web.&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;div class="tarjeta"&gt;
+            &lt;h2&gt;Sobre mí&lt;/h2&gt;
+            &lt;p id="descripcion"&gt;
+                Hola, estoy aprendiendo HTML, CSS y JavaScript.
+            &lt;/p&gt;
+            &lt;h2&gt;Lo que estoy aprendiendo&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;HTML&lt;/li&gt;
+                &lt;li&gt;CSS&lt;/li&gt;
+                &lt;li&gt;JavaScript&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href="https://www.google.com" target="_blank"&gt;
+                Visitar página
+            &lt;/a&gt;
+            &lt;br&gt;&lt;br&gt;
+            &lt;button id="boton"&gt;
+                Cambiar presentación
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;Mi primera página web - 2026&lt;/p&gt;
+    &lt;/footer&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>Guarda.</p>
+<h2>🧠 Entendamos el HTML nuevo</h2>
+<h3>1. &lt;header&gt;</h3><pre>&lt;header&gt;
+    &lt;h1&gt;Mi página personal&lt;/h1&gt;
+    &lt;p&gt;Estoy aprendiendo desarrollo web.&lt;/p&gt;
+&lt;/header&gt;</pre><p>header significa encabezado.<br>Lo utilizaremos normalmente para colocar la parte superior de una página.</p><div class="diagram">┌─────────────────────────────┐
+│       HEADER                │
+│       Mi página             │
+└─────────────────────────────┘</div>
+<h2>2. &lt;main&gt;</h2><pre>&lt;main&gt;
+    Contenido principal
+&lt;/main&gt;</pre><p>main representa el contenido principal de la página.</p><p>Nuestra estructura ahora es:</p><div class="diagram">HTML
+│
+├── HEADER
+│
+├── MAIN
+│
+└── FOOTER</div><p>Esto es importante porque estamos empezando a organizar correctamente nuestra página.</p>
+<h2>3. &lt;div&gt;</h2><pre>&lt;div class="tarjeta"&gt;
+    ...
+&lt;/div&gt;</pre><p>Un div es un contenedor.<br>Imagínalo como una caja:</p><div class="diagram">┌───────────────────────────┐
+│          DIV              │
+│                           │
+│  Todo lo que pongamos     │
+│  aquí está dentro         │
+│                           │
+└───────────────────────────┘</div><p>Más adelante utilizaremos muchísimo los div para construir diseños.</p>
+<h2>4. class="tarjeta"</h2><p>Observa:</p><pre>&lt;div class="tarjeta"&gt;</pre><p>Aquí estamos asignando una clase llamada:</p><pre>tarjeta</pre><p>La clase nos permitirá decirle a CSS:<br>"Quiero diseñar esta caja."</p><pre>.tarjeta {
+    background: white;
+}</pre><p>El punto . significa:<br>"Estoy buscando una clase."</p>
+<h2>5. &lt;h2&gt;</h2><p>Ya conocíamos:</p><pre>&lt;h1&gt;</pre><p>Ahora tenemos:</p><pre>&lt;h2&gt;</pre><p>Los títulos HTML tienen diferentes niveles:</p><pre>h1 → título principal
+h2 → título secundario
+h3 → subtítulo
+h4
+h5
+h6</pre><p>Por ejemplo:</p><pre>&lt;h1&gt;Mi página&lt;/h1&gt;
+&lt;h2&gt;Sobre mí&lt;/h2&gt;
+&lt;h3&gt;Mis habilidades&lt;/h3&gt;</pre><p>No significa simplemente "tamaño de letra". Es una jerarquía de títulos.</p>
+<h2>6. &lt;ul&gt; y &lt;li&gt;</h2><pre>&lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</pre><p>ul significa lista no ordenada.<br>li significa elemento de lista.</p><p>El resultado será:</p><pre>• HTML
+• CSS
+• JavaScript</pre><p>También existe:</p><pre>&lt;ol&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ol&gt;</pre><p>que produce:</p><pre>1. HTML
+2. CSS
+3. JavaScript</pre>
+<h2>7. &lt;a&gt; — enlaces</h2><pre>&lt;a href="https://www.google.com" target="_blank"&gt;
+    Visitar página
+&lt;/a&gt;</pre><p>a crea un enlace.<br>href indica dónde queremos ir.<br><br>href="https://www.google.com"<br>target="_blank" hace que el enlace se abra en otra pestaña.</p>
+<h2>8. &lt;br&gt;</h2><pre>&lt;br&gt;&lt;br&gt;</pre><p>br crea un salto de línea.<br>Aunque existe, no debemos utilizar &lt;br&gt; para organizar todo el diseño de una página. Para eso aprenderemos CSS.</p>
+<h2>9. &lt;footer&gt;</h2><pre>&lt;footer&gt;
+    &lt;p&gt;Mi primera página web - 2026&lt;/p&gt;
+&lt;/footer&gt;</pre><p>footer significa pie de página.<br>Normalmente contiene cosas como:</p><p>Copyright<br>Contacto<br>Enlaces<br>Información adicional</p>
+<h2>🎨 Paso 3: CSS</h2><p>Ahora abre:</p><pre>style.css</pre><p>Borra lo anterior y escribe:</p>
+<pre>body {
+    background: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
+header h1 {
+    color: #38bdf8;
+    font-size: 40px;
+}
+header p {
+    font-size: 18px;
+}
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.tarjeta {
+    background: #1f2937;
+    width: 400px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+.tarjeta h2 {
+    color: #38bdf8;
+}
+.tarjeta p {
+    line-height: 1.6;
+}
+.tarjeta ul {
+    line-height: 2;
+}
+.tarjeta a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background: #1d4ed8;
+}
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+}</pre><p>Guarda.</p>
+<h2>🧠 Entendamos el CSS nuevo</h2><h3>margin: 0</h3><pre>body {
+    margin: 0;
+}</pre><p>El navegador coloca algunos espacios automáticamente.<br>Con esto eliminamos el margen exterior del body.</p>
+<h3>width</h3><pre>.tarjeta {
+    width: 400px;
+}</pre><p>Define el ancho de la tarjeta.</p>
+<h3>padding</h3><pre>padding: 30px;</pre><p>Crea espacio dentro de la tarjeta.</p>
+<h3>border-radius</h3><pre>border-radius: 15px;</pre><p>Redondea las esquinas.</p><div class="diagram">Sin él:
+┌──────────────┐
+│              │
+└──────────────┘
+Con él:
+╭──────────────╮
+│              │
+╰──────────────╯</div>
+<h2>⭐ Nuevo concepto: box-shadow</h2><pre>box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);</pre><p>Esto crea una sombra alrededor de la tarjeta.<br>Más adelante aprenderemos box-shadow con más profundidad.</p>
+<h2>⭐ Nuevo concepto: line-height</h2><pre>line-height: 1.6;</pre><p>Controla la separación vertical entre las líneas de texto.<br>Esto ayuda a que los párrafos sean más fáciles de leer.</p>
+<h2>⚡ Paso 4: JavaScript</h2><p>Ahora abre:</p><pre>script.js</pre><p>Escribe:</p><pre>const boton = document.getElementById("boton");
+const descripcion = document.getElementById("descripcion");
+boton.addEventListener("click", function () {
+    descripcion.textContent =
+        "¡Estoy construyendo mi primera página web con HTML, CSS y JavaScript!";
+});</pre><p>Guarda.</p>
+<h2>🧠 ¿Qué aprendimos de JavaScript?</h2><pre>const boton = document.getElementById("boton");</pre><p>JavaScript busca:</p><pre>&lt;button id="boton"&gt;</pre><p>Después:</p><pre>const descripcion = document.getElementById("descripcion");</pre><p>Busca:</p><pre>&lt;p id="descripcion"&gt;</pre><p>Y finalmente:</p><pre>boton.addEventListener("click", function () {
+});</pre><p>significa:<br>Cuando hagan clic en el botón, ejecuta el código que está dentro.</p><p>Y:</p><pre>descripcion.textContent = "Nuevo texto";</pre><p>cambia el contenido del párrafo.</p>
+<h2>🚀 Paso 5: Ejecuta tu página</h2><p>Ahora debes tener:</p><div class="diagram">📁 MiPagina
+│
+├── 📄 index.html
+├── 🎨 style.css
+└── ⚡ script.js</div><p>Guarda los tres archivos.<br>Haz doble clic en:</p><pre>index.html</pre><p>Tu navegador debería mostrar una página parecida a:</p><div class="diagram">      MI PÁGINA PERSONAL
+   Estoy aprendiendo desarrollo web.
+    ╭──────────────────────────╮
+    │       Sobre mí            │
+    │                           │
+    │ Hola, estoy aprendiendo   │
+    │ HTML, CSS y JavaScript.   │
+    │                           │
+    │ Lo que estoy aprendiendo  │
+    │                           │
+    │ • HTML                    │
+    │ • CSS                     │
+    │ • JavaScript              │
+    │                           │
+    │ Visitar página            │
+    │                           │
+    │ [Cambiar presentación]    │
+    ╰──────────────────────────╯
+       Mi primera página web</div><p>Pulsa:<br>Cambiar presentación<br>El texto debe cambiar.</p><p>Si haces modificaciones:</p><div class="diagram">Bloc de notas
+     ↓
+Guardar
+     ↓
+Navegador
+     ↓
+F5</div>
+<h2>🧠 CONCEPTOS QUE APRENDISTE</h2><h3>HTML</h3><p>header → encabezado<br>main → contenido principal<br>footer → pie de página<br>div → contenedor<br>class → identifica grupos de elementos<br>h2 → título secundario<br>ul → lista<br>li → elemento de lista<br>a → enlace<br>href → dirección del enlace</p><h3>CSS</h3><p>width → ancho<br>margin → espacio exterior<br>padding → espacio interior<br>border-radius → esquinas redondeadas<br>box-shadow → sombra<br>line-height → separación entre líneas</p><h3>JavaScript</h3><p>getElementById() → buscar un elemento<br>addEventListener → detectar eventos<br>click → evento de clic<br>textContent → cambiar texto</p>
+<div class="exercise"><h2>✏️ EJERCICIO 2 — Hazlo tú</h2><p>Ahora no copies una solución. Modifica tu página.</p><h3>Objetivo</h3><p>Añade una nueva sección debajo de "Sobre mí":</p><pre>MIS OBJETIVOS
+• Aprender HTML
+• Aprender CSS
+• Aprender JavaScript
+• Crear páginas web</pre><p>Para hacerlo tendrás que utilizar:</p><pre>&lt;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;</pre><p>Después utiliza CSS para que esa sección se vea bien.</p></div>
+<div class="exercise"><h2>🔥 MINI RETO</h2><p>Añade un segundo botón:</p><pre>[ Cambiar presentación ]
+[ Mostrar objetivo ]</pre><p>Cuando pulses "Mostrar objetivo", JavaScript debe cambiar un texto para mostrar:</p><pre>Mi objetivo es crear páginas web profesionales.</pre><h3>💡 Pista</h3><p>Necesitarás crear otro:</p><pre>&lt;p id="..."&gt;&lt;/p&gt;</pre><p>y después encontrarlo desde JavaScript con:</p><pre>document.getElementById("...");</pre></div>
+<h2>📌 Lo que debes dominar antes de pasar a la Lección 3</h2><p>Intenta poder explicar con tus propias palabras:</p><ol><li>¿Para qué sirve HTML?</li><li>¿Para qué sirve CSS?</li><li>¿Para qué sirve JavaScript?</li><li>¿Qué diferencia hay entre id y class?</li><li>¿Para qué sirve getElementById()?</li><li>¿Qué hace addEventListener("click", ...)?</li><li>¿Qué diferencia hay entre padding y margin?</li></ol><p>Si todavía no puedes responderlas, no pasa nada: vuelve a mirar esta lección y modifica la página hasta que las entiendas.</p>
+<h3>⏭️ Lección 3</h3><p>En la siguiente lección entraremos en uno de los conceptos más importantes de CSS: selectores, clases, IDs, colores, tamaños, márgenes, padding y el modelo de cajas, mientras seguimos ampliando nuestra misma página.</p>
+</div></details>
+
+<details class="lesson" id="l3"><summary>🟢 LECCIÓN 3 — CSS: controlar el aspecto de nuestra página</summary><div class="content">
+<p>Continuamos exactamente donde quedamos. No vamos a crear otro proyecto. Seguimos construyendo MiPagina.</p>
+<h2>🎯 Objetivo de esta lección</h2><p>Hoy aprenderás a controlar:</p><ul><li>Selectores CSS.</li><li>class.</li><li>id.</li><li>Colores.</li><li>Tamaños.</li><li>margin.</li><li>padding.</li><li>border.</li><li>width y height.</li><li>El concepto de Box Model.</li><li>Y todo lo vamos a practicar modificando nuestra página.</li></ul>
+<h2>📁 Paso 1: Crea tu primera carpeta</h2><p>Ya la tenemos creada:</p><pre>MiPagina/
+│
+├── index.html
+├── style.css
+└── script.js</pre><p>No necesitas crear otra carpeta.<br>Seguiremos utilizando:</p><pre>index.html
+style.css
+script.js</pre>
+<h2>📝 Paso 2: HTML</h2><p>Abre index.html con Bloc de notas.<br>Esta vez vamos a agregar una sección de habilidades y vamos a utilizar diferentes class e id.</p><p>Reemplaza el contenido por:</p>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi página personal&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header class="encabezado"&gt;
+        &lt;h1 id="titulo"&gt;Mi página personal&lt;/h1&gt;
+        &lt;p&gt;Estoy aprendiendo desarrollo web.&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;div class="tarjeta"&gt;
+            &lt;h2&gt;Sobre mí&lt;/h2&gt;
+            &lt;p id="descripcion"&gt;
+                Hola, estoy aprendiendo HTML, CSS y JavaScript.
+            &lt;/p&gt;
+            &lt;h2&gt;Mis objetivos&lt;/h2&gt;
+            &lt;ul class="lista"&gt;
+                &lt;li&gt;Aprender HTML&lt;/li&gt;
+                &lt;li&gt;Aprender CSS&lt;/li&gt;
+                &lt;li&gt;Aprender JavaScript&lt;/li&gt;
+                &lt;li&gt;Crear páginas web&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;h2&gt;Mis habilidades&lt;/h2&gt;
+            &lt;div class="habilidades"&gt;
+                &lt;div class="habilidad"&gt;
+                    &lt;h3&gt;HTML&lt;/h3&gt;
+                    &lt;p&gt;Estructura de páginas web.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="habilidad"&gt;
+                    &lt;h3&gt;CSS&lt;/h3&gt;
+                    &lt;p&gt;Diseño y apariencia.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="habilidad"&gt;
+                    &lt;h3&gt;JavaScript&lt;/h3&gt;
+                    &lt;p&gt;Interactividad.&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button id="boton"&gt;
+                Cambiar presentación
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;Mi primera página web - 2026&lt;/p&gt;
+    &lt;/footer&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>Guarda el archivo.</p>
+<h2>🧠 Entendamos lo nuevo de HTML</h2><p>Tenemos:</p><pre>&lt;div class="habilidades"&gt;</pre><p>Este div será el contenedor de nuestras habilidades.<br>Dentro tenemos:</p><pre>&lt;div class="habilidad"&gt;</pre><p>tres veces.<br>Esto significa que podemos tener:</p><div class="diagram">habilidades
+│
+├── habilidad
+├── habilidad
+└── habilidad</div><p>Más adelante CSS nos permitirá colocar estas tarjetas una al lado de otra.</p>
+<h2>⭐ class frente a id</h2><p>Observa:</p><pre>&lt;h1 id="titulo"&gt;</pre><p>y:</p><pre>&lt;div class="habilidad"&gt;</pre><p>La diferencia fundamental:</p><h3>id</h3><p>Identifica un elemento específico.</p><pre>id="titulo"</pre><h3>class</h3><p>Permite identificar varios elementos que pertenecen al mismo grupo.</p><pre>class="habilidad"</pre><p>Tenemos tres:</p><pre>&lt;div class="habilidad"&gt;</pre><p>Por eso podemos aplicar el mismo diseño a las tres.</p>
+<h2>🎨 Paso 3: CSS</h2><p>Abre:</p><pre>style.css</pre><p>Borra el contenido anterior y escribe:</p>
+<pre>body {
+    background: #111827;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+/* ENCABEZADO */
+.encabezado {
+    text-align: center;
+    padding: 50px 20px;
+}
+.encabezado h1 {
+    color: #38bdf8;
+    font-size: 42px;
+}
+.encabezado p {
+    font-size: 18px;
+}
+/* CONTENIDO PRINCIPAL */
+main {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+/* TARJETA PRINCIPAL */
+.tarjeta {
+    background: #1f2937;
+    width: 500px;
+    padding: 30px;
+    border: 2px solid #374151;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+/* TÍTULOS */
+.tarjeta h2 {
+    color: #38bdf8;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+/* PÁRRAFOS */
+.tarjeta p {
+    line-height: 1.6;
+}
+/* LISTA */
+.lista {
+    padding-left: 25px;
+    line-height: 2;
+}
+/* HABILIDADES */
+.habilidades {
+    margin-top: 20px;
+}
+/* TARJETAS DE HABILIDADES */
+.habilidad {
+    background: #111827;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #374151;
+}
+/* TÍTULO DE HABILIDAD */
+.habilidad h3 {
+    color: #60a5fa;
+    margin-top: 0;
+}
+/* BOTÓN */
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+button:hover {
+    background: #1d4ed8;
+}
+/* PIE DE PÁGINA */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #9ca3af;
+}</pre><p>Guarda.</p>
+<h2>🧠 Ahora vamos a aprender CSS de verdad</h2>
+<h3>1. Selector por etiqueta</h3><pre>body {
+    background: #111827;
+}</pre><p>body es una etiqueta HTML.<br>También:</p><pre>button {
+    background: blue;
+}</pre><p>Esto significa:</p><div class="note">Aplica este diseño a todos los elementos &lt;button&gt;.</div>
+<h3>2. Selector por clase</h3><p>Tenemos en HTML:</p><pre>&lt;div class="habilidad"&gt;</pre><p>Para seleccionarlo en CSS escribimos:</p><pre>.habilidad {
+    background: #111827;
+}</pre><div class="note">⚠️ Importante<br>El punto:<br>.<br>significa clase.<br><br>Por ejemplo:<br>.tarjeta<br>.habilidad<br>.encabezado<br>.lista<br>son clases.</div>
+<h3>3. Selector por ID</h3><p>Tenemos:</p><pre>&lt;h1 id="titulo"&gt;</pre><p>Podríamos seleccionarlo mediante:</p><pre>#titulo {
+    color: red;
+}</pre><p>El símbolo:</p><pre>#</pre><p>significa ID.<br>Por ahora recuerda:</p><pre>. → class
+# → id</pre>
+<h3>🧩 Selector combinado</h3><pre>.habilidad h3 {
+    color: #60a5fa;
+}</pre><p>Esto significa:</p><div class="note">Busca un &lt;h3&gt; que esté dentro de un elemento con la clase .habilidad.</div><pre>&lt;div class="habilidad"&gt;
+    &lt;h3&gt;HTML&lt;/h3&gt;
+&lt;/div&gt;</pre><p>Por eso CSS encuentra ese h3.</p>
+<h2>📦 El concepto más importante: Box Model</h2><p>Cada elemento HTML puede imaginarse como una caja.</p><div class="diagram">MARGIN
+┌──────────────────────────────┐
+│                              │
+│     BORDER                   │
+│   ┌──────────────────────┐   │
+│   │      PADDING          │   │
+│   │   ┌──────────────┐   │   │
+│   │   │   CONTENT    │   │   │
+│   │   └──────────────┘   │   │
+│   └──────────────────────┘   │
+│                              │
+└──────────────────────────────┘</div><p>Hay cuatro conceptos:</p><pre>CONTENT
+PADDING
+BORDER
+MARGIN</pre>
+<h3>🟦 width</h3><pre>.tarjeta {
+    width: 500px;
+}</pre><p>Esto establece el ancho de la tarjeta.<br>Prueba cambiarlo a:</p><pre>width: 300px;</pre><p>Guarda y presiona F5.<br>Después prueba:</p><pre>width: 700px;</pre><p>Observa cómo cambia.</p>
+<h3>🟩 padding</h3><pre>.tarjeta {
+    padding: 30px;
+}</pre><p>El padding crea espacio:<br>entre el contenido y el borde.</p><p>Prueba:</p><pre>padding: 10px;</pre><p>Después:</p><pre>padding: 50px;</pre><p>Observa la diferencia.</p>
+<h3>🟨 border</h3><pre>border: 2px solid #374151;</pre><p>Esto crea:</p><pre>2px      → grosor
+solid    → tipo de línea
+#374151  → color</pre><p>Por ejemplo:</p><pre>border: 5px solid white;</pre>
+<h3>🟥 margin</h3><pre>.habilidad {
+    margin-bottom: 15px;
+}</pre><p>Esto crea espacio fuera del elemento, debajo de él.</p><div class="diagram">┌─────────────┐
+│ HABILIDAD   │
+└─────────────┘
+      ↑
+    espacio
+      ↓
+┌─────────────┐
+│ HABILIDAD   │
+└─────────────┘</div>
+<h2>⚡ Paso 4: JavaScript</h2><p>Ahora abre:</p><pre>script.js</pre><p>Vamos a conservar la interacción anterior, pero añadiremos una segunda acción.<br>Escribe:</p><pre>const boton = document.getElementById("boton");
+const descripcion = document.getElementById("descripcion");
+const titulo = document.getElementById("titulo");
+boton.addEventListener("click", function () {
+    descripcion.textContent =
+        "¡Estoy construyendo mi primera página web!";
+    titulo.textContent =
+        "¡Mi página está cambiando!";
+});</pre><p>Guarda.</p>
+<h2>🧠 ¿Qué aprendimos de JavaScript?</h2><p>Ahora tenemos tres variables:</p><pre>const boton = ...
+const descripcion = ...
+const titulo = ...</pre><p>Cada una guarda una referencia a un elemento HTML.</p><pre>boton
+  ↓
+&lt;button&gt;
+descripcion
+  ↓
+&lt;p&gt;
+titulo
+  ↓
+&lt;h1&gt;</pre><p>Después:</p><pre>titulo.textContent = "¡Mi página está cambiando!";</pre><p>modifica el contenido del &lt;h1&gt;.</p><p>Por tanto:</p><div class="diagram">HTML
+ ↓
+Crea elementos
+CSS
+ ↓
+Los diseña
+JavaScript
+ ↓
+Los modifica</div>
+<h2>🚀 Paso 5: Ejecuta tu página</h2><p>Guarda:</p><pre>index.html
+style.css
+script.js</pre><p>Después abre:</p><pre>index.html</pre><p>Y presiona:</p><pre>F5</pre><p>Ahora deberías tener una página parecida a:</p><div class="diagram">MI PÁGINA PERSONAL
+        Estoy aprendiendo desarrollo web.
+       ╭──────────────────────────────╮
+       │ Sobre mí                     │
+       │                              │
+       │ Hola, estoy aprendiendo...   │
+       │                              │
+       │ Mis objetivos                │
+       │ • Aprender HTML              │
+       │ • Aprender CSS               │
+       │ • Aprender JavaScript        │
+       │ • Crear páginas web          │
+       │                              │
+       │ Mis habilidades              │
+       │                              │
+       │ ┌──────────────────────────┐ │
+       │ │ HTML                     │ │
+       │ │ Estructura de páginas... │ │
+       │ └──────────────────────────┘ │
+       │                              │
+       │ ┌──────────────────────────┐ │
+       │ │ CSS                      │ │
+       │ │ Diseño y apariencia      │ │
+       │ └──────────────────────────┘ │
+       │                              │
+       │ ┌──────────────────────────┐ │
+       │ │ JavaScript               │ │
+       │ │ Interactividad           │ │
+       │ └──────────────────────────┘ │
+       │                              │
+       │ [ Cambiar presentación ]     │
+       ╰──────────────────────────────╯</div><p>Pulsa el botón.<br>Deben cambiar el título y la descripción.</p>
+<h2>🧠 CONCEPTOS QUE APRENDISTE</h2><h3>HTML</h3><p>class → agrupa elementos<br>id → identifica un elemento<br>div → contenedor</p><h3>CSS</h3><p>selector → indica qué elemento modificar<br>. → selecciona una class<br># → selecciona un id<br>width → ancho<br>padding → espacio interior<br>margin → espacio exterior<br>border → borde</p><h3>JavaScript</h3><p>const<br>getElementById()<br>textContent<br>addEventListener()</p>
+<div class="exercise"><h2>✏️ EJERCICIO 3</h2><p>Ahora viene la parte importante: hazlo tú.</p><h3>Ejercicio A — Modificar la tarjeta</h3><p>Busca:</p><pre>.tarjeta {</pre><p>Y cambia:</p><pre>width: 500px;</pre><p>por:</p><pre>width: 600px;</pre><p>Después cambia:</p><pre>border-radius: 15px;</pre><p>por:</p><pre>border-radius: 25px;</pre><p>Mira qué ocurre.</p><h3>Ejercicio B — Crear una nueva habilidad</h3><p>En HTML, dentro de:</p><pre>&lt;div class="habilidades"&gt;</pre><p>agrega una cuarta tarjeta:</p><pre>CSS
+JavaScript
+HTML
+Mi nueva habilidad</pre><p>La nueva tarjeta debe utilizar:</p><pre>class="habilidad"</pre><p>No debes crear un nuevo estilo CSS.</p><p>¿Por qué?</p><p>Porque ya tenemos:</p><pre>.habilidad {
+    ...
+}</pre><p>y automáticamente se aplicará a la nueva tarjeta.<br>Este concepto es muy importante.</p></div>
+<div class="exercise"><h2>🔥 MINI RETO</h2><p>Ahora intenta crear una sección:</p><pre>MIS PASATIEMPOS
+• Programar
+• Escuchar música
+• Ver películas</pre><p>Pero hay una condición:</p><p>La lista debe tener una clase:</p><pre>class="pasatiempos"</pre><p>Después crea CSS:</p><pre>.pasatiempos {
+
+}</pre><p>Y decide tú cómo quieres diseñarla.<br>Por ejemplo, puedes cambiar:</p><p>Color.<br>Tamaño.<br>Espaciado.<br>Fondo.<br>Borde.</p><p>No necesitas que quede exactamente como mi página. Empieza a tomar tus propias decisiones de diseño.</p></div>
+<h2>🧪 EXPERIMENTO</h2><p>Antes de pasar a la siguiente lección, prueba deliberadamente a cambiar estas propiedades:</p><pre>background
+color
+width
+padding
+margin
+border
+border-radius
+font-size</pre><p>Cambia los valores, guarda y presiona F5.</p><div class="note">La idea es que empieces a desarrollar esta habilidad:<br>"Sé qué propiedad necesito para conseguir determinado cambio."</div>
+<h2>📌 Lo que sigue</h2><p>En la Lección 4 vamos a empezar a organizar elementos horizontalmente utilizando Flexbox.</p><p>Vas a transformar las tarjetas:</p><div class="diagram">┌─────────┐
+│  HTML   │
+└─────────┘
+┌─────────┐
+│  CSS    │
+└─────────┘
+┌─────────┐
+│   JS    │
+└─────────┘</div><p>en:</p><div class="diagram">┌─────────┐  ┌─────────┐  ┌─────────┐
+│  HTML   │  │   CSS   │  │   JS    │
+└─────────┘  └─────────┘  └─────────┘</div><p>Ahí aprenderás uno de los conceptos de CSS que más vas a utilizar para crear páginas web modernas.</p>
+</div></details>
+</main>
+<footer>Apweb · Curso práctico de HTML + CSS + JavaScript</footer>
+<script>
+const bar=document.getElementById('bar');
+window.addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100)+'%';});
+</script>
+</body>
+</html>
