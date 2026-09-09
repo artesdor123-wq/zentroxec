@@ -555,6 +555,103 @@ footer{
         white-space:nowrap;
     }
 }
+
+/* =========================
+   GUARDADO Y CONTINUIDAD
+========================= */
+
+.resume-panel{
+    max-width:1200px;
+    margin:-5px auto 30px;
+    padding:0 22px;
+}
+
+.resume-card{
+    background:linear-gradient(145deg,#151a21,#101419);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    box-shadow:var(--shadow);
+}
+
+.resume-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+}
+
+.resume-icon{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:rgba(59,130,246,.12);
+    border:1px solid rgba(59,130,246,.30);
+    font-size:20px;
+    flex:none;
+}
+
+.resume-text{
+    min-width:0;
+}
+
+.resume-title{
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.resume-status{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.resume-btn{
+    border:none;
+    border-radius:10px;
+    padding:11px 16px;
+    background:var(--blue);
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+    white-space:nowrap;
+}
+
+.resume-btn:hover{
+    filter:brightness(1.1);
+    transform:translateY(-1px);
+}
+
+.exercise.progress-current{
+    border-color:var(--blue);
+    box-shadow:0 0 0 1px rgba(59,130,246,.20),var(--shadow);
+}
+
+@media(max-width:700px){
+    .resume-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .resume-btn{
+        width:100%;
+    }
+
+    .resume-status{
+        white-space:normal;
+    }
+}
+
 </style>
 </head>
 
@@ -627,6 +724,25 @@ footer{
         <div class="progress-fill" id="progressFill"></div>
     </div>
 
+</section>
+
+
+<section class="resume-panel" aria-label="Progreso guardado">
+    <div class="resume-card">
+        <div class="resume-left">
+            <div class="resume-icon">↪</div>
+            <div class="resume-text">
+                <div class="resume-title">Tu progreso está guardado</div>
+                <div class="resume-status" id="resumeStatus">
+                    Aún no has comenzado. Empezarás en el ejercicio 1.
+                </div>
+            </div>
+        </div>
+
+        <button class="resume-btn" id="resumeBtn" onclick="resumeProgress()">
+            ▶ Comenzar
+        </button>
+    </div>
 </section>
 
 <main id="exerciseContainer">
@@ -2095,11 +2211,281 @@ let solved = {};
 let score = 0;
 
 
+let lastExercise = 1;
+const PROGRESS_STORAGE_KEY = "finanzasEC_progreso_v1";
+
+
+
+
+/* =====================================================
+   GUARDAR Y RESTAURAR PROGRESO
+===================================================== */
+
+function saveProgress(){
+    const data = {
+        solved,
+        score,
+        lastExercise,
+        updatedAt: new Date().toISOString()
+    };
+
+    try{
+        localStorage.setItem(
+            PROGRESS_STORAGE_KEY,
+            JSON.stringify(data)
+        );
+    }catch(error){
+        console.warn("No se pudo guardar el progreso.", error);
+    }
+
+    updateResumeUI();
+}
+
+function loadProgress(){
+    try{
+        const saved = localStorage.getItem(PROGRESS_STORAGE_KEY);
+
+        if(!saved){
+            updateResumeUI();
+            return;
+        }
+
+        const data = JSON.parse(saved);
+
+        if(data && typeof data === "object"){
+            solved = data.solved && typeof data.solved === "object"
+                ? data.solved
+                : {};
+
+            score = Number.isFinite(Number(data.score))
+                ? Number(data.score)
+                : 0;
+
+            lastExercise = Number(data.lastExercise);
+
+            if(
+                !Number.isInteger(lastExercise) ||
+                lastExercise < 1 ||
+                lastExercise > 15
+            ){
+                lastExercise = getFirstPendingExercise();
+            }
+
+            Object.keys(solved).forEach(number => {
+                const input = document.querySelector(
+                    `input[name="q${number}"]`
+                );
+
+                /* El estado de "resuelto" se conserva aunque no
+                   se fuerce una opción para no cambiar el contenido
+                   ni el funcionamiento original del cuestionario. */
+                if(!input){
+                    delete solved[number];
+                }
+            });
+        }
+    }catch(error){
+        console.warn("No se pudo restaurar el progreso guardado.", error);
+        solved = {};
+        score = 0;
+        lastExercise = 1;
+    }
+
+    updateProgress();
+    updateResumeUI();
+}
+
+function getFirstPendingExercise(){
+    for(let i = 1; i <= 15; i++){
+        if(!solved[i]){
+            return i;
+        }
+    }
+
+    return 15;
+}
+
+function updateResumeUI(){
+    const status = document.getElementById("resumeStatus");
+    const button = document.getElementById("resumeBtn");
+
+    if(!status || !button){
+        return;
+    }
+
+    const titleElement = document.querySelector(
+        `#exercise${lastExercise} .exercise-title`
+    );
+
+    const title = titleElement
+        ? titleElement.textContent.trim()
+        : `Ejercicio ${lastExercise}`;
+
+    const totalSolved = Object.keys(solved).length;
+
+    if(totalSolved === 15){
+        status.textContent =
+            `Completaste los 15 ejercicios. Tu puntuación guardada es ${score}/15.`;
+        button.textContent = "↻ Ver resultado";
+        return;
+    }
+
+    if(totalSolved === 0 && lastExercise === 1){
+        status.textContent =
+            "Aún no has comenzado. Empezarás en el ejercicio 1.";
+        button.textContent = "▶ Comenzar";
+        return;
+    }
+
+    status.textContent =
+        `Te quedaste en el ejercicio ${lastExercise}: ${title}. ` +
+        `${totalSolved} de 15 resueltos (${Math.round((totalSolved / 15) * 100)}%).`;
+
+    button.textContent = "▶ Continuar";
+}
+
+function setCurrentExercise(number){
+    const parsed = Number(number);
+
+    if(
+        !Number.isInteger(parsed) ||
+        parsed < 1 ||
+        parsed > 15
+    ){
+        return;
+    }
+
+    lastExercise = parsed;
+
+    document.querySelectorAll(".exercise")
+        .forEach(exercise => {
+            exercise.classList.remove("progress-current");
+        });
+
+    const current = document.getElementById(
+        `exercise${lastExercise}`
+    );
+
+    if(current){
+        current.classList.add("progress-current");
+    }
+
+    saveProgress();
+}
+
+function resumeProgress(){
+    if(Object.keys(solved).length === 15){
+        showFinalResult();
+        return;
+    }
+
+    const current = document.getElementById(
+        `exercise${lastExercise}`
+    );
+
+    if(!current){
+        return;
+    }
+
+    document.querySelectorAll(".topic-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const allButton = document.querySelector(
+        '.topic-btn[onclick*="filterTopic(\'all\'"]'
+    );
+
+    if(allButton){
+        allButton.classList.add("active");
+    }
+
+    document.querySelectorAll(".exercise")
+        .forEach(exercise => {
+            exercise.classList.remove("hidden");
+        });
+
+    current.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+}
+
+function clearSavedProgress(){
+    try{
+        localStorage.removeItem(PROGRESS_STORAGE_KEY);
+    }catch(error){
+        console.warn("No se pudo borrar el progreso guardado.", error);
+    }
+}
+
+/* Detecta automáticamente qué ejercicio está visible para
+   recordar en qué parte estabas aunque cierres la página. */
+let saveScrollTimer = null;
+
+function trackVisibleExercise(){
+    const exercises = document.querySelectorAll(".exercise");
+    let bestExercise = lastExercise;
+    let bestDistance = Infinity;
+
+    exercises.forEach(exercise => {
+        if(exercise.classList.contains("hidden")){
+            return;
+        }
+
+        const rect = exercise.getBoundingClientRect();
+        const distance = Math.abs(rect.top - 120);
+
+        if(
+            rect.bottom > 90 &&
+            rect.top < window.innerHeight * 0.70 &&
+            distance < bestDistance
+        ){
+            bestDistance = distance;
+            bestExercise = Number(
+                exercise.id.replace("exercise","")
+            );
+        }
+    });
+
+    if(bestExercise !== lastExercise){
+        lastExercise = bestExercise;
+        saveProgress();
+
+        document.querySelectorAll(".exercise")
+            .forEach(exercise => {
+                exercise.classList.remove("progress-current");
+            });
+
+        const current = document.getElementById(
+            `exercise${lastExercise}`
+        );
+
+        if(current){
+            current.classList.add("progress-current");
+        }
+    }
+}
+
+window.addEventListener("scroll", () => {
+    clearTimeout(saveScrollTimer);
+
+    saveScrollTimer = setTimeout(() => {
+        trackVisibleExercise();
+    }, 180);
+});
+
+window.addEventListener("beforeunload", () => {
+    trackVisibleExercise();
+    saveProgress();
+});
+
+
 /* =====================================================
    COMPROBAR RESPUESTA
 ===================================================== */
 
 function checkAnswer(number, correctAnswer){
+
+    setCurrentExercise(number);
 
     const selected = document.querySelector(
         `input[name="q${number}"]:checked`
@@ -2224,6 +2610,8 @@ function updateProgress(){
 
 function goNext(number){
 
+    setCurrentExercise(number + 1 <= 15 ? number + 1 : number);
+
     const next = document.getElementById(
         `exercise${number + 1}`
     );
@@ -2336,6 +2724,8 @@ function resetQuiz(){
 
     solved = {};
     score = 0;
+    lastExercise = 1;
+    clearSavedProgress();
 
     document.querySelectorAll("input[type=radio]")
         .forEach(input => {
@@ -2351,7 +2741,19 @@ function resetQuiz(){
     document.getElementById("finalResult")
         .classList.remove("show");
 
+    document.querySelectorAll(".exercise")
+        .forEach(exercise => {
+            exercise.classList.remove("progress-current");
+        });
+
     updateProgress();
+    updateResumeUI();
+
+    const firstExercise = document.getElementById("exercise1");
+    if(firstExercise){
+        firstExercise.classList.add("progress-current");
+    }
+
 
     window.scrollTo({
         top:0,
@@ -2364,7 +2766,17 @@ function resetQuiz(){
    INICIALIZACIÓN
 ===================================================== */
 
-updateProgress();
+loadProgress();
+
+const initialExercise = document.getElementById(
+    `exercise${lastExercise}`
+);
+
+if(initialExercise){
+    initialExercise.classList.add("progress-current");
+}
+
+updateResumeUI();
 
 </script>
 
